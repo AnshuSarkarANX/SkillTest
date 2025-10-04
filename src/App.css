@@ -1,0 +1,6 @@
+
+@import "tailwindcss";
+
+.active{
+  background-color: var(--secondary);
+}
