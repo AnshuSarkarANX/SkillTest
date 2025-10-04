@@ -9,6 +9,9 @@ import TopBar from "./Components/TopBar.jsx";
 import BottomBar from "./Components/BottomBar.jsx";
 import { Toaster } from "react-hot-toast";
 import {  bottomBar } from "./state/store.js";
+import LoginPage from "./Pages/login/LoginPage.jsx";
+import OtpPage from "./Pages/login/OtpPage.jsx";
+import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -67,6 +70,30 @@ const AppLayout = () => {
 };
 
 const appRoute = createBrowserRouter([
+  // Auth Routes
+  {
+    path: "/login",
+    element: (
+      <AuthRoute>
+        <TopBar />
+        <div className="min-h-screen">
+          <LoginPage />
+        </div>
+      </AuthRoute>
+    ),
+  },
+  {
+    path: "/otp",
+    element: (
+      <AuthRoute>
+        <TopBar />
+        <div className="min-h-screen">
+          <OtpPage />
+        </div>
+      </AuthRoute>
+    ),
+  },
+  // Protected Routes
   {
     path: "/",
     element: (
@@ -79,6 +106,7 @@ const appRoute = createBrowserRouter([
         index: true,
         element: <App />,
       },
+      {path:"/welcome",element:<WelcomePage/>}
     ],
   },
 ]);

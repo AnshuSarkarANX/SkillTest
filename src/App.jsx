@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useEffect, useState } from 'react'
+import { topBar } from './state/store';
 function App() {
   const [count, setCount] = useState(0)
+  const useTopBar = topBar((state) => state);
+   useEffect(() => {
+      useTopBar.setHasBackButton(false);
+    }, []);
 
   return (
     <div className="font-body">

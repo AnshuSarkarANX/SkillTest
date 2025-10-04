@@ -12,8 +12,11 @@ const topBar = create((set) => ({
   logo: true,
   setLogo: (logo) => set({ logo }),
 
-  home:false ,
+  home: false,
   setHome: (home) => set({ home }),
+
+  onBack: null, // function reference initially null
+  setOnBack: (fn) => {set({ onBack: fn }); console.log("updated on back",fn);},
 }));
 
 
