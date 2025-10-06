@@ -75,9 +75,12 @@ const appRoute = createBrowserRouter([
     path: "/login",
     element: (
       <AuthRoute>
-        <TopBar />
-        <div className="min-h-screen">
-          <LoginPage />
+        <div className="max-w-[600px] mx-auto">
+          <TopBar />
+          <div className="min-h-screen">
+            <LoginPage />
+          </div>
+          <Toaster />
         </div>
       </AuthRoute>
     ),
@@ -86,9 +89,12 @@ const appRoute = createBrowserRouter([
     path: "/otp",
     element: (
       <AuthRoute>
-        <TopBar />
-        <div className="min-h-screen">
-          <OtpPage />
+        <div className="max-w-[600px] mx-auto">
+          <TopBar />
+          <div className="min-h-screen">
+            <OtpPage />
+          </div>
+          <Toaster />
         </div>
       </AuthRoute>
     ),
@@ -106,7 +112,7 @@ const appRoute = createBrowserRouter([
         index: true,
         element: <App />,
       },
-      {path:"/welcome",element:<WelcomePage/>}
+      { path: "/welcome", element: <WelcomePage /> },
     ],
   },
 ]);

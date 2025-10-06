@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../Components/Button';
 import {useNavigate} from 'react-router';
+import { verifyOTP } from "../../apis/authApis";
 // Separate Timer Component - only this component re-renders
 const TimerComponent = ({ onResendOtp, isLoading }) => {
   const [timer, setTimer] = useState(60);
@@ -46,65 +47,93 @@ const TimerComponent = ({ onResendOtp, isLoading }) => {
   );
 };
 const OtpPage = () => {
-
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-    const inputs = useRef([]);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+  const inputs = useRef([]);
+  const [loading, setLoading] = useState(false);
 
-    const otpCode = useMemo(() => otp.join(""), [otp]);
-    const isOtpComplete = useMemo(() => otpCode.length === 6, [otpCode]);
-      const handleKeyDown = useCallback(
-        (e, index) => {
-          if (e.key === "Backspace") {
-            if (otp[index] === "") {
-              if (index > 0) {
-                inputs.current[index - 1].focus();
-                setOtp((prevOtp) => {
-                  const updatedOtp = [...prevOtp];
-                  updatedOtp[index - 1] = "";
-                  return updatedOtp;
-                });
-              }
-            } else {
-              setOtp((prevOtp) => {
-                const updatedOtp = [...prevOtp];
-                updatedOtp[index] = "";
-                return updatedOtp;
-              });
-            }
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const otpCode = useMemo(() => otp.join(""), [otp]);
+  const isOtpComplete = useMemo(() => otpCode.length === 6, [otpCode]);
+  const handleKeyDown = useCallback(
+    (e, index) => {
+      if (e.key === "Backspace") {
+        if (otp[index] === "") {
+          if (index > 0) {
+            inputs.current[index - 1].focus();
+            setOtp((prevOtp) => {
+              const updatedOtp = [...prevOtp];
+              updatedOtp[index - 1] = "";
+              return updatedOtp;
+            });
           }
-        },
-        [otp]
-      );
-
-      const handleOtpChange = useCallback(
-        (e, index) => {
-          const value = e.target.value.replace(/\D/g, "");
-          if (!value) return;
-
-          const newOtp = [...otp];
-          newOtp[index] = value[0];
-          setOtp(newOtp);
-
-          if (index < 5) {
-            inputs.current[index + 1].focus();
-          }
-        },
-        [otp]
-      );
-
-      const handlePaste = useCallback((e) => {
-        const pasted = e.clipboardData
-          .getData("Text")
-          .replace(/\D/g, "")
-          .slice(0, 6);
-        if (pasted.length === 6) {
-          const newOtp = pasted.split("");
-          setOtp(newOtp);
-          inputs.current[5].focus();
+        } else {
+          setOtp((prevOtp) => {
+            const updatedOtp = [...prevOtp];
+            updatedOtp[index] = "";
+            return updatedOtp;
+          });
         }
-      }, []);
+      }
+    },
+    [otp]
+  );
+
+  const handleOtpChange = useCallback(
+    (e, index) => {
+      const value = e.target.value.replace(/\D/g, "");
+      if (!value) return;
+
+      const newOtp = [...otp];
+      newOtp[index] = value[0];
+      setOtp(newOtp);
+
+      if (index < 5) {
+        inputs.current[index + 1].focus();
+      }
+    },
+    [otp]
+  );
+
+  const handlePaste = useCallback((e) => {
+    const pasted = e.clipboardData
+      .getData("Text")
+      .replace(/\D/g, "")
+      .slice(0, 6);
+    if (pasted.length === 6) {
+      const newOtp = pasted.split("");
+      setOtp(newOtp);
+      inputs.current[5].focus();
+    }
+  }, []);
+  const handleVerifyOTP = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      setError("");
+
+      try {
+        const response = await verifyOTP(
+          localStorage.getItem("email"),
+          otpCode
+        );
+        console.log("User logged in:", response.user);
+
+        // Store user data in localStorage or state management
+        localStorage.setItem("user", JSON.stringify(response.user));
+
+        // Redirect to dashboard or next step
+        navigate("/welcome");
+        toast.success("OTP verified successfully");
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [otpCode]
+  );
   return (
     <div>
       <img
@@ -139,7 +168,7 @@ const OtpPage = () => {
 
         <Button
           text="Verify"
-          onClick={isOtpComplete ? () => {navigate("/welcome")} : null}
+          onClick={isOtpComplete ? handleVerifyOTP : null}
           disabled={loading || !isOtpComplete}
           loading={loading}
         />
@@ -149,6 +178,6 @@ const OtpPage = () => {
       </div>
     </div>
   );
-}
+};
 
 export default OtpPage

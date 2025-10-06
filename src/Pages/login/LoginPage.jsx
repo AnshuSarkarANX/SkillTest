@@ -1,52 +1,75 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import CustomCountrySelect from "../../Components/CustomCountrySelect";
 import Button from "../../Components/Button";
+import { requestOTP } from "../../apis/authApis";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
+  const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactType, setContactType] = useState("email"); // "mobile" or "email"
+  const [countryCode, setCountryCode] = useState("91"); // Default country code
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
+  const numberInput = useRef();
+  
 
-     const [contact, setContact] = useState("");
-     const [email, setEmail] = useState(""); 
-      const [contactType, setContactType] = useState("email"); // "mobile" or "email"
-      const [countryCode, setCountryCode] = useState("91"); // Default country code
-      const [loading, setLoading] = useState(false);
-        const [error, setError] = useState(""); 
-        const navigate = useNavigate();
+  const handleNumberChange = (e) => {
+    setContact(e.target.value);
+    setError("");
+  };
 
-      const numberInput = useRef();
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setError("");
+  };
 
+  const handleContactTypeChange = (type) => {
+    setContactType(type);
+    setContact("");
+    setError("");
+  };
+  const handleRequestOTP = useCallback(
+    async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      setError("");
+      localStorage.setItem("email", email);
+      
 
-       const handleNumberChange = (e) => {
-         setContact(e.target.value);
-         setError("");
-       };
+      try {
+        const response = await requestOTP(email);
+        setMessage(response.message);
+        navigate("/otp");
+        toast.success("Otp sent successfully");
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [email, contact]
+  );
 
-       const handleEmailChange = (e) => {
-         setEmail(e.target.value);
-         setError("");
-       };
-
-       const handleContactTypeChange = (type) => {
-         setContactType(type);
-         setContact("");
-         setError("");
-       };
   return (
     <div className="">
-      <img src="/assets/loginImage.svg" alt="loginImage" className="w-fit h-fit  mx-auto" />
+      <img
+        src="/assets/loginImage.svg"
+        alt="loginImage"
+        className="w-fit h-fit  mx-auto"
+      />
       <div className=" p-[20px] mt-[20px] rounded-[10px]  ">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            navigate("/otp");
-          }}
-          className="flex flex-col gap-[20px]"
-        >
+        <div className="flex flex-col gap-[20px]">
           {/* Contact Type Toggle */}
-          <div className=" flex smallShadow rounded-[10px] H-16 p-[10px]  font-bold gap-[10px] bg-white">
+          <div className=" flex smallShadow rounded-[10px] H-16 p-[10px]  font-bold gap-[10px] bg-white opacity-30">
             <div
-              onClick={() => handleContactTypeChange("email")}
+              onClick={() => {
+                // handleContactTypeChange("email")
+              }}
               className={`flex-1 text-center py-[14px] cursor-pointer transition-all duration-300 ${
                 contactType === "email"
                   ? "bg-CTA text-white"
@@ -56,7 +79,9 @@ const LoginPage = () => {
               Email
             </div>
             <div
-              onClick={() => handleContactTypeChange("mobile")}
+              onClick={() => {
+                //handleContactTypeChange("mobile")
+              }}
               className={`flex-1 text-center transition-all duration-300 py-[14px] cursor-pointer sa ${
                 contactType === "mobile"
                   ? "bg-CTA text-white"
@@ -97,7 +122,9 @@ const LoginPage = () => {
             {contactType === "email" && (
               <div>
                 <div>
-                  <h1 className="mb-[8px] text-text2 font-bold ">Enter your email ID</h1>                                                  
+                  <h1 className="mb-[8px] text-text2 font-bold ">
+                    Enter your email ID
+                  </h1>
                 </div>
                 <input
                   type="email"
@@ -117,12 +144,13 @@ const LoginPage = () => {
             type="submit"
             text="Send OTP"
             loading={loading}
-            disabled={loading}
+            disabled={loading || (!contact && !email)}
+            onClick={handleRequestOTP}
           />
-        </form>
+        </div>
       </div>
     </div>
   );
-}
+};
 
-export default LoginPage
+export default LoginPage;
