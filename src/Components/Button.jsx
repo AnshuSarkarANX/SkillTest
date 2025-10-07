@@ -27,7 +27,7 @@ const Button = ({ text, color, onClick, disabled, loading, add = false }) => {
           <motion.button
             type="submit"
             whileTap={{ scale: 0.95, backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-            className={` border-CTA border border-solid relative py-[23px] px-[20px] text-white bg-CTA rounded-[10px] H-16 font-bold text-center ${
+            className={` border-CTA border border-solid relative py-[23px] px-[20px] text-white bg-CTA rounded-[10px] H-16 font-bold text-center  transition-colors duration-300 ${
               disabled ? "opacity-30 cursor-not-allowed" : ""
             }`}
             onClick={disabled ? null : onClick}
@@ -45,7 +45,7 @@ const Button = ({ text, color, onClick, disabled, loading, add = false }) => {
           <motion.button
             type="submit"
             whileTap={{ scale: 0.95 }}
-            className={`relative  text-white bg-CTA rounded-[10px] H-16 font-bold text-center border-CTA border border-solid ${
+            className={`relative  text-white bg-CTA rounded-[10px] H-16 font-bold text-center border-CTA border border-solid transition-colors duration-300 ${
               disabled ? "opacity-30 cursor-not-allowed" : ""
             }`}
             onClick={disabled ? null : onClick}

@@ -12,6 +12,14 @@ import {  bottomBar } from "./state/store.js";
 import LoginPage from "./Pages/login/LoginPage.jsx";
 import OtpPage from "./Pages/login/OtpPage.jsx";
 import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
+import OnboardingPage from "./Pages/onboarding/OnboardingPage.jsx";
+import Name from "./Pages/onboarding/Name.jsx";
+import Gender from "./Pages/onboarding/Gender.jsx";
+import BirthDate from "./Pages/onboarding/BirthDate.jsx";
+import Qualification from "./Pages/onboarding/Qualification.jsx";
+import Specialization from "./Pages/onboarding/Specialization.jsx";
+import SkillsPage from "./Pages/onboarding/SkillsPage.jsx";
+import Details from "./Pages/onboarding/Details.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -58,7 +66,7 @@ const AppLayout = () => {
   return (
     <div className="max-w-[600px] mx-auto">
       <TopBar />
-      <div className="min-h-screen">
+      <div className="min-h-screen px-[20px]">
         <Outlet />
       </div>
       {useBottomBar && <BottomBar />}
@@ -112,6 +120,17 @@ const appRoute = createBrowserRouter([
         index: true,
         element: <App />,
       },
+      {path: "/onboarding", element: <OnboardingPage />,
+        children: [
+          {path: "name", element: <Name /> },
+          {path: "gender", element: <Gender /> },
+          {path: "birthdate", element: <BirthDate /> },
+          {path: "qualification", element: <Qualification /> },
+          {path: "specialization", element: <Specialization /> },
+          {path: "skills", element: <SkillsPage /> },
+          {path: "details", element: <Details /> },
+        ],
+       },
       { path: "/welcome", element: <WelcomePage /> },
     ],
   },
