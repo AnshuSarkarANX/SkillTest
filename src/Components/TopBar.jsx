@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { topBar } from "../state/store";
 import { useNavigate } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";

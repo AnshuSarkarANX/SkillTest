@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../Components/Button';
 import {useNavigate} from 'react-router';
 import { verifyOTP } from "../../apis/authApis";
