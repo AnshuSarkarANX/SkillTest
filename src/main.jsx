@@ -18,8 +18,9 @@ import Gender from "./Pages/onboarding/Gender.jsx";
 import BirthDate from "./Pages/onboarding/BirthDate.jsx";
 import Qualification from "./Pages/onboarding/Qualification.jsx";
 import Specialization from "./Pages/onboarding/Specialization.jsx";
-import SkillsPage from "./Pages/onboarding/SkillsPage.jsx";
 import Details from "./Pages/onboarding/Details.jsx";
+import SoftSkillsPage from "./Pages/onboarding/SoftSkillsPage.jsx";
+import TechSkillsPage from "./Pages/onboarding/TechSkillsPage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -127,7 +128,8 @@ const appRoute = createBrowserRouter([
           {path: "birthdate", element: <BirthDate /> },
           {path: "qualification", element: <Qualification /> },
           {path: "specialization", element: <Specialization /> },
-          {path: "skills", element: <SkillsPage /> },
+          {path: "soft-skills", element: <SoftSkillsPage /> },
+          {path: "tech-skills", element: <TechSkillsPage /> },
           {path: "details", element: <Details /> },
         ],
        },

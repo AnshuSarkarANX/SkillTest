@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api/auth";
+const API_URL = "https://localhost:3000/api/auth";
 
 export const requestOTP = async (email) => {
   const response = await fetch(`${API_URL}/request-otp`, {

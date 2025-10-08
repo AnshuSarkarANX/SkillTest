@@ -11,7 +11,7 @@ const TopBar = () => {
     console.log("onBack", useTopBar.onBack);
   }, [useTopBar.onBack]);
   return (
-    <div className="grid grid-cols-5 justify-between items-center H-12 sticky top-0 bg-gradient-to-b from-secondary from-20%  to-bg to-80% py-[15px] px-[20px] ">
+    <div className="grid grid-cols-5 justify-between items-center H-12 sticky top-0 bg-gradient-to-b from-secondary from-20%  to-background  py-[15px] px-[20px] ">
       {hasBackButton && (
         <button
           onClick={
