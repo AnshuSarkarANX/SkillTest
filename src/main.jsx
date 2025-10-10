@@ -21,6 +21,8 @@ import Specialization from "./Pages/onboarding/Specialization.jsx";
 import Details from "./Pages/onboarding/Details.jsx";
 import SoftSkillsPage from "./Pages/onboarding/SoftSkillsPage.jsx";
 import TechSkillsPage from "./Pages/onboarding/TechSkillsPage.jsx";
+import Resource from "./Pages/resources/Resource.jsx";
+import MyCourses from "./Pages/resources/MyCourses.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -146,7 +148,11 @@ const appRoute = createBrowserRouter([
           {path: "details", element: <Details /> },
         ],
        },
+
       { path: "/welcome", element: <WelcomePage /> },
+      {path: "/resources", element: <Resource /> },
+      { path: "/my-courses", element: <MyCourses/> },
+      { path: "/add-resource", element: <MyCourses/> },
     ],
   },
 ]);
