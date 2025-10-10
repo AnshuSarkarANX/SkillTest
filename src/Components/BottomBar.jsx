@@ -3,7 +3,7 @@ import { NavLink } from "react-router";
 
 const BottomBar = () => {
   return (
-    <div className="bg-[#F7F8FA] sticky bottom-0 flex justify-around  items-center py-[10px] font-bold H-10">
+    <div className="bg-white sticky bottom-0 flex justify-around  items-center py-[10px] font-bold H-10 rounded-t-[20px]">
       <NavLink
         to="/"
         className={({ isActive }) => {

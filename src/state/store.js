@@ -16,10 +16,16 @@ const topBar = create((set) => ({
   setHome: (home) => set({ home }),
 
   onBack: null, // function reference initially null
-  setOnBack: (fn) => {set({ onBack: fn }); console.log("updated on back",fn);},
+  setOnBack: (fn) => {set({ onBack: fn }); 
+  
+  console.log("updated on back",fn);},
 }));
+const padding = create ((set) => ({
+  isActive: true,
+  setActive: (isActive) => set({ isActive }),
+}))
 
 
 
 
-export { bottomBar, topBar };
+export { bottomBar, topBar,padding };

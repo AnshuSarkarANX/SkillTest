@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
 import "./index.css";
@@ -8,7 +8,7 @@ import App from "./App.jsx";
 import TopBar from "./Components/TopBar.jsx";
 import BottomBar from "./Components/BottomBar.jsx";
 import { Toaster } from "react-hot-toast";
-import {  bottomBar } from "./state/store.js";
+import { bottomBar, padding, topBar } from "./state/store.js";
 import LoginPage from "./Pages/login/LoginPage.jsx";
 import OtpPage from "./Pages/login/OtpPage.jsx";
 import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
@@ -64,10 +64,23 @@ const AuthRoute = ({ children }) => {
 
 const AppLayout = () => {
   const useBottomBar = bottomBar((state) => state.isActive);
+  const usePadding = padding((state) => state);
+   const useTopBar = topBar((state) => state);
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      usePadding.setActive(false);
+      useTopBar.setHome(true);
+    }
+    else{
+      usePadding.setActive(true);
+      useTopBar.setHome(false);
+    }
+    console.log("location", window.location.pathname);
+  }, [window.location.pathname]);
   return (
     <div className="max-w-[600px] mx-auto">
       <TopBar />
-      <div className="min-h-screen px-[20px]">
+      <div className={`min-h-screen ${usePadding.isActive ? "px-[20px]" : ""}`}>
         <Outlet />
       </div>
       {useBottomBar && <BottomBar />}
