@@ -60,7 +60,7 @@ function SkillsSelector({ items = [], title, onChange }) {
           </button>
         )}
       </div>
-      <ul className="flex flex-col gap-3 max-h-[400px] overflow-auto ">
+      <ul className="flex flex-col gap-3 max-h-[400px] overflow-auto no-scrollbar ">
         {filtered.map((item) => (
           <li
             key={item}

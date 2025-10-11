@@ -52,6 +52,15 @@
 
 }
 
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+
 .smallShadow { 
   box-shadow: 0px 4px 84px 0px #0000000F;
 }
