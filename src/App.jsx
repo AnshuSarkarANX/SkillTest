@@ -90,25 +90,22 @@ function App() {
                 alt={skill.label}
                 className="w-[50px] h-[50px]"
               />
-              <p className="H-14 font-medium truncate">{skill.label}</p>
+              <p className="H-14 font-bold truncate">{skill.label}</p>
             </div>
           ))}
         </div>
-        <div className="mx-auto w-[130px]"><Button text="View More"
-        onClick={() => navigate("/skills")}  />
+        <div className="mx-auto w-[130px]">
+          <Button text="View More" onClick={() => navigate("/skills")} />
         </div>
       </div>
       {/*Resources*/}
       <div className="px-[20px] space-y-[20px]">
-        <div className="H-18 font-bold ">
-        Resources
-        </div>
+        <div className="H-18 font-bold ">Resources</div>
         <div className="flex flex-col gap-[20px]">
           {resources.map((resource, index) => (
             <ResourceCard key={index} data={resource} />
           ))}
         </div>
-
       </div>
     </div>
   );
