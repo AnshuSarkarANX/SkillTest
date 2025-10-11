@@ -13,7 +13,13 @@ const TopBar = () => {
     console.log("onBack", useTopBar.onBack);
   }, [useTopBar.onBack]);
   return (
-    <div className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0   py-[15px] px-[20px] ${home ? "bg-secondary" : "bg-gradient-to-b from-secondary from-20%  to-background"}`}>
+    <div
+      className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0  z-[10]  py-[15px] px-[20px] ${
+        home
+          ? "bg-secondary"
+          : "bg-gradient-to-b from-secondary from-20%  to-background"
+      }`}
+    >
       {hasBackButton && (
         <button
           onClick={
@@ -34,7 +40,9 @@ const TopBar = () => {
       {logo && (
         <h1
           className={`flex font-heading text-primary H-20 font-bold   ${
-            home ? "justify-start col-span-4 " : "justify-center col-start-2 col-span-3"
+            home
+              ? "justify-start col-span-4 "
+              : "justify-center col-start-2 col-span-3"
           } `}
         >
           LearnSnap.in

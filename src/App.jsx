@@ -4,9 +4,11 @@ import { CiSearch } from "react-icons/ci";
 import Button from "./Components/Button";
 import Specialization from "./Pages/onboarding/Specialization";
 import ResourceCard from "./Components/ResourceCard";
+import { useNavigate } from "react-router";
 function App() {
   const useTopBar = topBar((state) => state);
   const useBottomBar = bottomBar((state) => state);
+  const navigate = useNavigate();
 
   useEffect(() => {
     useTopBar.setHasBackButton(false);
@@ -92,7 +94,9 @@ function App() {
             </div>
           ))}
         </div>
-        <div className="mx-auto w-[130px]"><Button text="View More"/></div>
+        <div className="mx-auto w-[130px]"><Button text="View More"
+        onClick={() => navigate("/skills")}  />
+        </div>
       </div>
       {/*Resources*/}
       <div className="px-[20px] space-y-[20px]">

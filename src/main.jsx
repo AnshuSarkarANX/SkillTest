@@ -23,6 +23,8 @@ import SoftSkillsPage from "./Pages/onboarding/SoftSkillsPage.jsx";
 import TechSkillsPage from "./Pages/onboarding/TechSkillsPage.jsx";
 import Resource from "./Pages/resources/Resource.jsx";
 import MyCourses from "./Pages/resources/MyCourses.jsx";
+import Skills from "./Pages/skills/Skills.jsx";
+import { useLocation } from "react-router";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -64,21 +66,22 @@ const AuthRoute = ({ children }) => {
   return children;
 };
 
+
 const AppLayout = () => {
   const useBottomBar = bottomBar((state) => state.isActive);
   const usePadding = padding((state) => state);
    const useTopBar = topBar((state) => state);
+   const routerLocation = useLocation(); 
   useEffect(() => {
-    if (window.location.pathname === "/") {
+    if (routerLocation.pathname === "/") {
       usePadding.setActive(false);
       useTopBar.setHome(true);
-    }
-    else{
+    } else {
       usePadding.setActive(true);
       useTopBar.setHome(false);
     }
-    console.log("location", window.location.pathname);
-  }, [window.location.pathname]);
+    console.log("location", routerLocation.pathname);
+  }, [routerLocation.pathname]);
   return (
     <div className="max-w-[600px] mx-auto">
       <TopBar />
@@ -153,6 +156,7 @@ const appRoute = createBrowserRouter([
       {path: "/resources", element: <Resource /> },
       { path: "/my-courses", element: <MyCourses/> },
       { path: "/add-resource", element: <MyCourses/> },
+      { path: "/skills", element: <Skills/> },
     ],
   },
 ]);
