@@ -45,7 +45,7 @@ const Details = () => {
          <Button
            disabled={!selectedOption}
            text="Continue"
-           onClick={() => navigate("/onboarding/gender")}
+           onClick={() => navigate( selectedOption === "manual" ? "/onboarding/gender" : "/onboarding/upload-cv")}
          />
        </div>
      );
