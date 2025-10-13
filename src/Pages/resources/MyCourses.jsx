@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import CourseCard from "../../Components/CourseCard";
 import Button from "../../Components/Button";
 import { topBar } from "../../state/store";
 
 const MyCourses = () => {
   const [selectedCourseId, setSelectedCourseId] = useState(null);
-
+const status = ["completed", "no status", "passed", "failed"];
   const coursesData = [
     {
       id: "course-001",
@@ -14,20 +14,15 @@ const MyCourses = () => {
       earnedScore: 85,
       totalScore: 100,
       date: "2025-10-05",
+      status: "completed",
     },
     {
       id: "course-002",
       title: "Advanced JavaScript Concepts",
-      earnedScore: 92,
+      earnedScore: 32,
       totalScore: 100,
       date: "2025-09-28",
-    },
-    {
-      id: "course-003",
-      title: "CSS Grid and Flexbox Mastery",
-      earnedScore: 78,
-      totalScore: 100,
-      date: "2025-09-15",
+      status: "failed",
     },
     {
       id: "course-004",
@@ -35,6 +30,7 @@ const MyCourses = () => {
       earnedScore: 88,
       totalScore: 100,
       date: "2025-08-22",
+      status: "completed",
     },
     {
       id: "course-005",
@@ -42,6 +38,7 @@ const MyCourses = () => {
       earnedScore: 95,
       totalScore: 100,
       date: "2025-08-10",
+      status: "passed",
     },
   ];
 
@@ -51,11 +48,12 @@ const MyCourses = () => {
    }, []);
 
   const navigate = useNavigate();
-  const location = window.location.pathname;
+  const location = useLocation().pathname;
 
   const handleCourseSelect = (courseId) => {
     setSelectedCourseId(courseId === selectedCourseId ? null : courseId);
   };
+  
 
   return (
     <div>
@@ -67,6 +65,7 @@ const MyCourses = () => {
             course={course}
             isSelected={selectedCourseId === course.id}
             onSelect={handleCourseSelect}
+            status={course.status}
           />
         ))}
       </div>

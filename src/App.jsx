@@ -6,12 +6,12 @@ import Specialization from "./Pages/onboarding/Specialization";
 import ResourceCard from "./Components/ResourceCard";
 import { useNavigate } from "react-router";
 function App() {
-  const useTopBar = topBar((state) => state);
+
   const useBottomBar = bottomBar((state) => state);
   const navigate = useNavigate();
 
   useEffect(() => {
-    useTopBar.setHasBackButton(false);
+    
     useBottomBar.setActive(true);
   }, []);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -55,9 +55,9 @@ function App() {
 
   return (
     <div className="space-y-[40px]">
-      <div className="bg-gradient-to-b from-secondary from-50%  to-backgroud px-[20px]">
+      <div className="bg-gradient-to-b from-secondary from-50%  to-background px-[20px] pt-[30px]">
         <div className="H-26 font-bold ">
-          Welcome, {userDetails?.name}
+          Welcome, {userDetails?.fullName}
           <br />
           Get Certificate By Skillset
         </div>

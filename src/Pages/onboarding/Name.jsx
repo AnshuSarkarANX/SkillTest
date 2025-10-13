@@ -14,7 +14,7 @@ const Name = () => {
         return;
     }
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    userDetails.name = name;
+    userDetails.fullName = name;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
     navigate("/onboarding/birthdate");
   }, [name, navigate]);

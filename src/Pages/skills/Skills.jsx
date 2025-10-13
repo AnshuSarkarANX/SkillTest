@@ -34,7 +34,7 @@ const Skills = () => {
                 alt={skill.label}
                 className="w-[50px] h-[50px]"
               />
-              <p className="H-14 font-medium truncate">{skill.label}</p>
+              <p className="H-14 font-bold">{skill.label}</p>
             </div>
           ))}
         </div>

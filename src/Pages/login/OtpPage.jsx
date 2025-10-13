@@ -121,10 +121,15 @@ const OtpPage = () => {
         console.log("User logged in:", response.user);
 
         // Store user data in localStorage or state management
-        localStorage.setItem("user", JSON.stringify(response.user));
+        localStorage.setItem("userDetails", JSON.stringify(response.user));
 
         // Redirect to dashboard or next step
-        navigate("/welcome");
+        if(response.user.FTL){
+          navigate("/welcome");
+        }
+        else{
+          navigate("/");
+        }
         toast.success("OTP verified successfully");
       } catch (err) {
         setError(err.message);

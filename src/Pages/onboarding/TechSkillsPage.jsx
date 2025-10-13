@@ -3,11 +3,12 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import Button from "../../Components/Button";
 import SkillsSelector from "../../Components/SkillSelector";
+import { createProfile } from "../../apis/userApis";
 
 
 const TechSkillsPage = () => {
   const navigate = useNavigate();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [skills, setSkills] = useState([]);
   const handleContinue = useCallback(() => {
     if (skills.length === 0) {
@@ -17,8 +18,18 @@ const TechSkillsPage = () => {
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     userDetails.techSkills = skills;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    navigate("/");
-  }, [skills, navigate]);
+
+    setIsLoading(true);
+    createProfile(userDetails)
+      .then(() => {
+        setIsLoading(false);
+        navigate("/");
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast.error(error.message);
+      });
+  }, [skills, navigate, createProfile]);
 
   return (
     <div className="space-y-[25px] mb-[20px]">
@@ -74,7 +85,7 @@ const TechSkillsPage = () => {
           />
         </div>
       </div>
-      <Button text="Continue" onClick={() => handleContinue()} />
+      <Button text="Continue" onClick={() => handleContinue()} loading={isLoading} />
     </div>
   );
 }

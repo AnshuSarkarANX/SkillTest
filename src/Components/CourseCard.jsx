@@ -1,6 +1,32 @@
-const CourseCard = ({ course, isSelected, onSelect }) => {
-  const { id, title, earnedScore, totalScore, date } = course || {};
+import { useLocation } from "react-router";
+import Button from "./Button";
+import { formatDate } from "../hooks/SmallHooks";
 
+const CourseCard = ({ course, isSelected, onSelect, status}) => {
+  const { id, title, earnedScore, totalScore, date } = course || {};
+  const getButtonText = (status) => {
+    if (status === "completed") {
+      return "View Certificate";
+    } else if (status === "passed") {
+      return "Claim now";
+      } else if(status === "failed"){
+        return "Reattempt Exam";
+    } else {
+      return "Start Course";
+    }
+  };
+  const runFunction = (status) => {
+    if (status === "completed") {
+      return () => ({ id });
+    } else if (status === "ongoing") {
+      return () => ({ id });
+    } else {
+      return () => ({ id });
+    }
+  };
+
+
+   const location = useLocation().pathname;
   return (
     <div
       className={`bg-white rounded-[20px] p-4 smallShadow border w-full cursor-pointer ${
@@ -24,7 +50,7 @@ const CourseCard = ({ course, isSelected, onSelect }) => {
               d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
-          <span>{date}</span>
+          <span>{formatDate(date)}</span>
         </div>
 
         <div className="flex items-center gap-1 bg-purple-50 text-purple-600 px-3 py-1 rounded-full text-sm font-medium">
@@ -36,6 +62,14 @@ const CourseCard = ({ course, isSelected, onSelect }) => {
 
       {/* Course title */}
       <h3 className="text-gray-900 font-semibold text-base">{title}</h3>
+      {location === "/certificates" && (
+        <div className="mt-[15px]">
+          <Button
+            text={getButtonText(status)}
+            color={status !== "passed" && "white"}
+          />
+        </div>
+      )}
     </div>
   );
 };

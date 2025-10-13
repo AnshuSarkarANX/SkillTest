@@ -68,7 +68,7 @@ useTopBar.setOnBack(onPrevious);
 
   const onNext = () => {
     if (currentStep === steps.length - 1) { 
-      navigate("/");
+      navigate("/onboarding/details");
       return;
     }
     setDirection(1);
@@ -78,7 +78,7 @@ useTopBar.setOnBack(onPrevious);
   
 
   const onSkip = () => {
-    navigate("/");
+    navigate("/onboarding/details");
   };
 
   const step = steps[currentStep];

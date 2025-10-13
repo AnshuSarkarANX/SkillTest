@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { topBar } from "../state/store";
-import { useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
 import { CgProfile } from "react-icons/cg";
 import { FiMenu } from "react-icons/fi";
@@ -9,15 +9,16 @@ const TopBar = () => {
   const useTopBar = topBar((state) => state);
   const { hasBackButton, logo, home } = useTopBar;
   const navigate = useNavigate();
+  const location = useLocation();
   useEffect(() => {
-    console.log("onBack", useTopBar.onBack);
-  }, [useTopBar.onBack]);
+    useTopBar.setOnBack(null);
+  }, [location]);
   return (
     <div
-      className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0  z-[10]  py-[15px] px-[20px] ${
+      className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0  z-[10]  py-[15px] px-[20px] transition-[padding]  ease-in-out duration-500 ${
         home
-          ? "bg-secondary"
-          : "bg-gradient-to-b from-secondary from-20%  to-background"
+          ? "bg-secondary "
+          : "bg-[linear-gradient(180deg,_rgba(152,74,217,0.3154)_0%,_rgba(152,74,217,0.269104)_16.4%,_rgba(152,74,217,0.184629)_40.24%,_rgba(152,74,217,0.0899885)_75.03%,_rgba(152,74,217,0)_100%)]  to-background pb-[30px]"
       }`}
     >
       {hasBackButton && (
@@ -29,6 +30,7 @@ const TopBar = () => {
                 }
               : () => {
                   navigate(-1);
+                  console.log("Back button clicked");
                 }
           }
           className={`rounded-full w-[35px] h-[35px] flex items-center justify-center  bg-CTA text-white text-xl col-span-1 rotate-180`}
@@ -50,9 +52,9 @@ const TopBar = () => {
       )}
       {home ? (
         <div className="col-span-1  flex gap-[10px] items-center justify-end">
-          <div className="bg-white rounded-[8px] p-[10px]">
+          <Link to="/account" className="bg-white rounded-[8px] p-[10px]">
             <FiMenu className="text-[20px] text-primary" />
-          </div>
+          </Link>
           <div className="bg-white rounded-[8px] p-[10px]">
             <CgProfile className="text-[20px] text-primary" />
           </div>

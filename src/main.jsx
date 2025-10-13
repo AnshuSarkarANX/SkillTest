@@ -28,6 +28,7 @@ import { useLocation } from "react-router";
 import UploadCv from "./Pages/onboarding/UploadCv.jsx";
 import Profile from "./Pages/profile/Profile.jsx";
 import Certificates from "./Pages/certificates/Certificates.jsx";
+import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -79,11 +80,13 @@ const AppLayout = () => {
     if (routerLocation.pathname === "/") {
       usePadding.setActive(false);
       useTopBar.setHome(true);
+      useTopBar.setHasBackButton(false);
     } else {
       usePadding.setActive(true);
       useTopBar.setHome(false);
+      useTopBar.setHasBackButton(true);
     }
-    console.log("location", routerLocation.pathname);
+    console.log("location",routerLocation.pathname)
   }, [routerLocation.pathname]);
   return (
     <div className="max-w-[600px] mx-auto">
@@ -142,28 +145,29 @@ const appRoute = createBrowserRouter([
         index: true,
         element: <App />,
       },
-      {path: "/onboarding", element: <OnboardingPage />,
+      {
+        path: "/onboarding",
+        element: <OnboardingPage />,
         children: [
-          {path: "name", element: <Name /> },
-          {path: "gender", element: <Gender /> },
-          {path: "birthdate", element: <BirthDate /> },
-          {path: "qualification", element: <Qualification /> },
-          {path: "specialization", element: <Specialization /> },
-          {path: "soft-skills", element: <SoftSkillsPage /> },
-          {path: "tech-skills", element: <TechSkillsPage /> },
-          {path: "details", element: <Details /> },
-          {path:"upload-cv", element: <UploadCv /> },
+          { path: "name", element: <Name /> },
+          { path: "gender", element: <Gender /> },
+          { path: "birthdate", element: <BirthDate /> },
+          { path: "qualification", element: <Qualification /> },
+          { path: "specialization", element: <Specialization /> },
+          { path: "soft-skills", element: <SoftSkillsPage /> },
+          { path: "tech-skills", element: <TechSkillsPage /> },
+          { path: "details", element: <Details /> },
+          { path: "upload-cv", element: <UploadCv /> },
         ],
-       },
-
+      },
+      { path: "/account", element: <MyAccount /> },
       { path: "/welcome", element: <WelcomePage /> },
-      {path: "/resources", element: <Resource /> },
-      { path: "/my-courses", element: <MyCourses/> },
-      { path: "/add-resource", element: <MyCourses/> },
-      { path: "/skills", element: <Skills/> },
-      {path: "/profile", element: <Profile /> },
-      {path: "/certificates", element: <Certificates /> },
-
+      { path: "/resources", element: <Resource /> },
+      { path: "/my-courses", element: <MyCourses /> },
+      { path: "/add-resource", element: <MyCourses /> },
+      { path: "/skills", element: <Skills /> },
+      { path: "/profile", element: <Profile /> },
+      { path: "/certificates", element: <MyCourses /> },
     ],
   },
 ]);

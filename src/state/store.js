@@ -17,8 +17,7 @@ const topBar = create((set) => ({
 
   onBack: null, // function reference initially null
   setOnBack: (fn) => {set({ onBack: fn }); 
-  
-  console.log("updated on back",fn);},
+  },
 }));
 const padding = create ((set) => ({
   isActive: true,
