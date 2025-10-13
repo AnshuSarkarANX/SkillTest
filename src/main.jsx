@@ -26,6 +26,8 @@ import MyCourses from "./Pages/resources/MyCourses.jsx";
 import Skills from "./Pages/skills/Skills.jsx";
 import { useLocation } from "react-router";
 import UploadCv from "./Pages/onboarding/UploadCv.jsx";
+import Profile from "./Pages/profile/Profile.jsx";
+import Certificates from "./Pages/certificates/Certificates.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -159,6 +161,9 @@ const appRoute = createBrowserRouter([
       { path: "/my-courses", element: <MyCourses/> },
       { path: "/add-resource", element: <MyCourses/> },
       { path: "/skills", element: <Skills/> },
+      {path: "/profile", element: <Profile /> },
+      {path: "/certificates", element: <Certificates /> },
+
     ],
   },
 ]);
