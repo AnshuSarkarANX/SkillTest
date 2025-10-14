@@ -1,4 +1,3 @@
-import { title } from "framer-motion/client";
 import { useState, useMemo } from "react";
 
 function SkillsSelector({ items = [], title, onChange }) {

@@ -12,6 +12,7 @@
   --color-white: var(--white);
   --color-text: var(--text);
   --color-text2: var(--text2);
+  --color-light-purple: var(--light-purple);
   
   /* Font families */
   --font-heading: "Quicksand", system-ui, -apple-system, sans-serif;
@@ -24,6 +25,7 @@
     /* Light Theme (Default) */
     --primary: #984AD9;
     --secondary: #EEDBFF;
+    --light-purple: #F7EDFF;
     --cta: #F86032;
     --bg: #FAFAFA;
     --white: #FFFFFF;
