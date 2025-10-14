@@ -2,6 +2,7 @@ import Avatar from "boring-avatars";
 import { FaEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { formatDate } from "../../hooks/SmallHooks";
+import { Link } from "react-router";
 
 const ProfileAvatar = ({ name }) => (
   <Avatar
@@ -36,7 +37,8 @@ const Profile = () => {
         <div className="flex items-center justify-between">
           <p className="H-18 font-bold">Personal Details</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
-            <FaEdit className="text-CTA" />
+           <Link to="/edit-profile"> <FaEdit className="text-CTA" />
+           </Link>
           </div>
         </div>
         <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
@@ -75,7 +77,9 @@ const Profile = () => {
         <div className="flex items-center justify-between">
           <p className="H-18 font-bold">Soft Skills</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
-            <FaEdit className="text-CTA" />
+            <Link to="/edit/soft-skills">
+              <FaEdit className="text-CTA" />
+            </Link>
           </div>
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
@@ -97,7 +101,9 @@ const Profile = () => {
         <div className="flex items-center justify-between">
           <p className="H-18 font-bold">Tech Skills</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
-            <FaEdit className="text-CTA" />
+            <Link to="/edit/tech-skills">
+              <FaEdit className="text-CTA" />
+            </Link>
           </div>
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">

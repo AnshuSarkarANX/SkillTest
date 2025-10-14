@@ -5,6 +5,7 @@ import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
+import { createProfile } from "../../apis/userApis";
 
 const UploadCv = () => {
   const fileInputRef = useRef(null);
@@ -41,16 +42,24 @@ const UploadCv = () => {
         response.data.data.specialization
       ) {
         localStorage.setItem("userDetails", JSON.stringify(response.data.data));
-        navigate("/");
-      } else {toast.error("Not getting enough information from CV");}
+        const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+        createProfile(userDetails).then(() => {
+          setLoading(false);
+          navigate("/");
+        }).catch((error) => {
+          setLoading(false);
+          toast.error(error.message);
+        });
+      } else {toast.error("Not getting enough information from CV");
+        setLoading(false);
+      }
 
       // You can now populate your form with this data
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
       toast.error("Failed to parse CV");
-    } finally {
       setLoading(false);
-    }
+    } 
 
 
   };

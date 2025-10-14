@@ -29,6 +29,9 @@ import UploadCv from "./Pages/onboarding/UploadCv.jsx";
 import Profile from "./Pages/profile/Profile.jsx";
 import Certificates from "./Pages/certificates/Certificates.jsx";
 import MyAccount from "./Pages/myAccount/MyAccount.jsx";
+import EditProfile from "./Pages/profile/EditProfile.jsx";
+import EditSoftSkils from "./Pages/profile/EditSoftSkils.jsx";
+import EditTechSkills from "./Pages/profile/EditTechSkills.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -70,12 +73,11 @@ const AuthRoute = ({ children }) => {
   return children;
 };
 
-
 const AppLayout = () => {
   const useBottomBar = bottomBar((state) => state.isActive);
   const usePadding = padding((state) => state);
-   const useTopBar = topBar((state) => state);
-   const routerLocation = useLocation(); 
+  const useTopBar = topBar((state) => state);
+  const routerLocation = useLocation();
   useEffect(() => {
     if (routerLocation.pathname === "/") {
       usePadding.setActive(false);
@@ -86,7 +88,7 @@ const AppLayout = () => {
       useTopBar.setHome(false);
       useTopBar.setHasBackButton(true);
     }
-    console.log("location",routerLocation.pathname)
+    console.log("location", routerLocation.pathname);
   }, [routerLocation.pathname]);
   return (
     <div className="max-w-[600px] mx-auto">
@@ -168,6 +170,9 @@ const appRoute = createBrowserRouter([
       { path: "/skills", element: <Skills /> },
       { path: "/profile", element: <Profile /> },
       { path: "/certificates", element: <MyCourses /> },
+      { path: "/edit-profile", element: <EditProfile /> },
+      { path: "/edit/soft-skills", element: <EditSoftSkils /> },
+      { path: "/edit/tech-skills", element: <EditTechSkills /> },
     ],
   },
 ]);
