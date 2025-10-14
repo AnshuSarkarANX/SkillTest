@@ -1,7 +1,27 @@
 import { motion } from "framer-motion";
-import ReactLoading from "react-loading";
+
 
 const Button = ({ text, color, onClick, disabled, loading, add = false }) => {
+  {
+    /* Loading Button 
+    
+    
+    : loading ? (
+        <div className="flex flex-col">
+          <motion.button
+            type="submit"
+            whileTap={{ scale: 0.95, backgroundColor: "rgba(0, 0, 0, 0.2)" }}
+            className={` border-CTA border border-solid relative py-[23px] px-[20px] text-white bg-CTA rounded-[10px] H-16 font-bold text-center  transition-colors duration-300 ${
+              disabled ? "opacity-30 cursor-not-allowed" : ""
+            }`}
+            onClick={disabled ? null : onClick}
+            disabled={disabled}
+          >
+            need to add new loading
+          </motion.button>
+        </div>
+      )*/
+  }
   return (
     <>
       {color === "white" ? (
@@ -22,25 +42,7 @@ const Button = ({ text, color, onClick, disabled, loading, add = false }) => {
             </motion.div>
           </motion.button>
         </div>
-      ) : loading ? (
-        <div className="flex flex-col">
-          <motion.button
-            type="submit"
-            whileTap={{ scale: 0.95, backgroundColor: "rgba(0, 0, 0, 0.2)" }}
-            className={` border-CTA border border-solid relative py-[23px] px-[20px] text-white bg-CTA rounded-[10px] H-16 font-bold text-center  transition-colors duration-300 ${
-              disabled ? "opacity-30 cursor-not-allowed" : ""
-            }`}
-            onClick={disabled ? null : onClick}
-            disabled={disabled}
-          >
-            <ReactLoading
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-              type={"bubbles"}
-              color={"#ffffff"}
-            />
-          </motion.button>
-        </div>
-      ) : (
+      )  : (
         <div className="flex flex-col">
           <motion.button
             type="submit"
@@ -56,7 +58,7 @@ const Button = ({ text, color, onClick, disabled, loading, add = false }) => {
               className="py-[10px] px-[10px] duration-50 text-nowrap flex items-center justify-center gap-[5px]"
             >
               {add && <p className="text-[26px]">+</p>}
-              {text}
+              {loading ? "Loading.." : text}
             </motion.div>
           </motion.button>
         </div>

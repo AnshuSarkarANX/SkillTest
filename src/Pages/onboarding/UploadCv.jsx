@@ -2,23 +2,72 @@ import React, { useRef, useState } from "react";
 import Button from "../../Components/Button";
 import { MdOutlineDriveFolderUpload } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const UploadCv = () => {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [cvData, setCvData] = useState(null);
+  const API_URL = "https://localhost:3000/api/ai";
 
   const handleFileClick = () => {
     fileInputRef.current.click();
   };
+  const  navigate = useNavigate();
+
+  const handleFileUpload = async () => {
+    const file = selectedFile;
+    console.log(file);
+    console.log("this is the file", selectedFile);
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("cv", file);
+
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/parse-cv`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setCvData(response.data.data);
+      if (
+        response.data.data.fullName && response.data.data.qualification &&
+        response.data.data.specialization
+      ) {
+        localStorage.setItem("userDetails", JSON.stringify(response.data.data));
+        navigate("/");
+      } else {toast.error("Not getting enough information from CV");}
+
+      // You can now populate your form with this data
+    } catch (error) {
+      console.error("Error:", error.response?.data || error.message);
+      toast.error("Failed to parse CV");
+    } finally {
+      setLoading(false);
+    }
+
+
+  };
 
   const handleFileChange = (event) => {
+    console.log("this fn called ", event);
     if (event.target.files.length > 0) {
       setSelectedFile(event.target.files[0]);
     }
   };
-
-  const handleContinue = () => {
-    // your continue logic here (possibly upload or send selectedFile)
+  const handleRemoveFile = () => {
+    setSelectedFile(null);
+    setCvData(null);
+    // Reset the file input value
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
@@ -39,7 +88,7 @@ const UploadCv = () => {
               <div>{selectedFile.name}</div>
               <div
                 className="text-[14px] text-[#FF4D4F] cursor-pointer"
-                onClick={() => setSelectedFile(null)}
+                onClick={handleRemoveFile}
               >
                 <RxCross2 />
               </div>
@@ -63,13 +112,24 @@ const UploadCv = () => {
           <input
             ref={fileInputRef}
             type="file"
-            accept=".pdf,.doc,.docx"
+            accept=".pdf"
             style={{ display: "none" }}
             onChange={handleFileChange}
           />
+          {loading && (
+            <p className="animate-pulse text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+              Parsing CV using Ai...
+            </p>
+          )}
+          {cvData && (
+            <div className="h-[300px] overflow-auto">
+              <h3>Extracted Data:</h3>
+              <pre>{JSON.stringify(cvData, null, 2)}</pre>
+            </div>
+          )}
         </div>
       </div>
-      <Button text="Continue" onClick={handleContinue} />
+      <Button text="Continue" onClick={handleFileUpload} />
     </div>
   );
 };

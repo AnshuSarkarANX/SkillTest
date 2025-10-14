@@ -2,11 +2,13 @@ import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import Button from "../../Components/Button";
+import { generateSkills } from "../../apis/aiApis";
 
 const Specialization = () => {
   const navigate = useNavigate();
   const [qualification, setQualification] = useState("");
-  const handleContinue = useCallback(() => {
+  const [loading, setLoading] = useState(false);
+  const handleContinue = useCallback(async () => {
     if (qualification.trim() === "") {
       toast.error("Select one to continue");
       return;
@@ -14,8 +16,27 @@ const Specialization = () => {
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     userDetails.specialization = qualification;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
+    setLoading(true);
+    const res = await generateSkills();
+    setLoading(false);
+    console.log(res);
+
+    if (res.softSkills.length > 0) {
+      userDetails.softSkills = res.softSkills;
+      localStorage.setItem(
+        "generatedSoftSkills",
+        JSON.stringify(res.softSkills)
+      );
+    }
+    if (res.techSkills.length > 0) {
+      userDetails.techSkills = res.techSkills;
+      localStorage.setItem(
+        "generatedTechSkills",
+        JSON.stringify(res.techSkills)
+      );
+    }
     navigate("/onboarding/soft-skills");
-  }, [qualification, navigate]);
+  }, [qualification]);
   const options = [
     {
       value: "marketing",
@@ -63,7 +84,12 @@ const Specialization = () => {
           </select>
         </div>
       </div>
-      <Button text="Continue" onClick={() => handleContinue()} />
+      <Button
+        text="Continue"
+        loading={loading}
+        disabled={loading}
+        onClick={() => handleContinue()}
+      />
     </div>
   );
 };

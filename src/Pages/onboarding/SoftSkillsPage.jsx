@@ -37,7 +37,7 @@ const SoftSkillsPage = () => {
          
          <SkillsSelector
          title={"Soft Skills"}
-           items={[
+           items={JSON.parse(localStorage.getItem("generatedSoftSkills")) || [
              "Communication",
              "Teamwork and Collaboration",
              "Adaptability and Flexibility",

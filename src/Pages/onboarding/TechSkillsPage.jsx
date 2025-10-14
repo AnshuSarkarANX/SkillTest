@@ -48,7 +48,7 @@ const TechSkillsPage = () => {
          
           <SkillsSelector
           title={"Technical Skills"}
-            items={[
+            items={JSON.parse(localStorage.getItem("generatedTechSkills")) || [
               "Programming",
               "Web Development",
               "Database Management",
