@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../Components/Button';
-import {useNavigate} from 'react-router';
+import {useNavigate,useLocation} from 'react-router';
 import { verifyOTP } from "../../apis/authApis";
 // Separate Timer Component - only this component re-renders
 const TimerComponent = ({ onResendOtp, isLoading }) => {
@@ -50,6 +50,8 @@ const OtpPage = () => {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const inputs = useRef([]);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const { email, phone } = location.state;
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -107,6 +109,24 @@ const OtpPage = () => {
       inputs.current[5].focus();
     }
   }, []);
+  const userDetails = JSON.parse(localStorage.getItem("userDetails")) || "";
+
+  useEffect(() => {
+    if (!email && !phone) {
+      console.log("email",email);
+      console.log("phone",phone);
+      // navigate("/login");
+    }
+      else if (userDetails)  {
+        if (userDetails.FTL) { navigate("/welcome");}
+        else{
+          navigate("/");
+        }
+      }
+        else{
+          return;}
+
+  }, [userDetails,email,phone]);
   const handleVerifyOTP = useCallback(
     async (e) => {
       e.preventDefault();
@@ -115,10 +135,11 @@ const OtpPage = () => {
 
       try {
         const response = await verifyOTP(
-          localStorage.getItem("email"),
+          email || phone,
           otpCode
         );
-        console.log("User logged in:", response.user);
+        if(email){localStorage.setItem("email",email);}
+        else if(phone){localStorage.setItem("phone",phone);}
 
         // Store user data in localStorage or state management
         localStorage.setItem("userDetails", JSON.stringify(response.user));
@@ -137,7 +158,7 @@ const OtpPage = () => {
         setLoading(false);
       }
     },
-    [otpCode]
+    [otpCode,email,phone]
   );
   return (
     <div>

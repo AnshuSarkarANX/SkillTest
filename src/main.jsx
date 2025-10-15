@@ -2,7 +2,7 @@
 
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
+import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
 import TopBar from "./Components/TopBar.jsx";
@@ -56,19 +56,19 @@ const ProtectedRoute = ({ children }) => {
       }
     }
   });
-  // const { isLoggedIn, isPhoneVerified } = useSelector((state) => state.auth);
-  // if (!isLoggedIn && !isPhoneVerified) {
-  //   return <Navigate to="/login" replace />;
-  // }
+  const isAuthenticated  = localStorage.getItem("email");
+   if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+   }
 
   return children;
 };
 const AuthRoute = ({ children }) => {
-  // const isAuthenticated = useSelector((state) => state.auth.isLoggedIn);
+  const isAuthenticated = localStorage.getItem("email");
 
-  // if (isAuthenticated) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   return children;
 };
@@ -123,7 +123,6 @@ const appRoute = createBrowserRouter([
   {
     path: "/otp",
     element: (
-      <AuthRoute>
         <div className="max-w-[600px] mx-auto">
           <TopBar />
           <div className="min-h-screen">
@@ -131,7 +130,7 @@ const appRoute = createBrowserRouter([
           </div>
           <Toaster />
         </div>
-      </AuthRoute>
+
     ),
   },
   // Protected Routes

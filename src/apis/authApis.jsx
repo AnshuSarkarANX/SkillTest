@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:3000/api/auth";
+const API_URL = "http://localhost:3000/api/auth";
 
 export const requestOTP = async (email) => {
   try {

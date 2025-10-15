@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://localhost:3000/api/ai";
+const API_URL = "http://localhost:3000/api/ai";
 
 export const generateSkills = async () => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));

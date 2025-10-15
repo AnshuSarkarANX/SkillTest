@@ -38,13 +38,13 @@ const LoginPage = () => {
       e.preventDefault();
       setLoading(true);
       setError("");
-      localStorage.setItem("email", email);
+      
       
 
       try {
         const response = await requestOTP(email);
         setMessage(response.message);
-        navigate("/otp");
+        navigate("/otp",{state:{email:email,phone:contact}});
         toast.success("Otp sent successfully");
       } catch (err) {
         setError(err.message);
