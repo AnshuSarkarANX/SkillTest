@@ -4,7 +4,7 @@ import { CgProfile } from "react-icons/cg";
 import { formatDate } from "../../hooks/SmallHooks";
 import { Link } from "react-router";
 
-const ProfileAvatar = ({ name }) => (
+export const ProfileAvatar = ({ name }) => (
   <Avatar
     size={90}
     name={name}

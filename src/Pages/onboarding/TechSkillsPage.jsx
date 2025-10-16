@@ -1,9 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import Button from "../../Components/Button";
 import SkillsSelector from "../../Components/SkillSelector";
 import { createProfile } from "../../apis/userApis";
+import { generateSkills } from "../../apis/aiApis";
 
 
 const TechSkillsPage = () => {
@@ -16,7 +17,7 @@ const TechSkillsPage = () => {
       return;
     }
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    userDetails.techSkills = skills;
+    userDetails.techSkills = [...userDetails.techSkills, ...skills];
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
 
     setIsLoading(true);
@@ -30,6 +31,51 @@ const TechSkillsPage = () => {
         toast.error(error.message);
       });
   }, [skills, navigate, createProfile]);
+
+  useEffect( () => {
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    async function generate() {
+      setIsLoading(true);
+      const res = await generateSkills();
+      setIsLoading(false);
+      console.log(res);
+
+      if (res.softSkills.length > 0) {
+        userDetails.softSkills = res.softSkills;
+        localStorage.setItem(
+          "generatedSoftSkills",
+          JSON.stringify(res.softSkills)
+        );
+      }
+      if (res.techSkills.length > 0) {
+        userDetails.techSkills = res.techSkills;
+        localStorage.setItem(
+          "generatedTechSkills",
+          JSON.stringify(res.techSkills)
+        );
+      }
+    }
+    if (localStorage.getItem("generatedTechSkills") || localStorage.getItem("generatedSoftSkills")) {
+      toast.error("Select one to continue");
+      return;
+    }
+    else {
+      generate();
+    }
+    
+  }, []);
+  useEffect(() => {
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    if (userDetails.techSkills.length > 0) {
+      setSkills(userDetails.techSkills);
+    }
+  
+  }, []);
+  useEffect(() => {
+    
+     console.log(skills);
+
+  }, [skills]);
 
   return (
     <div className="space-y-[25px] mb-[20px]">
@@ -45,7 +91,7 @@ const TechSkillsPage = () => {
         />
 
         <div className="w-full p-[15px]">
-         
+          {isLoading ? <p>Loading...</p> :  
           <SkillsSelector
           title={"Technical Skills"}
             items={JSON.parse(localStorage.getItem("generatedTechSkills")) || [
@@ -82,7 +128,7 @@ const TechSkillsPage = () => {
               "Blockchain",
             ]}
             onChange={setSkills}
-          />
+          />}
         </div>
       </div>
       <Button text="Continue" onClick={() => handleContinue()} loading={isLoading} />

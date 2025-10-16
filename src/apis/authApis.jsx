@@ -21,6 +21,7 @@ export const verifyOTP = async (email, otp) => {
     });
     return response.data;
   } catch (error) {
-    throw new Error(error.response?.data?.error || "Failed to verify OTP");
+   return error.response.data;
+
   }
 };

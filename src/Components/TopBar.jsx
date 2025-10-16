@@ -55,9 +55,9 @@ const TopBar = () => {
           <Link to="/account" className="bg-white rounded-[8px] p-[10px]">
             <FiMenu className="text-[20px] text-primary" />
           </Link>
-          <div className="bg-white rounded-[8px] p-[10px]">
+          <Link to="/profile" className="bg-white rounded-[8px] p-[10px]">
             <CgProfile className="text-[20px] text-primary" />
-          </div>
+          </Link>
         </div>
       ) : (
         <div></div>

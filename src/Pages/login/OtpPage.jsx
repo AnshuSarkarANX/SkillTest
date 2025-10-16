@@ -2,9 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../Components/Button';
 import {useNavigate,useLocation} from 'react-router';
 import { verifyOTP } from "../../apis/authApis";
+import toast from 'react-hot-toast';
 // Separate Timer Component - only this component re-renders
 const TimerComponent = ({ onResendOtp, isLoading }) => {
   const [timer, setTimer] = useState(60);
+  
 
   useEffect(() => {
     let countdown;
@@ -52,6 +54,7 @@ const OtpPage = () => {
   const [loading, setLoading] = useState(false);
   const location = useLocation();
   const { email, phone } = location.state;
+  
 
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -142,7 +145,13 @@ const OtpPage = () => {
         else if(phone){localStorage.setItem("phone",phone);}
 
         // Store user data in localStorage or state management
-        localStorage.setItem("userDetails", JSON.stringify(response.user));
+        if(response.user){
+         localStorage.setItem("userDetails", JSON.stringify(response.user));
+        }
+         else{
+          toast.error(response.error);
+        }
+        
 
         // Redirect to dashboard or next step
         if(response.user.FTL){
