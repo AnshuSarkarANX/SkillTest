@@ -12,7 +12,7 @@ const UploadCv = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [cvData, setCvData] = useState(null);
-  const API_URL = "https://localhost:3000/api/ai";
+  const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleFileClick = () => {
     fileInputRef.current.click();
@@ -30,11 +30,15 @@ const UploadCv = () => {
 
     setLoading(true);
     try {
-      const response = await axios.post(`${API_URL}/parse-cv`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `${API_URL}/api/ai/parse-cv`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       setCvData(response.data.data);
       if (

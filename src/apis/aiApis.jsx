@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/ai";
+const API_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const generateSkills = async () => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -9,7 +9,10 @@ export const generateSkills = async () => {
     const  qualification = userDetails.qualification;
 
   try {
-    const response = await axios.post(`${API_URL}/generate-skills`, { specialization, qualification});
+    const response = await axios.post(`${API_URL}/api/ai/generate-skills`, {
+      specialization,
+      qualification,
+    });
     return response.data;
   } catch (error) {
     throw new Error(
