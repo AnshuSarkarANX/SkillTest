@@ -32,6 +32,9 @@ import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 import EditProfile from "./Pages/profile/EditProfile.jsx";
 import EditSoftSkils from "./Pages/profile/EditSoftSkils.jsx";
 import EditTechSkills from "./Pages/profile/EditTechSkills.jsx";
+import SkillDetails from "./Pages/skills/SkillDetails.jsx";
+import Process from "./Pages/skills/Process.jsx";
+import SelectLevel from "./Pages/skills/SelectLevel.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -167,11 +170,14 @@ const appRoute = createBrowserRouter([
       { path: "/my-courses", element: <MyCourses /> },
       { path: "/add-resource", element: <MyCourses /> },
       { path: "/skills", element: <Skills /> },
+      { path: "/skills/:skill", element: <SkillDetails /> },
       { path: "/profile", element: <Profile /> },
       { path: "/certificates", element: <MyCourses /> },
       { path: "/edit-profile", element: <EditProfile /> },
       { path: "/edit/soft-skills", element: <EditSoftSkils /> },
       { path: "/edit/tech-skills", element: <EditTechSkills /> },
+      { path: "/process", element: <Process /> },
+      { path: "/select-level", element: <SelectLevel /> },
     ],
   },
 ]);

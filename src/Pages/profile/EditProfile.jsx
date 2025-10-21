@@ -74,14 +74,14 @@ const EditProfile = () => {
     { value: "software_engineering", label: "Software Engineering" },
   ];
   return (
-    <div>
+    <div className="space-y-[25px]">
       <div className="rounded-[20px] bg-[linear-gradient(360deg,_rgba(152,74,217,0.81)_0%,_rgba(152,74,217,0.624046)_17.73%,_rgba(152,74,217,0.479094)_39.49%,_rgba(152,74,217,0.304639)_66.28%,_rgba(152,74,217,0.09)_100%)] p-6 flex flex-col items-center">
         <ProfileAvatar name={fullName} />
       </div>
 
       {/*Personal Details*/}
 
-      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px]">
+      <div className=" bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px]">
         <div>
           <p className="font-semibold ml-[5px] text-text2 mb-[5px]">Name</p>
           <input
@@ -173,7 +173,12 @@ const EditProfile = () => {
           </select>
         </div>
       </div>
-      <Button text="Save" onClick={handleContinue} loading={isLoading} disabled={isLoading} />
+      <Button
+        text="Save"
+        onClick={handleContinue}
+        loading={isLoading}
+        disabled={isLoading}
+      />
     </div>
   );
 };

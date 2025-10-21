@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useNavigate } from "react-router";
+import { useState } from "react";
 import Button from "../../Components/Button";
 
 const Skills = () => {
@@ -12,7 +13,7 @@ const Skills = () => {
     { label: "Figma", image: "/assets/figmaImage.svg" },
     { label: "Co-operation", image: "/assets/co-operationImage.svg" },
   ];
-
+  const navigate = useNavigate();
   return (
     <div>
       <div className="space-y-[20px]">
@@ -26,7 +27,10 @@ const Skills = () => {
               className={`flex flex-col items-center gap-[5px] px-[10px] py-[15px] rounded-[10px] bg-white border smallShadow ${
                 selectedIndex === index ? "border-primary" : "border-white"
               }`}
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => {
+                setSelectedIndex(index),
+                  setTimeout(() => navigate(`/skills/${skill.label}`), 200);
+              }}
               style={{ cursor: "pointer" }}
             >
               <img
