@@ -1,9 +1,9 @@
 import { useState, useMemo } from "react";
 
-function SkillsSelector({ items = [], title, onChange }) {
+function SkillsSelector({ items = [], title, onChange, selectedItems = [] }) {
   const [search, setSearch] = useState("");
   const [allItems, setAllItems] = useState(() => [...items]);
-  const [checked, setChecked] = useState([]);
+  const [checked, setChecked] = useState(selectedItems);
 
   // Filter items based on search
   const filtered = useMemo(() => {
@@ -39,6 +39,7 @@ function SkillsSelector({ items = [], title, onChange }) {
     }
   };
 
+  console.log("selected skills", selectedItems);
   return (
     <div className="bg-white rounded-[20px] smallShadow p-4 w-full max-w-md">
       <label className="font-bold mb-3 block H-18">{title}</label>

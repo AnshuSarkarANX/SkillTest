@@ -5,6 +5,8 @@ import Button from "./Components/Button";
 import Specialization from "./Pages/onboarding/Specialization";
 import ResourceCard from "./Components/ResourceCard";
 import { useNavigate } from "react-router";
+import { getProfile } from "./apis/userApis";
+import toast from "react-hot-toast";
 function App() {
 
   const useBottomBar = bottomBar((state) => state);
@@ -53,11 +55,39 @@ function App() {
     },
   ];
 
+
+  useEffect(() => {
+  
+    const fetchProfile = async () => {
+      const email = localStorage.getItem("email");
+      const storedUserDetails = localStorage.getItem("userDetails");
+
+      if (!email) {
+        console.log("No email found");
+        return;
+      }
+
+      if (storedUserDetails) {
+        console.log("User details already cached");
+        return;
+      }
+
+      try {
+        const data = await getProfile(email);
+        localStorage.setItem("userDetails", JSON.stringify(data));
+      } catch (error) {
+        toast.error("Error fetching user details, please log in again");
+        console.error(error);
+      }
+    };
++    fetchProfile();
+  }, []);
+
   return (
     <div className="space-y-[40px]">
       <div className="bg-gradient-to-b from-secondary from-50%  to-background px-[20px] pt-[30px]">
         <div className="H-26 font-bold ">
-          Welcome, {userDetails?.fullName}
+          Welcome, {userDetails ? userDetails?.fullName : ""}
           <br />
           Get Certificate By Skillset
         </div>

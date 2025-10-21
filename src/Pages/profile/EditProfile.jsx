@@ -1,6 +1,10 @@
-import { use, useEffect, useState } from "react";
+import { use, useCallback, useEffect, useState } from "react";
 import { ProfileAvatar } from "./Profile";
 import Button from "../../Components/Button";
+import { formatDate } from "../../hooks/SmallHooks";
+import { createProfile } from "../../apis/userApis";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
 
 const EditProfile = () => {
   const {
@@ -13,16 +17,48 @@ const EditProfile = () => {
     softSkills,
     techSkills,
   } = JSON.parse(localStorage.getItem("userDetails")) || {};
-  
+
   const [name, setName] = useState(fullName || "");
   const [Gender, setGender] = useState(gender || "");
-  const [birthDate, setBirthDate] = useState(dob || "");
+  const [birthDate, setBirthDate] = useState(formatDate(dob) || "");
   const [Qualification, setQualification] = useState(qualification || "");
   const [Specialization, setSpecialization] = useState(specialization || "");
+  const [isLoading, setIsLoading] = useState(false);
+  const onSave = () => {
+    const userDetails = JSON.parse(localStorage.getItem("userDetails")) || {};
+    userDetails.fullName = name;
+    userDetails.gender = Gender;
+    userDetails.dob = birthDate;
+    userDetails.qualification = Qualification;
+    userDetails.specialization = Specialization;
+    console.log("details", userDetails);
+  };
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(gender);
-  }, [gender]);
+
+    const handleContinue = useCallback(() => {
+     
+      const userDetails = JSON.parse(localStorage.getItem("userDetails"));
+       userDetails.fullName = name;
+       userDetails.gender = Gender;
+       userDetails.dob = birthDate;
+       userDetails.qualification = Qualification;
+       userDetails.specialization = Specialization;
+       console.log("details", userDetails);
+
+      setIsLoading(true);
+      createProfile(userDetails)
+        .then(() => {
+          setIsLoading(false);
+          localStorage.setItem("userDetails", JSON.stringify(userDetails));
+          navigate(-1);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          toast.error(error.message);
+        });
+    }, [name, Gender, birthDate, Qualification, Specialization, navigate, createProfile]);
+
   const qOptions = [
     { value: "high_school", label: "High School" },
     { value: "bachelor", label: "Bachelor's Degree" },
@@ -116,9 +152,7 @@ const EditProfile = () => {
           </select>
         </div>
         <div>
-          <p className="font-semibold ml-[5px] text-text2 mb-[5px]">
-            Skills
-          </p>
+          <p className="font-semibold ml-[5px] text-text2 mb-[5px]">Skills</p>
           <select
             style={{
               boxShadow: "0px 4px 12px 0px #0000001A",
@@ -139,7 +173,7 @@ const EditProfile = () => {
           </select>
         </div>
       </div>
-      <Button text="Save" />
+      <Button text="Save" onClick={handleContinue} loading={isLoading} disabled={isLoading} />
     </div>
   );
 };

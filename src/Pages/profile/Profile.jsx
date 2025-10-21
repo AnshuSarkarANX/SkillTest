@@ -57,7 +57,7 @@ const Profile = () => {
           <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
             <CgProfile className="text-primary text-[20px]" />
           </div>
-          <p className="H-16 font-bold ">{dob ? formatDate(dob) : "N/A"}</p>
+          <p className="H-16 font-bold ">{dob ? formatDate(dob,"d","/") : "N/A"}</p>
         </div>
         <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
           <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
@@ -83,7 +83,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
-          {softSkills.map((skill, index) => (
+          {softSkills?.map((skill, index) => (
           <div
             className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] "
             key={index}
@@ -107,7 +107,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
-          {techSkills.map((skill, index) => (
+          {techSkills?.map((skill, index) => (
             <div
               className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] "
               key={index}

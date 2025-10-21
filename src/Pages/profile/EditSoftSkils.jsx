@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { createProfile } from "../../apis/userApis";
@@ -9,20 +9,20 @@ const EditSoftSkils = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [skills, setSkills] = useState([]);
+    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     const handleContinue = useCallback(() => {
       if (skills.length === 0) {
         toast.error("Select at least one skill to continue");
         return;
       }
-      const userDetails = JSON.parse(localStorage.getItem("userDetails"));
       userDetails.softSkills = skills;
-      localStorage.setItem("userDetails", JSON.stringify(userDetails));
-
       setIsLoading(true);
       createProfile(userDetails)
         .then(() => {
           setIsLoading(false);
-          navigate("/");
+          localStorage.setItem("userDetails", JSON.stringify(userDetails));
+          toast.success("Soft skills updated successfully");
+          navigate(-1);
         })
         .catch((error) => {
           setIsLoading(false);
@@ -38,6 +38,7 @@ const EditSoftSkils = () => {
         
           <SkillsSelector
             title={"Soft Skills"}
+            selectedItems={userDetails?.softSkills || []}
             items={
               JSON.parse(localStorage.getItem("generatedSoftSkills")) || [
                 "Communication",
@@ -70,6 +71,7 @@ const EditSoftSkils = () => {
         text="Continue"
         onClick={() => handleContinue()}
         loading={isLoading}
+        disabled={isLoading}
       />
     </div>
   );

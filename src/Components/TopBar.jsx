@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { topBar } from "../state/store";
 import { Link, useLocation, useNavigate } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
@@ -10,6 +10,23 @@ const TopBar = () => {
   const { hasBackButton, logo, home } = useTopBar;
   const navigate = useNavigate();
   const location = useLocation();
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 100) {
+          setIsScrolled(true);
+        } else {
+          setIsScrolled(false);
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll);
+
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
   useEffect(() => {
     useTopBar.setOnBack(null);
   }, [location]);
@@ -18,7 +35,9 @@ const TopBar = () => {
       className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0  z-[10]  py-[15px] px-[20px] transition-[padding]  ease-in-out duration-500 ${
         home
           ? "bg-secondary "
-          : "bg-[linear-gradient(180deg,_rgba(152,74,217,0.3154)_0%,_rgba(152,74,217,0.269104)_16.4%,_rgba(152,74,217,0.184629)_40.24%,_rgba(152,74,217,0.0899885)_75.03%,_rgba(152,74,217,0)_100%)]  to-background pb-[30px]"
+          : isScrolled
+          ? "bg-secondary transition-all"
+          : "bg-[linear-gradient(180deg,_rgba(152,74,217,0.3154)_0%,_rgba(152,74,217,0.269104)_16.4%,_rgba(152,74,217,0.184629)_40.24%,_rgba(152,74,217,0.0899885)_75.03%,_rgba(152,74,217,0)_100%)]   pb-[30px] transition-all"
       }`}
     >
       {hasBackButton && (
