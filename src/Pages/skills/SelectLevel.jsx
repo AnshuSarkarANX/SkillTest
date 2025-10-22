@@ -31,7 +31,7 @@ const SelectLevel = () => {
     ];
     const [selectedLevel, setSelectedLevel] = useState(0);
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="">
       <div className="bg-white rounded-lg shadow-lg p-6 min-h-[300px]">
         <div className="grid grid-cols-3 gap-6">
           {/* Left Side - Level Selection */}
@@ -53,8 +53,8 @@ const SelectLevel = () => {
           </div>
 
           {/* Right Side - Description */}
-          <div className="flex flex-col justify-center col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 mb-3">
+          <div className="flex flex-col col-span-2">
+            <h2 className="text-2xl font-bold  mb-3">
               {levels[selectedLevel].title}
             </h2>
             <p className="text-gray-600 text-sm leading-relaxed">
