@@ -23,6 +23,12 @@ const SelectLevel = () => {
           "Become an expert in your field with cutting-edge techniques and industry best practices. Take on complex challenges and prepare yourself for leadership roles in your domain.",
       },
       {
+        level: "Expert",
+        title: "Specialize and Excel",
+        description:
+          "Focus on niche areas and become a sought-after specialist. Master advanced tools, frameworks, and methodologies that set you apart in the competitive landscape.",
+      },
+      {
         level: "Specialist",
         title: "Specialize and Excel",
         description:
@@ -32,7 +38,11 @@ const SelectLevel = () => {
     const [selectedLevel, setSelectedLevel] = useState(0);
   return (
     <div className="">
-      <div className="bg-white rounded-lg shadow-lg p-6 min-h-[300px]">
+      <h1 className="font-bold H-18 my-[30px]">
+        Select A Level Of Category For A
+        <br /> Certificate
+      </h1>
+      <div className="bg-white rounded-[20px] smallShadow p-6 min-h-[300px]">
         <div className="grid grid-cols-3 gap-6">
           {/* Left Side - Level Selection */}
           <div className="space-y-3">
@@ -40,24 +50,24 @@ const SelectLevel = () => {
               <button
                 key={index}
                 onClick={() => setSelectedLevel(index)}
-                className={`w-full px-3 py-3 rounded-lg text-left font-medium transition-all flex items-center justify-between ${
+                className={`w-full px-3 py-3 rounded-lg text-left font-medium transition-all flex duration-300 items-center justify-between smallShadow border-1 ${
                   selectedLevel === index
-                    ? "border-2 border-primary text-primary shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    ? " border-primary text-primary "
+                    : "text-text2/30 border-background "
                 }`}
               >
-                <span>{item.level}</span>
-                <IoIosArrowForward className="w-5 h-5" />
+                <span className="H-10 font-bold">{item.level}</span>
+                <IoIosArrowForward className="h-[10px]" />
               </button>
             ))}
           </div>
 
           {/* Right Side - Description */}
-          <div className="flex flex-col col-span-2">
-            <h2 className="text-2xl font-bold  mb-3">
+          <div className="flex flex-col col-span-2 smallShadow p-[15px] rounded-[15px]">
+            <h2 className="H-16 font-bold  mb-[10px]">
               {levels[selectedLevel].title}
             </h2>
-            <p className="text-gray-600 text-sm leading-relaxed">
+            <p className="text-text2 H-12 leading-relaxed">
               {levels[selectedLevel].description}
             </p>
           </div>
