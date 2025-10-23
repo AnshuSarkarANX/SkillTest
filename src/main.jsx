@@ -35,6 +35,8 @@ import EditTechSkills from "./Pages/profile/EditTechSkills.jsx";
 import SkillDetails from "./Pages/skills/SkillDetails.jsx";
 import Process from "./Pages/skills/Process.jsx";
 import SelectLevel from "./Pages/skills/SelectLevel.jsx";
+import SkillTest from "./Pages/tests/SkillTest.jsx";
+import TestInstructions from "./Pages/tests/TestInstructions.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -178,6 +180,8 @@ const appRoute = createBrowserRouter([
       { path: "/edit/tech-skills", element: <EditTechSkills /> },
       { path: "/process", element: <Process /> },
       { path: "/select-level", element: <SelectLevel /> },
+      { path: "/skill-test", element: <SkillTest /> },
+      { path: "/test-instructions", element: <TestInstructions /> },
     ],
   },
 ]);

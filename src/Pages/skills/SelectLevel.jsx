@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { IoIosArrowForward } from "react-icons/io";
-
+import Button from "../../Components/Button";
+import { useNavigate } from "react-router";
 const SelectLevel = () => {
 
     const levels = [
@@ -36,9 +37,15 @@ const SelectLevel = () => {
       },
     ];
     const [selectedLevel, setSelectedLevel] = useState(0);
+    const navigate =useNavigate();
+    const handleContinue = useCallback(() => {
+     sessionStorage.setItem("selectedLevel", levels[selectedLevel].level);
+      console.log("Continue clicked");
+      navigate("/skill-test")
+    }, [selectedLevel]);
   return (
-    <div className="">
-      <h1 className="font-bold H-18 my-[30px]">
+    <div className="space-y-[30px]">
+      <h1 className="font-bold H-18 ">
         Select A Level Of Category For A
         <br /> Certificate
       </h1>
@@ -73,6 +80,7 @@ const SelectLevel = () => {
           </div>
         </div>
       </div>
+      <Button text="Continue" onClick={handleContinue} />
     </div>
   );
 };

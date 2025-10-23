@@ -29,6 +29,7 @@ const Skills = () => {
               }`}
               onClick={() => {
                 setSelectedIndex(index),
+                 sessionStorage.setItem("selectedSkill", skill.label);
                   setTimeout(() => navigate(`/skills/${skill.label}`), 200);
               }}
               style={{ cursor: "pointer" }}
