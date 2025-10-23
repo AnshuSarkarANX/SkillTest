@@ -42,7 +42,7 @@ const SelectLevel = () => {
         Select A Level Of Category For A
         <br /> Certificate
       </h1>
-      <div className="bg-white rounded-[20px] smallShadow p-6 min-h-[300px]">
+      <div className="bg-white rounded-[20px] smallShadow p-[20px] min-h-[300px]">
         <div className="grid grid-cols-3 gap-6">
           {/* Left Side - Level Selection */}
           <div className="space-y-3">
@@ -50,7 +50,7 @@ const SelectLevel = () => {
               <button
                 key={index}
                 onClick={() => setSelectedLevel(index)}
-                className={`w-full px-3 py-3 rounded-lg text-left font-medium transition-all flex duration-300 items-center justify-between smallShadow border-1 ${
+                className={`w-full px-3 py-3 rounded-[10px] text-left font-medium transition-all flex duration-300 items-center justify-between smallShadow border-1 ${
                   selectedLevel === index
                     ? " border-primary text-primary "
                     : "text-text2/30 border-background "
