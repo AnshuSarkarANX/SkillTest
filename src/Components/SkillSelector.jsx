@@ -60,11 +60,13 @@ function SkillsSelector({ items = [], title, onChange, selectedItems = [] }) {
           </button>
         )}
       </div>
-      <ul className="flex flex-col gap-3 max-h-[400px] overflow-auto no-scrollbar ">
+      <ul className="flex flex-col gap-3 max-h-[400px] overflow-auto no-scrollbar
+       mx-[-5px] px-[5px] my-[-5px] py-[5px]">
         {filtered.map((item) => (
           <li
             key={item}
-            className="flex items-center justify-between px-4 py-3 rounded-[15px] bg-white shadow-md cursor-pointer transition"
+            className="flex items-center justify-between px-4 py-3 rounded-[15px] bg-white cursor-pointer transition"
+            style={{ boxShadow: "0px 2px 5px 4px rgba(0,0,0,0.05)" }}
             onClick={() => handleCheck(item)}
           >
             <span className="font-medium text-base">{item}</span>

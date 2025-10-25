@@ -17,7 +17,7 @@ const TechSkillsPage = () => {
       return;
     }
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    userDetails.techSkills = [...userDetails.techSkills, ...skills];
+    userDetails.techSkills = skills;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
 
     setIsLoading(true);
@@ -64,18 +64,7 @@ const TechSkillsPage = () => {
     }
     
   }, []);
-  useEffect(() => {
-    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    if (userDetails.techSkills.length > 0) {
-      setSkills(userDetails.techSkills);
-    }
-  
-  }, []);
-  useEffect(() => {
-    
-     console.log(skills);
 
-  }, [skills]);
 
   return (
     <div className="space-y-[25px] mb-[20px]">

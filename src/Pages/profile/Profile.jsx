@@ -3,6 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
 import { formatDate } from "../../hooks/SmallHooks";
 import { Link } from "react-router";
+import Button from "../../Components/Button";
 
 export const ProfileAvatar = ({ name }) => (
   <Avatar
@@ -13,8 +14,16 @@ export const ProfileAvatar = ({ name }) => (
   />
 );
 const Profile = () => {
-  const { fullName, email, gender, dob, qualification, specialization ,softSkills,techSkills} =
-    JSON.parse(localStorage.getItem("userDetails")) || {};
+  const {
+    fullName,
+    email,
+    gender,
+    dob,
+    qualification,
+    specialization,
+    softSkills,
+    techSkills,
+  } = JSON.parse(localStorage.getItem("userDetails")) || {};
   return (
     <>
       <div className="rounded-[20px] bg-[linear-gradient(360deg,_rgba(152,74,217,0.81)_0%,_rgba(152,74,217,0.624046)_17.73%,_rgba(152,74,217,0.479094)_39.49%,_rgba(152,74,217,0.304639)_66.28%,_rgba(152,74,217,0.09)_100%)] p-6 flex flex-col items-center">
@@ -37,8 +46,10 @@ const Profile = () => {
         <div className="flex items-center justify-between">
           <p className="H-18 font-bold">Personal Details</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
-           <Link to="/edit-profile"> <FaEdit className="text-CTA" />
-           </Link>
+            <Link to="/edit-profile">
+              {" "}
+              <FaEdit className="text-CTA" />
+            </Link>
           </div>
         </div>
         <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
@@ -57,7 +68,9 @@ const Profile = () => {
           <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
             <CgProfile className="text-primary text-[20px]" />
           </div>
-          <p className="H-16 font-bold ">{dob ? formatDate(dob,"d","/") : "N/A"}</p>
+          <p className="H-16 font-bold ">
+            {dob ? formatDate(dob, "d", "/") : "N/A"}
+          </p>
         </div>
         <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
           <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
@@ -84,16 +97,16 @@ const Profile = () => {
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
           {softSkills?.map((skill, index) => (
-          <div
-            className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] "
-            key={index}
-          >
-            <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
-              <CgProfile className="text-primary text-[20px]" />
+            <div
+              className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] "
+              key={index}
+            >
+              <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
+                <CgProfile className="text-primary text-[20px]" />
+              </div>
+              <p className="H-16 font-bold ">{skill}</p>
             </div>
-            <p className="H-16 font-bold ">{skill}</p>
-          </div>
-        ))}
+          ))}
         </div>
       </div>
       {/*Tech Skills*/}
@@ -120,6 +133,15 @@ const Profile = () => {
           ))}
         </div>
       </div>
+      <Button
+        text="Log Out"
+        onClick={() => {
+          localStorage.clear();
+          setTimeout(() => {
+            window.location.reload();
+          }, 200);
+        }}
+      />
     </>
   );
 };

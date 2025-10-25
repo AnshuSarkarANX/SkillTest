@@ -91,7 +91,7 @@ useTopBar.setOnBack(onPrevious);
           key={step.image}
           src={step.image}
           alt="welcome"
-          className="w-fit h-fit mx-auto z-[20]"
+          className="w-fit h-[400px] mx-auto z-[20]"
           custom={direction}
           variants={slideVariants}
           initial={currentStep === 0 ? "false" : "initial"}
@@ -100,7 +100,7 @@ useTopBar.setOnBack(onPrevious);
         />
       </div>
 
-      <div className="w-full p-[20px] mx-auto">
+      <div className={`w-full p-[20px] mx-auto `}>
         <motion.div
           key={currentStep}
           custom={direction}

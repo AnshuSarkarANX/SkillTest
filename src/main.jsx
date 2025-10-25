@@ -37,6 +37,7 @@ import Process from "./Pages/skills/Process.jsx";
 import SelectLevel from "./Pages/skills/SelectLevel.jsx";
 import SkillTest from "./Pages/tests/SkillTest.jsx";
 import TestInstructions from "./Pages/tests/TestInstructions.jsx";
+import TestPage from "./Pages/tests/TestPage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -88,12 +89,19 @@ const AppLayout = () => {
       usePadding.setActive(false);
       useTopBar.setHome(true);
       useTopBar.setHasBackButton(false);
+    } 
+    else if (routerLocation.pathname === "/welcome") {
+      usePadding.setActive(false);
+      useTopBar.setHome(false);
+      useTopBar.setHasBackButton(true);
     } else {
       usePadding.setActive(true);
       useTopBar.setHome(false);
       useTopBar.setHasBackButton(true);
     }
     console.log("location", routerLocation.pathname);
+      window.scrollTo(0, 0);
+
   }, [routerLocation.pathname]);
   return (
     <div className="max-w-[600px] mx-auto">
@@ -182,6 +190,7 @@ const appRoute = createBrowserRouter([
       { path: "/select-level", element: <SelectLevel /> },
       { path: "/skill-test", element: <SkillTest /> },
       { path: "/test-instructions", element: <TestInstructions /> },
+      { path: "/test", element: <TestPage /> },
     ],
   },
 ]);
