@@ -1,19 +1,36 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-const QuestionCard = ({ propData, index, onSelectOption }) => {
+const QuestionCard = ({ propData, onSelectOption }) => {
   const [selectedOption, setSelectedOption] = useState(null);
+
+  useEffect(() => {
+    // Check sessionStorage for response using questionSn
+
+    const testId = propData.testId || "";
+    const email = localStorage.getItem("email") || "";
+    //const key = `${testId}_${email}`;
+
+    const responsesData = JSON.parse(
+      sessionStorage.getItem("testResponses") || "[]"
+    );
+    // const responses = responsesData[key] || [];
+    console.log("responses", responsesData);
+    const responseObj = responsesData.find(
+      (r) => r.question_sn === propData.question_sn
+    );
+
+    if (responseObj && responseObj.answer) {
+      console.log("res obj", responseObj);
+      setSelectedOption(responseObj.answer);
+      // onSelectOption(responseObj.question_sn, JSON.parse(responseObj.answer));
+    } else {
+      setSelectedOption(selectedOption || null);
+    }
+  }, []);
 
   const handleOptionClick = (optionId) => {
     setSelectedOption(optionId);
-    onSelectOption(propData.question_sn, optionId); // Pass question_sn and option_id
-  };
-
-  const getOptionClass = (optionId) => {
-    if (selectedOption === optionId) {
-      return "border-[#C01F10] text-[#CF0000] bg-[#FCF4F3]";
-    }
-    return "text-Used bg-white";
+    onSelectOption(propData.question_sn, optionId, propData.type); // Pass question_sn and option_id
   };
 
   return (
@@ -25,54 +42,26 @@ const QuestionCard = ({ propData, index, onSelectOption }) => {
           </h1>
         </div>
         <div className="h-auto pt-[10px] se:pt-[0px]">
-          <ol className="font-bold">
-            {/* Image Grid (2 Columns) */}
-            <div className="grid grid-cols-2 gap-4">
-              {propData?.options?.map((option) => {
-                const isImage = option?.option?.startsWith("http");
-                return isImage ? (
-                  <li
-                    key={option?.option_id}
-                    className={`border rounded-[10px] overflow-hidden cardShadow cursor-pointer flex items-center justify-center ${getOptionClass(
-                      option?.option_id
-                    )}`}
-                    onClick={() => handleOptionClick(option?.option_id)}
-                  >
-                    <h1 className="mr-[3px] text-red-600">
-                      {option?.option_id}
-                    </h1>
-                    <img
-                      src={option.option}
-                      alt={`Option ${option?.option_id}`}
-                      className="w-auto h-[140px] py-[20px] rounded-[10px]"
-                    />
-                  </li>
-                ) : null;
-              })}
-            </div>
-
-            {/* Text List (1 Column) */}
-            <div className="grid grid-cols-1">
-              {propData?.options?.map((option) => {
-                const isImage = option?.option?.startsWith("http");
-                return !isImage ? (
-                  <li
-                    key={option?.option_id}
-                    aria-label={`Option ${option?.option_id}`}
-                    className={`border rounded-[10px] min-h-[52px] cardShadow mb-4 cursor-pointer ${getOptionClass(
-                      option?.option_id
-                    )}`}
-                    onClick={() => handleOptionClick(option?.option_id)}
-                  >
-                    <div className="flex items-center min-h-[52px] p-[20px]">
-                      <h1 className="mr-3 text-red-600">{option?.option_id}</h1>
-                      <h1>{option?.option}</h1>
-                    </div>
-                  </li>
-                ) : null;
-              })}
-            </div>
-          </ol>
+          {/* Text List (1 Column) */}
+          <div className="grid grid-cols-1 font-bold">
+            {propData?.options?.map((option) => (
+              <p
+                key={option?.option_id}
+                aria-label={`Option ${option?.option_id}`}
+                className={`border  rounded-[15px] min-h-[52px] cardShadow mb-4 cursor-pointer ${
+                  selectedOption == option?.option_id
+                    ? "border-primary text-primary bg-secondary/20"
+                    : "text-text2 bg-white border-text2/40"
+                }`}
+                onClick={() => handleOptionClick(option?.option_id)}
+              >
+                <div className="flex items-center min-h-[52px] p-[20px]">
+                  {/*<h1 className="mr-3 text-red-600">{option?.option_id}</h1>*/}
+                  <h1>{option?.option}</h1>
+                </div>
+              </p>
+            ))}
+          </div>
         </div>
       </div>
     </div>

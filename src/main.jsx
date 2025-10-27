@@ -38,6 +38,7 @@ import SelectLevel from "./Pages/skills/SelectLevel.jsx";
 import SkillTest from "./Pages/tests/SkillTest.jsx";
 import TestInstructions from "./Pages/tests/TestInstructions.jsx";
 import TestPage from "./Pages/tests/TestPage.jsx";
+import ProgressPage from "./Pages/tests/ProgressPage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -191,6 +192,7 @@ const appRoute = createBrowserRouter([
       { path: "/skill-test", element: <SkillTest /> },
       { path: "/test-instructions", element: <TestInstructions /> },
       { path: "/test", element: <TestPage /> },
+      {path:"/view-progress", element:<ProgressPage/>}
     ],
   },
 ]);
