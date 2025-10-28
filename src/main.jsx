@@ -39,6 +39,7 @@ import SkillTest from "./Pages/tests/SkillTest.jsx";
 import TestInstructions from "./Pages/tests/TestInstructions.jsx";
 import TestPage from "./Pages/tests/TestPage.jsx";
 import ProgressPage from "./Pages/tests/ProgressPage.jsx";
+import AllQuestionsPage from "./Pages/tests/AllQuestionsPage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -81,7 +82,7 @@ const AuthRoute = ({ children }) => {
 };
 
 const AppLayout = () => {
-  const useBottomBar = bottomBar((state) => state.isActive);
+  const useBottomBar = bottomBar((state) => state);
   const usePadding = padding((state) => state);
   const useTopBar = topBar((state) => state);
   const routerLocation = useLocation();
@@ -94,7 +95,13 @@ const AppLayout = () => {
     else if (routerLocation.pathname === "/welcome") {
       usePadding.setActive(false);
       useTopBar.setHome(false);
-      useTopBar.setHasBackButton(true);
+      useTopBar.setHasBackButton(true);}
+      else if (routerLocation.pathname === "/test") {
+        usePadding.setActive(true);
+        useTopBar.setHome(false);
+        useTopBar.setHasBackButton(false);
+        useBottomBar.setActive(false);
+      
     } else {
       usePadding.setActive(true);
       useTopBar.setHome(false);
@@ -105,12 +112,12 @@ const AppLayout = () => {
 
   }, [routerLocation.pathname]);
   return (
-    <div className="max-w-[600px] mx-auto">
+    <div className="max-w-[600px] mx-auto relative">
       <TopBar />
       <div className={`min-h-screen ${usePadding.isActive ? "px-[20px]" : ""}`}>
         <Outlet />
       </div>
-      {useBottomBar && <BottomBar />}
+      {useBottomBar.isActive && <BottomBar />}
 
       {/* Add ToastContainer here */}
       <Toaster />
@@ -192,7 +199,8 @@ const appRoute = createBrowserRouter([
       { path: "/skill-test", element: <SkillTest /> },
       { path: "/test-instructions", element: <TestInstructions /> },
       { path: "/test", element: <TestPage /> },
-      {path:"/view-progress", element:<ProgressPage/>}
+      {path:"/view-progress", element:<ProgressPage/>},
+      {path:"/all-questions", element:<AllQuestionsPage/>}
     ],
   },
 ]);

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-const QuestionCard = ({ propData, onSelectOption }) => {
+const QuestionCard = ({ allPage = false, propData, onSelectOption }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
@@ -35,13 +35,21 @@ const QuestionCard = ({ propData, onSelectOption }) => {
 
   return (
     <div className="pb-[15px] font-manrope">
-      <div className="pb-[15px] p-[20px] cardShadow rounded-[10px] min-h-[414px] bg-white smallShadow">
-        <div className="flex justify-between items-center h-[34px] pb-[20px] pt-[20px]">
+      <div className="pb-[15px] p-[20px] cardShadow rounded-[10px] min-h-[414px] bg-white smallShadow h-fit">
+        <div className="flex justify-between items-center pb-[20px]">
           <h1 className="font-semibold font-manrope H-18 text-Used">
-            {propData?.question}
+            {allPage && `${propData?.question_sn}. `} {propData?.question}
           </h1>
         </div>
-        <div className="h-auto pt-[10px] se:pt-[0px]">
+        <div className="h-full pt-[10px] se:pt-[0px]">
+          {propData?.type === "text" && (
+            <textarea
+              className="w-full min-h-[250px] h-full border border-text2/40 rounded-[15px] p-[20px]"
+              placeholder="Write your answer here..."
+              value={selectedOption || ""}
+              onChange={(e) => handleOptionClick(e.target.value)}
+            />
+          )}
           {/* Text List (1 Column) */}
           <div className="grid grid-cols-1 font-bold">
             {propData?.options?.map((option) => (
