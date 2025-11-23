@@ -26,21 +26,14 @@
     --primary: #984AD9;
     --secondary: #EEDBFF;
     --light-purple: #F7EDFF;
-    --cta: #F86032;
-    --bg: #FAFAFA;
-    --white: #FFFFFF;
-    --text: #1F1F1F;
-    --text2: #6B6B6B;
+    --cta: #430a5f;
+    --bg: #14141f;
+    --white: ##14141f;
+    --text: #f2f2f2;
+    --text2: #666699;
   }
 
-  [data-theme="dark"] {
-    --primary: oklch(0.7 0.2 260);
-    --secondary: oklch(0.6 0.05 260);
-    --cta: oklch(0.7 0.2 25);
-    --bg: oklch(0.15 0 0);
-    --surface: oklch(0.2 0 0);
-    --text: oklch(0.98 0 0);
-  }
+ 
 
   /* Apply font families */
   h1, h2, h3, h4, h5, h6 {
@@ -50,6 +43,7 @@
   body {
     font-family: var(--font-body);
     background-color: var(--bg);
+    color: var(--text);
   }
 
 }
@@ -64,7 +58,7 @@
 }
 
 .smallShadow { 
-  box-shadow: 0px 4px 84px 0px #0000000F;
+  box-shadow: 0px 4px 84px 0px #1b1b29;
 }
 
 .H-50 {

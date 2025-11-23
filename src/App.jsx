@@ -95,7 +95,7 @@ function App() {
           <input
             type="text"
             placeholder="You can search certificate by skills"
-            className="w-full h-[40px]  px-[25px] rounded-[10px] bg-white py-[25px] focus:outline-none focus:ring-background focus:ring-2"
+            className="w-full h-[40px]  px-[25px] rounded-[10px] bg-white py-[25px] focus:outline-none focus:ring-background focus:ring-2 text-text"
           />
           <button className="p-[12px] rounded-[10px]  bg-white">
             <CiSearch className="text-[25px] text-primary font-semibold" />

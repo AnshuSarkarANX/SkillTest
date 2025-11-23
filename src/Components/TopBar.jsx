@@ -70,7 +70,7 @@ const TopBar = () => {
                 : "justify-center col-start-2 col-span-3"
             } `}
           >
-            LearnSnap.in
+            skill.test
           </h1>
         )}
         {home ? (
