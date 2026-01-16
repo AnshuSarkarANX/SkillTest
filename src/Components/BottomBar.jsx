@@ -18,7 +18,7 @@ const BottomBar = () => {
         <RiHome6Line className="text-[20px]" />
         <p className="H-10">Home</p>
       </NavLink>
-      <NavLink
+      {/*<NavLink
         to="/resources"
         className={({ isActive }) =>
           `flex flex-col justify-center items-center rounded-[10px] p-[10px] w-full transition-all duration-300 ${
@@ -28,7 +28,7 @@ const BottomBar = () => {
       >
         <GoFileDirectory className="text-[20px]" />
         <p className="H-10">Resources</p>
-      </NavLink>
+      </NavLink>*/}
       <NavLink
         to="/profile"
         className={({ isActive }) =>
