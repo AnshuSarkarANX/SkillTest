@@ -128,15 +128,17 @@ function App() {
           <Button text="View More" onClick={() => navigate("/skills")} />
         </div>
       </div>
-      {/*Resources*/}
-      <div className="px-[20px] space-y-[20px]">
+      {/*Resources
+        
+        
+         <div className="px-[20px] space-y-[20px]">
         <div className="H-18 font-bold ">Resources</div>
         <div className="flex flex-col gap-[20px]">
           {resources.map((resource, index) => (
             <ResourceCard key={index} data={resource} />
           ))}
         </div>
-      </div>
+      </div>*/}
     </div>
   );
 }
