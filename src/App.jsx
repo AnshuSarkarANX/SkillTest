@@ -89,7 +89,7 @@ function App() {
         <div className="H-26 font-bold ">
           Welcome, {userDetails ? userDetails?.fullName : ""}
           <br />
-          Get Certificate By Skillset
+          Get your skills tested by <p className="text-primary">SkillTest</p>
         </div>
         <div className="flex items-center gap-[10px] mt-[20px]">
           <input

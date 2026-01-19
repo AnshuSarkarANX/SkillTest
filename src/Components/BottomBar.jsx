@@ -6,7 +6,7 @@ import { PiMedal } from "react-icons/pi";
 
 const BottomBar = () => {
   return (
-    <div className="bg-white sticky bottom-0 grid grid-cols-3 items-center py-[10px] px-[20px] font-bold H-10 rounded-t-[20px] place-items-center gap-[10px]">
+    <div className="bg-white sticky bottom-0 grid grid-cols-2 items-center py-[10px] px-[20px] font-bold H-10 rounded-t-[20px] place-items-center gap-[10px]">
       <NavLink
         to="/"
         className={({ isActive }) =>
@@ -41,7 +41,7 @@ const BottomBar = () => {
 
         <p className="H-10">Profile</p>
       </NavLink>
-      <NavLink
+      {/*<NavLink
         to="/certificates"
         className={({ isActive }) =>
           `flex flex-col justify-center items-center rounded-[10px] p-[10px] w-full transition-all duration-300 ${
@@ -51,7 +51,7 @@ const BottomBar = () => {
       >
         <PiMedal className="text-[20px]" />
         <p className="H-10">Certificates</p>
-      </NavLink>
+      </NavLink>*/}
     </div>
   );
 }
