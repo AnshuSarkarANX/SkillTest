@@ -6,31 +6,31 @@ const SelectLevel = () => {
 
     const levels = [
       {
-        level: "Beginner",
+        level: "0-1 Years",
         title: "Kickstart Your Journey",
         description:
           "Choose your preferred domain or specialization to get started with the right certification track. Start your path to success! Choose a course, take your first lesson, and move closer to earning your professional certificate.",
       },
       {
-        level: "Intermediate",
+        level: "1-3 Years",
         title: "Level Up Your Skills",
         description:
           "Build on your foundation with advanced concepts and practical applications. Dive deeper into specialized topics and enhance your expertise with hands-on projects and real-world scenarios.",
       },
       {
-        level: "Advanced",
+        level: "3-5 Years",
         title: "Master Your Craft",
         description:
           "Become an expert in your field with cutting-edge techniques and industry best practices. Take on complex challenges and prepare yourself for leadership roles in your domain.",
       },
       {
-        level: "Expert",
+        level: "5-10 Years",
         title: "Specialize and Excel",
         description:
           "Focus on niche areas and become a sought-after specialist. Master advanced tools, frameworks, and methodologies that set you apart in the competitive landscape.",
       },
       {
-        level: "Specialist",
+        level: " > 10 Year",
         title: "Specialize and Excel",
         description:
           "Focus on niche areas and become a sought-after specialist. Master advanced tools, frameworks, and methodologies that set you apart in the competitive landscape.",

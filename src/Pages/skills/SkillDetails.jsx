@@ -65,17 +65,18 @@ const SkillDetails = () => {
         </div>
       </div>
 
-      {/**Related Resources*/}
-      <div className="space-y-[15px]">
+      {/**Related Resources
+        
+        <div className="space-y-[15px]">
         <div className="H-18 font-bold ">Resources</div>
         <div className="flex flex-col gap-[15px]">
           {relatedRes.map((resource, index) => (
             <ResourceCard key={index} data={resource} />
           ))}
         </div>
-      </div>
+      </div>*/}
 
-      <Button text="Earn A Certificate" onClick={() => navigate("/process")} />
+      <Button text="Start Test" onClick={() => navigate("/process")} />
     </div>
   );
 }
