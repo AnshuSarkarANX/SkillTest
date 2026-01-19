@@ -11,29 +11,19 @@ const BottomBar = () => {
         to="/"
         className={({ isActive }) =>
           `flex flex-col justify-center items-center p-[10px] rounded-[10px] w-full transition-all duration-300 ${
-            isActive ? "bg-secondary text-primary" : ""
+            isActive ? "bg-background text-primary" : ""
           }`
         }
       >
         <RiHome6Line className="text-[20px]" />
         <p className="H-10">Home</p>
       </NavLink>
-      {/*<NavLink
-        to="/resources"
-        className={({ isActive }) =>
-          `flex flex-col justify-center items-center rounded-[10px] p-[10px] w-full transition-all duration-300 ${
-            isActive ? "bg-secondary text-primary" : ""
-          }`
-        }
-      >
-        <GoFileDirectory className="text-[20px]" />
-        <p className="H-10">Resources</p>
-      </NavLink>*/}
+    
       <NavLink
         to="/profile"
         className={({ isActive }) =>
           `flex flex-col justify-center items-center rounded-[10px] p-[10px] w-full transition-all duration-300 ${
-            isActive ? "bg-secondary text-primary" : ""
+            isActive ? "bg-bg text-primary" : ""
           }`
         }
       >
@@ -41,17 +31,6 @@ const BottomBar = () => {
 
         <p className="H-10">Profile</p>
       </NavLink>
-      {/*<NavLink
-        to="/certificates"
-        className={({ isActive }) =>
-          `flex flex-col justify-center items-center rounded-[10px] p-[10px] w-full transition-all duration-300 ${
-            isActive ? "bg-secondary text-primary" : ""
-          }`
-        }
-      >
-        <PiMedal className="text-[20px]" />
-        <p className="H-10">Certificates</p>
-      </NavLink>*/}
     </div>
   );
 }

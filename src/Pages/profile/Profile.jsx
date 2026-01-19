@@ -26,7 +26,7 @@ const Profile = () => {
   } = JSON.parse(localStorage.getItem("userDetails")) || {};
   return (
     <>
-      <div className="rounded-[20px] bg-[linear-gradient(360deg,_rgba(152,74,217,0.81)_0%,_rgba(152,74,217,0.624046)_17.73%,_rgba(152,74,217,0.479094)_39.49%,_rgba(152,74,217,0.304639)_66.28%,_rgba(152,74,217,0.09)_100%)] p-6 flex flex-col items-center">
+      <div className="rounded-[20px] bg-[linear-gradient(360deg,_rgba(255,109,31,0.81)_0%,_rgba(255,109,31,0.624046)_17.73%,_rgba(255,109,31,0.479094)_39.49%,_rgba(255,109,31,0.304639)_66.28%,_rgba(255,109,31,0.09)_100%)] p-6 flex flex-col items-center">
         <ProfileAvatar name={fullName} />
         <p className="font-bold mt-[15px] text-white H-26">{fullName}</p>
         <div className="flex justify-around mt-[20px] gap-[20px] text-white">

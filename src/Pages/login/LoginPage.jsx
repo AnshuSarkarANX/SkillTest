@@ -28,11 +28,6 @@ const LoginPage = () => {
     setError("");
   };
 
-  const handleContactTypeChange = (type) => {
-    setContactType(type);
-    setContact("");
-    setError("");
-  };
   const handleRequestOTP = useCallback(
     async (e) => {
       e.preventDefault();
@@ -64,8 +59,8 @@ const LoginPage = () => {
       />
       <div className=" p-[20px] mt-[20px] rounded-[10px]  ">
         <div className="flex flex-col gap-[20px]">
-          {/* Contact Type Toggle */}
-          <div className=" flex smallShadow rounded-[10px] H-16 p-[10px]  font-bold gap-[10px] bg-white opacity-30">
+          {/* Contact Type Toggle 
+            <div className=" flex smallShadow rounded-[10px] H-16 p-[10px]  font-bold gap-[10px] bg-white opacity-30">
             <div
               onClick={() => {
                 // handleContactTypeChange("email")
@@ -90,36 +85,11 @@ const LoginPage = () => {
             >
               Mobile
             </div>
-          </div>
+          </div>*/}
 
           {/* Input Field */}
           <div className="">
-            {contactType === "mobile" && (
-              <div>
-                <div>
-                  <h1 className="mb-[8px] text-text2 font-bold">
-                    Enter your mobile number
-                  </h1>
-                </div>
-                <div className="flex gap-[5px] items-center w-full">
-                  <CustomCountrySelect
-                    countryCode={countryCode}
-                    getCountry={setCountryCode}
-                    login={true}
-                  />
-                  <input
-                    type="number"
-                    min="0"
-                    className=" w-full no-arrows flex-1 smallShadow rounded-r-lg p-[18px] focus:outline-none focus:ring-2 focus:ring-CTA bg-white"
-                    ref={numberInput}
-                    value={contact}
-                    onChange={handleNumberChange}
-                    placeholder="Enter your mobile"
-                  />
-                </div>
-              </div>
-            )}
-            {contactType === "email" && (
+
               <div>
                 <div>
                   <h1 className="mb-[8px] text-text2 font-bold ">
@@ -131,12 +101,12 @@ const LoginPage = () => {
                   className="w-full bg-white smallShadow rounded-lg p-[18px] focus:outline-none focus:ring-2 focus:ring-CTA"
                   value={email}
                   onChange={handleEmailChange}
-                  placeholder="Enter your email address"
+                  placeholder="abc@email.com"
                 />
 
                 {error && <p className="text-red-500 H-14 mt-2">{error}</p>}
               </div>
-            )}
+
           </div>
 
           {/* Submit Button */}

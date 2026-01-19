@@ -112,7 +112,7 @@ const AppLayout = () => {
 
   }, [routerLocation.pathname]);
   return (
-    <div className="max-w-[600px] mx-auto relative">
+    <div className="max-w-[840px] mx-auto relative">
       <TopBar />
       <div className={`min-h-screen ${usePadding.isActive ? "px-[20px]" : ""}`}>
         <Outlet />

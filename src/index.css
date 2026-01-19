@@ -27,8 +27,8 @@
     --secondary:#F5E7C6;
     --light-purple: #F5E7C6;
     --cta: #FF6D1F;
-    --bg: #F5E7C6;
-    --white: #FAF3E1;
+    --white: rgba(245, 231, 198,1);
+    --background: #FAF3E1;
     --text: #222222;
     --text2: #666699;
   }
@@ -42,7 +42,7 @@
 
   body {
     font-family: var(--font-body);
-    background-color: var(--bg);
+    background-color: var(--background);
     color: var(--text);
   }
 

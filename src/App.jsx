@@ -94,7 +94,7 @@ function App() {
         <div className="flex items-center gap-[10px] mt-[20px]">
           <input
             type="text"
-            placeholder="You can search certificate by skills"
+            placeholder="You can search by skills"
             className="w-full h-[40px]  px-[25px] rounded-[10px] bg-white py-[25px] focus:outline-none focus:ring-background focus:ring-2 text-text"
           />
           <button className="p-[12px] rounded-[10px]  bg-white">
@@ -105,8 +105,7 @@ function App() {
       {/*Skills*/}
       <div className="px-[20px] space-y-[20px]">
         <div className="H-18 font-bold ">
-          Choose A Skill For Earning
-          <br />A Certificate
+          Choose a skill to start the test
         </div>
 
         <div className="grid grid-cols-3 gap-[10px]  w-full">
