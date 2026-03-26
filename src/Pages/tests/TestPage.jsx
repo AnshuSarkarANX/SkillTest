@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 
 const TestPage = () => {
     const test = JSON.parse(sessionStorage.getItem("generatedTest"));
-    const time = (test.statistics.total_questions - 5) * 2;
+    const time = (test?.statistics?.total_questions - 5) * 2;
     console.log(time);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isSubmitPop, setIsSubmitPop] = useState(false);
