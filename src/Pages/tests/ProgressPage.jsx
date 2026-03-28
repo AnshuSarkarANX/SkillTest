@@ -7,7 +7,7 @@ const ProgressPage = () => {
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    sessionStorage.clear();
+    
   };
   return (
     <div className="space-y-[30px]">

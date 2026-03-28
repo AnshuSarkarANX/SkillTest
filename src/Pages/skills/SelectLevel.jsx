@@ -6,31 +6,25 @@ const SelectLevel = () => {
 
     const levels = [
       {
-        level: "0-1 Years",
+        level: "Beginner",
         title: "Kickstart Your Journey",
         description:
           "Choose your preferred domain or specialization to get started with the right certification track. Start your path to success! Choose a course, take your first lesson, and move closer to earning your professional certificate.",
       },
       {
-        level: "1-3 Years",
+        level: "Intermediate",
         title: "Level Up Your Skills",
         description:
           "Build on your foundation with advanced concepts and practical applications. Dive deeper into specialized topics and enhance your expertise with hands-on projects and real-world scenarios.",
       },
       {
-        level: "3-5 Years",
+        level: "Advanced",
         title: "Master Your Craft",
         description:
           "Become an expert in your field with cutting-edge techniques and industry best practices. Take on complex challenges and prepare yourself for leadership roles in your domain.",
       },
       {
-        level: "5-10 Years",
-        title: "Specialize and Excel",
-        description:
-          "Focus on niche areas and become a sought-after specialist. Master advanced tools, frameworks, and methodologies that set you apart in the competitive landscape.",
-      },
-      {
-        level: " > 10 Year",
+        level: "Expert",
         title: "Specialize and Excel",
         description:
           "Focus on niche areas and become a sought-after specialist. Master advanced tools, frameworks, and methodologies that set you apart in the competitive landscape.",
@@ -49,7 +43,7 @@ const SelectLevel = () => {
         Select A Level Of Category For A
         <br /> Certificate
       </h1>
-      <div className="bg-white rounded-[20px] smallShadow p-[20px] min-h-[300px]">
+      <div className="bg-white rounded-[20px] smallShadow p-[20px] h-fit">
         <div className="grid grid-cols-3 gap-6">
           {/* Left Side - Level Selection */}
           <div className="space-y-3">
