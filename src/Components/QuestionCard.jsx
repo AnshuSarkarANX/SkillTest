@@ -1,26 +1,18 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const QuestionCard = ({ allPage = false, propData, onSelectOption }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     // Check sessionStorage for response using questionSn
-
-    const testId = propData.testId || "";
-    const email = localStorage.getItem("email") || "";
-    //const key = `${testId}_${email}`;
-
     const responsesData = JSON.parse(
-      sessionStorage.getItem("testResponses") || "[]"
+      sessionStorage.getItem("testResponses") || "[]",
     );
-    // const responses = responsesData[key] || [];
-    console.log("responses", responsesData);
     const responseObj = responsesData.find(
-      (r) => r.question_sn === propData.question_sn
+      (r) => r.question_sn === propData.question_sn,
     );
 
     if (responseObj && responseObj.answer) {
-      console.log("res obj", responseObj);
       setSelectedOption(responseObj.answer);
       // onSelectOption(responseObj.question_sn, JSON.parse(responseObj.answer));
     } else {

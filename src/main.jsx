@@ -144,14 +144,13 @@ const appRoute = createBrowserRouter([
   {
     path: "/otp",
     element: (
-        <div className="max-w-[600px] mx-auto">
-          <TopBar />
-          <div className="min-h-screen">
-            <OtpPage />
-          </div>
-          <Toaster />
+      <div className="max-w-[600px] mx-auto">
+        <TopBar />
+        <div className="min-h-screen">
+          <OtpPage />
         </div>
-
+        <Toaster />
+      </div>
     ),
   },
   // Protected Routes
@@ -167,7 +166,7 @@ const appRoute = createBrowserRouter([
         index: true,
         element: <App />,
       },
-      {path:"*",element:<App/>},
+      { path: "*", element: <App /> },
       {
         path: "/onboarding",
         element: <OnboardingPage />,
@@ -200,8 +199,8 @@ const appRoute = createBrowserRouter([
       { path: "/skill-test", element: <SkillTest /> },
       { path: "/test-instructions", element: <TestInstructions /> },
       { path: "/test", element: <TestPage /> },
-      { path:"/view-progress", element:<ProgressPage/>},
-      { path:"/all-questions", element:<AllQuestionsPage/>}
+      { path: "/view-progress", element: <ProgressPage /> },
+      { path: "/all-questions", element: <ProgressPage /> },
     ],
   },
 ]);

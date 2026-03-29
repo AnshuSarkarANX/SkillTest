@@ -27,8 +27,7 @@ const TestInstructions = () => {
   // Get data from localStorage
   const skill = sessionStorage.getItem("selectedSkill");
   const level = sessionStorage.getItem("selectedLevel");
-  const userDetails = JSON.parse(localStorage.getItem("userDetails")) || {};
-  const specialization = userDetails.specialization || "";
+  const userDetails = JSON.parse(localStorage.getItem("userDetails")) ;
   const qualification = userDetails.qualification || "";
 
   const handleStartTest = async () => {
@@ -51,7 +50,6 @@ const TestInstructions = () => {
       );
       url.searchParams.append("skill", skill);
       url.searchParams.append("level", level);
-      url.searchParams.append("specialization", specialization);
       url.searchParams.append("qualification", qualification);
 
       // Use fetch with GET request for SSE

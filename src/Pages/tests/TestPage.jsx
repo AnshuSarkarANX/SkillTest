@@ -5,6 +5,7 @@ import QuizPopup from "../../Components/QuizPopup";
 import Button from "../../Components/Button";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate } from "react-router";
+import { formatTime } from "../../hooks/SmallHooks";
 
 
 const TestPage = () => {
@@ -18,69 +19,6 @@ const TestPage = () => {
     const loading = false;
     const error = false;
     const [timeLeft, setTimeLeft] = useState(time * 60);
-    const questions = [
-      {
-        question_details: {
-          question_sn: 151,
-          question: "Test q2",
-          type: "mcq",
-          options: [
-            { option: "A2", option_id: 1 },
-            { option: "b", option_id: 2 },
-            { option: "c", option_id: 3 },
-            { option: "d", option_id: 4 },
-          ],
-          difficulty: null,
-          points: 10,
-        },
-      },
-      {
-        question_details: {
-          question_sn: 152,
-          question: "test q3",
-          type: "mcq",
-          options: [
-            { option: "a3", option_id: 1 },
-            { option: "b3", option_id: 2 },
-            { option: "c3", option_id: 3 },
-            { option: "d4", option_id: 4 },
-          ],
-          difficulty: null,
-          points: 10,
-        },
-      },
-      {
-        question_details: {
-          question_sn: 153,
-          question: "Test q4",
-          type: "text",
-          options: [
-            { option: "a4", option_id: 1 },
-            { option: "b4", option_id: 2 },
-            { option: "c4", option_id: 3 },
-            { option: "d4", option_id: 4 },
-          ],
-          difficulty: null,
-          points: 10,
-        },
-      },
-      {
-        question_details: {
-          question_sn: 150,
-          question: "test",
-          type: "mcq",
-          options: [
-            { option: "A", option_id: 1 },
-            { option: "B", option_id: 2 },
-            { option: "C", option_id: 3 },
-            { option: "D", option_id: 4 },
-          ],
-          difficulty: null,
-          points: 10,
-        },
-      },
-    ];
-
     const testId = sessionStorage.getItem("testId");
     const question = test.questions;
 
@@ -163,7 +101,7 @@ const TestPage = () => {
             // Update existing question with answer
             return {
               question_sn: questionSn,
-              answer: JSON.stringify(optionId),
+              optionId,
               type: type,
             };
           }
@@ -189,13 +127,7 @@ const TestPage = () => {
     const userId = 56;
     const quizSn = 675;
 
-    const formatTime = (seconds) => {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      return `${minutes}:${
-        remainingSeconds < 10 ? "0" : ""
-      }${remainingSeconds}`;
-    };
+    
 
     const [currentQuestion, setCurrentQuestion] = useState(
       parseInt(sessionStorage.getItem("currentQuestion")) || 0
@@ -251,6 +183,7 @@ const TestPage = () => {
                 propData={question[currentQuestion]?.question_details}
                 onSelectOption={handleOptionSelect}
               />
+              
             </div>
 
             {/* Navigation Buttons at the bottom */}

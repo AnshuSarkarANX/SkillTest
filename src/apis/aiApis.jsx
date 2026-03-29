@@ -20,3 +20,17 @@ export const generateSkills = async () => {
     );
   }
 };
+
+export const evaluateAnswers = async (payload) => {
+  try {
+    const response = axios.post(`${API_URL}/api/ai/evaluate-text-answers`, {
+      ...payload,
+    });
+    return (await response).data;
+
+  } catch (error) {
+     throw new Error(
+       error.response?.data?.error || "Evaluation failed",
+     );
+  }  
+}

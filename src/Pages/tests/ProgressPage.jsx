@@ -1,57 +1,160 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import Button from "../../Components/Button";
+import { getMcqPoints, textEvaluationPayload } from "../../hooks/Points";
+import { useEffect, useState } from "react";
+import { formatTime } from "../../hooks/SmallHooks";
+import QuizTimer from "../../Components/QuizTimer";
+import QuestionCard from "../../Components/QuestionCard";
+import { evaluateAnswers } from "../../apis/aiApis";
+import toast from "react-hot-toast";
 
 const ProgressPage = () => {
-  const responses = JSON.parse(sessionStorage.getItem("testResponses") || "[]");
-  console.log("responses", responses);
-  const navigate = useNavigate();
+  const storedResponses = JSON.parse(
+    sessionStorage.getItem("testResponses") || "[]",
+  );
 
-  const handleSubmit = () => {
-    
+  const [responses, setResponses] = useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname.slice(1));
+  const testId = sessionStorage.getItem("testId");
+  const userId = JSON.parse(localStorage.getItem("userDetails"))._id;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const questions = JSON.parse(sessionStorage.getItem("generatedTest") || "{}");
+  const time = (questions?.statistics?.total_questions - 5) * 2;
+
+  const handleSubmit = async () => {
+    const mcqPoints = getMcqPoints(responses, questions.questions);
+    const textPayload = textEvaluationPayload(
+      responses,
+      questions.questions,
+      userId,
+      testId,
+    );
+    console.log("mcq:",mcqPoints)
+    console.log("payload",textPayload)
+    setLoading(true)
+    try {
+      const response = await evaluateAnswers(textPayload);
+      console.log("response from text eval:", response);
+      toast.success("Result  generated!")
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Initialize testResponses with all questions on mount
+  useEffect(() => {
+    const storedResponses = sessionStorage.getItem("testResponses");
+
+    if (!storedResponses) {
+      // Initialize with all questions, no answers
+      const initialResponses = questions.questions.map((q) => ({
+        question_sn: q.question_details.question_sn,
+        type: q.question_details.type,
+      }));
+
+      sessionStorage.setItem("testResponses", JSON.stringify(initialResponses));
+      setResponses(initialResponses);
+    } else {
+      // Load existing responses from sessionStorage
+      setResponses(JSON.parse(storedResponses));
+    }
+  }, []); // Empty dependency array - runs once on mount
+  const handleOptionSelect = (questionSn, optionId, type) => {
+    setResponses((prevResponses) => {
+      const updatedResponses = prevResponses.map((res) => {
+        if (res.question_sn === questionSn) {
+          // Update existing question with answer
+          return {
+            question_sn: questionSn,
+            answer: optionId,
+            type: type,
+          };
+        }
+        return res;
+      });
+
+      // Store in sessionStorage
+      sessionStorage.setItem("testResponses", JSON.stringify(updatedResponses));
+      console.log("this is called! (handleOptionSelect)");
+      return updatedResponses;
+    });
   };
   return (
-    <div className="space-y-[30px]">
-      <div>
-        <p className="H-14 mb-2 text-primary font-bold">Checking for Preview</p>
-      </div>
+    <div className="space-y-[30px] mb-[30px]">
+      {location.pathname.slice(1) === "view-progress" ? (
+        <>
+          <div>
+            <p className="H-14 mb-2 text-primary font-bold">
+              Checking for Preview
+            </p>
+          </div>
 
-      <div className="smallShadow bg-white rounded-[20px] p-[20px]">
-        <h1 className="font-bold H-20 mb-[15px] ">Preview</h1>
+          <div className="smallShadow bg-white rounded-[20px] p-[20px]">
+            <h1 className="font-bold H-20 mb-[15px] ">Preview</h1>
 
-        <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-5 gap-[10px] ">
-          {responses.map((item, index) => (
-            <div
-              key={index}
-              className={`smallShadow border   font-bold ${
-                item.answer
-                  ? "bg-secondary/80 text-primary border-primary"
-                  : "text-text2/30 border-text2/30"
-              } rounded-[10px]  w-[85px] h-[28px] H-10 flex items-center justify-center`}
-              onClick={() => {
-                sessionStorage.setItem("currentQuestion", item.question_sn - 1);
-                navigate(-1);
-              }}
-            >
-              <span className="">
-                {item.question_sn}
-                <span className="">
-                  .{" "}
-                  {item.type === "mcq"
-                    ? item.type.toUpperCase()
-                    : item.type[0].toUpperCase() + item.type.slice(1)}
-                </span>
-              </span>
+            <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-5 gap-[10px] ">
+              {storedResponses.map((item, index) => (
+                <div
+                  key={index}
+                  className={`smallShadow border   font-bold ${
+                    item.answer
+                      ? "bg-secondary/80 text-primary border-primary"
+                      : "text-text2/30 border-text2/30"
+                  } rounded-[10px]  w-[85px] h-[28px] H-10 flex items-center justify-center`}
+                  onClick={() => {
+                    sessionStorage.setItem(
+                      "currentQuestion",
+                      item.question_sn - 1,
+                    );
+                    navigate(-1);
+                  }}
+                >
+                  <span className="">
+                    {item.question_sn}
+                    <span className="">
+                      .{" "}
+                      {item.type === "mcq"
+                        ? item.type.toUpperCase()
+                        : item.type[0].toUpperCase() + item.type.slice(1)}
+                    </span>
+                  </span>
+                </div>
+              ))}
             </div>
+          </div>
+          <div className="space-y-[10px]">
+            <Button
+              color={"white"}
+              text={"View All Questions"}
+              onClick={() => navigate("/all-questions")}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="w-full flex justify-between items-center">
+            <h1 className="font-bold text-primary">All Questions</h1>
+            <QuizTimer durationInMinutes={time} />
+          </div>
+
+          {questions.questions.map((q) => (
+            <QuestionCard
+              allPage={true}
+              key={q.question_details.question_sn}
+              index={q.question_details.question_sn}
+              propData={q.question_details}
+              onSelectOption={handleOptionSelect}
+            />
           ))}
-        </div>
-      </div>
-      <div className="space-y-[10px]">
-        <Button
-          color={"white"}
-          text={"View All Questions"}
-          onClick={() => navigate("/all-questions")}
-        />
-        <Button text={"Submit"} onClick={handleSubmit} />
+        </>
+      )}
+      <div className="mt-[-10px]">
+        <Button text={"Submit"} onClick={handleSubmit} loading={loading} disabled={loading}/>
       </div>
     </div>
   );
