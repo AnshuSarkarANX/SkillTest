@@ -2,7 +2,6 @@ import { useLocation, useNavigate } from "react-router";
 import Button from "../../Components/Button";
 import { getMcqPoints, textEvaluationPayload } from "../../hooks/Points";
 import { useEffect, useState } from "react";
-import { formatTime } from "../../hooks/SmallHooks";
 import QuizTimer from "../../Components/QuizTimer";
 import QuestionCard from "../../Components/QuestionCard";
 import { evaluateAnswers } from "../../apis/aiApis";
@@ -24,6 +23,7 @@ const ProgressPage = () => {
   const questions = JSON.parse(sessionStorage.getItem("generatedTest") || "{}");
   const time = (questions?.statistics?.total_questions - 5) * 2;
 
+  // handleSubmit
   const handleSubmit = async () => {
     const mcqPoints = getMcqPoints(responses, questions.questions);
     const textPayload = textEvaluationPayload(
@@ -32,18 +32,53 @@ const ProgressPage = () => {
       userId,
       testId,
     );
-    console.log("mcq:",mcqPoints)
-    console.log("payload",textPayload)
-    setLoading(true)
-    try {
-      const response = await evaluateAnswers(textPayload);
-      console.log("response from text eval:", response);
-      toast.success("Result  generated!")
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
+
+    console.log("mcq:", mcqPoints);
+    console.log("payload", textPayload);
+
+    // Start building the result object
+    const testResult = {
+      ...questions, // spread the full generated test
+      mcq_results: mcqPoints, // add mcq results
+      text_results: null, // placeholder
+      total_score: mcqPoints.total_earned,
+      total_possible: mcqPoints.total_possible,
+    };
+
+    if (textPayload) {
+      setLoading(true);
+      try {
+        const response = await evaluateAnswers(textPayload);
+        console.log("response from text eval:", response);
+
+        const textScore = parseInt(
+          response.evaluation_summary.total_text_score,
+        );
+        testResult.text_results = response;
+        testResult.total_score += textScore;
+        testResult.total_possible +=
+          response.evaluation_summary.total_max_score;
+
+        console.log("total score", testResult.total_score);
+        toast.success("Result generated!");
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
     }
+
+    // Calculate overall percentage
+    testResult.overall_percentage =
+      testResult.total_possible > 0
+        ? Math.round((testResult.total_score / testResult.total_possible) * 100)
+        : 0;
+
+    // Save to sessionStorage
+    sessionStorage.setItem("testResult", JSON.stringify(testResult));
+    console.log("testResult saved:", testResult);
+
+    navigate("/result");
   };
 
   // Initialize testResponses with all questions on mount
@@ -154,10 +189,15 @@ const ProgressPage = () => {
         </>
       )}
       <div className="mt-[-10px]">
-        <Button text={"Submit"} onClick={handleSubmit} loading={loading} disabled={loading}/>
+        <Button
+          text={"Submit"}
+          onClick={handleSubmit}
+          loading={loading}
+          disabled={loading}
+        />
       </div>
     </div>
   );
-};
+};;
 
 export default ProgressPage;

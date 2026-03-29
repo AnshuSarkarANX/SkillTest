@@ -1,4 +1,3 @@
-// components/QuizTimer.jsx
 import { useEffect, useState } from "react";
 import { FaRegClock } from "react-icons/fa";
 import { formatTime } from "../hooks/SmallHooks";

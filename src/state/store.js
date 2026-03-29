@@ -24,7 +24,4 @@ const padding = create ((set) => ({
   setActive: (isActive) => set({ isActive }),
 }))
 
-
-
-
 export { bottomBar, topBar,padding };
