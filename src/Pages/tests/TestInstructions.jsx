@@ -4,33 +4,35 @@ import Button from "../../Components/Button";
 
 const TestInstructions = () => {
   const instructions = [
-    "Ensure a stable internet connection during the exam.",
-    "Do not refresh or close the exam window once started.",
-    "Follow the time limit strictly—no extra time will be given.",
-    "Maintain academic honesty (no external help allowed).",
+    "Make sure your internet is stable — we don’t want any surprise disconnect drama.",
+    "Once the test starts, no refreshing or closing the tab (stay with us).",
+    "Keep an eye on the timer — it won’t wait for anyone.",
+    "Play fair! No Googling, no asking friends… this one’s all you.",
   ];
-  
+
   const navigate = useNavigate();
-  
+
   // State management
   const [isGenerating, setIsGenerating] = useState(false);
   const [progress, setProgress] = useState(0);
   const [statusMessage, setStatusMessage] = useState("");
-  const [generatedTest, setGeneratedTest] = useState(null);
+  const [generatedTest, setGeneratedTest] = useState(
+    JSON.parse(sessionStorage.getItem("generatedTest")),
+  );
   const [error, setError] = useState(null);
   const [testInfo, setTestInfo] = useState({
     timeAlloted: 0,
     totalQuestions: 0,
-    totalMarks: 0
+    totalMarks: 0,
   });
 
   // Get data from localStorage
   const skill = sessionStorage.getItem("selectedSkill");
   const level = sessionStorage.getItem("selectedLevel");
-  const userDetails = JSON.parse(localStorage.getItem("userDetails")) ;
+  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
   const qualification = userDetails.qualification || "";
 
-  const handleStartTest = async () => {
+  const generateTest = async () => {
     if (!skill || !level) {
       setError("Skill and level are required. Please go back and select them.");
       return;
@@ -44,9 +46,7 @@ const TestInstructions = () => {
     try {
       // Build URL with query parameters
       const url = new URL(
-        `${
-          import.meta.env.VITE_API_BASE_URL
-        }/api/ai/generate-questions`
+        `${import.meta.env.VITE_API_BASE_URL}/api/ai/generate-questions`,
       );
       url.searchParams.append("skill", skill);
       url.searchParams.append("level", level);
@@ -54,10 +54,10 @@ const TestInstructions = () => {
 
       // Use fetch with GET request for SSE
       const response = await fetch(url.toString(), {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Accept': 'text/event-stream',
-        }
+          Accept: "text/event-stream",
+        },
       });
 
       if (!response.ok) {
@@ -67,12 +67,12 @@ const TestInstructions = () => {
       // Get the readable stream
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      let buffer = '';
+      let buffer = "";
 
       // Read the stream
       while (true) {
         const { done, value } = await reader.read();
-        
+
         if (done) {
           setIsGenerating(false);
           break;
@@ -80,76 +80,90 @@ const TestInstructions = () => {
 
         // Decode the chunk
         buffer += decoder.decode(value, { stream: true });
-        
+
         // Split by double newlines (SSE message separator)
-        const messages = buffer.split('\n\n');
-        buffer = messages.pop() || ''; // Keep incomplete message in buffer
+        const messages = buffer.split("\n\n");
+        buffer = messages.pop() || ""; // Keep incomplete message in buffer
 
         // Process each complete message
         for (const message of messages) {
-          if (message.startsWith('data: ')) {
+          if (message.startsWith("data: ")) {
             try {
               const data = JSON.parse(message.slice(6)); // Remove "data: " prefix
-              
+
               switch (data.type) {
-                case 'started':
-                  setStatusMessage(`Starting: ${data.totalQuestions} questions in ${data.totalBatches} batches`);
-                 
+                case "started":
+                  setStatusMessage(
+                    `Starting: ${data.totalQuestions} questions in ${data.totalBatches} batches`,
+                  );
+
                   break;
-                  
-                case 'batch_start':
+
+                case "batch_start":
                   setStatusMessage(data.message);
                   setProgress(data.progress);
                   break;
-                  
-                case 'batch_complete':
+
+                case "batch_complete":
                   setStatusMessage(data.message);
                   setProgress(data.progress);
-                  console.log(`Batch ${data.batch}/${data.totalBatches} complete`);
+                  console.log(
+                    `Batch ${data.batch}/${data.totalBatches} complete`,
+                  );
                   break;
-                  
-                case 'complete':
-                  setStatusMessage('Test generation complete!');
+
+                case "complete":
+                  setStatusMessage("Test generation complete!");
                   setProgress(100);
                   setGeneratedTest(data.data);
                   setTestInfo({
-                    timeAlloted: (data.data.total_questions - 5) *2,
+                    timeAlloted: (data.data.total_questions - 5) * 2,
                     totalQuestions: data.data.total_questions,
-                    totalMarks: data.data.statistics.total_marks
+                    totalMarks: data.data.statistics.total_marks,
                   });
-                  
+
                   // Store test in localStorage for the test page
-                  sessionStorage.setItem('generatedTest', JSON.stringify(data.data));
-                  sessionStorage.setItem('testId', data.data.test_id);
-                  
-                  console.log('✅ Test generated successfully:', data.data);
-                  
-                // Auto-navigate to test page after 1.5 seconds
-                  
+                  sessionStorage.setItem(
+                    "generatedTest",
+                    JSON.stringify(data.data),
+                  );
+                  sessionStorage.setItem("testId", data.data.test_id);
+
+                  console.log("✅ Test generated successfully:", data.data);
+
+                  // Auto-navigate to test page after 1.5 seconds
+
                   break;
-                  
-                case 'error':
+
+                case "error":
                   setError(data.message);
                   setIsGenerating(false);
-                  console.error('❌ Generation error:', data.message);
+                  console.error("❌ Generation error:", data.message);
                   break;
               }
             } catch (parseError) {
-              console.warn('Failed to parse SSE message:', message, parseError);
+              console.warn("Failed to parse SSE message:", message, parseError);
             }
           }
         }
       }
-
     } catch (error) {
-      console.error('Failed to generate test:', error);
+      console.error("Failed to generate test:", error);
       setError(`Failed to generate test: ${error.message}`);
       setIsGenerating(false);
     }
   };
   useEffect(() => {
-    if(!generatedTest){  handleStartTest();}
-  
+    if (!generatedTest) {
+      generateTest();
+    } else {
+      console.log(generatedTest);
+      setTestInfo({
+        timeAlloted: (generatedTest.total_questions - 5) * 2,
+        totalQuestions: generatedTest.total_questions,
+        totalMarks: generatedTest.statistics.total_marks,
+      });
+    }
   }, [generatedTest]);
   
 

@@ -4,7 +4,6 @@ import Button from "../../Components/Button";
 
 const Skills = () => {
   const [selectedIndex, setSelectedIndex] = useState(null);
-
   const skills = [
     { label: "React", image: "/assets/reactImage.svg" },
     { label: "Node js", image: "/assets/nodeImage.svg" },
@@ -18,7 +17,7 @@ const Skills = () => {
     <div>
       <div className="space-y-[20px]">
         <div className="H-18 font-bold">
-          Select a Skill for a best certification
+          Select a skill to start the test
         </div>
         <div className="grid grid-cols-3 gap-[10px] w-full">
           {skills.map((skill, index) => (

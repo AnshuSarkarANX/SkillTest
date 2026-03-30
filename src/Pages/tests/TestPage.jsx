@@ -5,13 +5,12 @@ import QuizPopup from "../../Components/QuizPopup";
 import Button from "../../Components/Button";
 import { MdArrowBackIosNew } from "react-icons/md";
 import { useNavigate } from "react-router";
-import { formatTime } from "../../hooks/SmallHooks";
+import QuizTimer from "../../Components/QuizTimer";
 
 
 const TestPage = () => {
     const test = JSON.parse(sessionStorage.getItem("generatedTest"));
     const time = (test?.statistics?.total_questions - 5) * 2;
-    console.log(time);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isSubmitPop, setIsSubmitPop] = useState(false);
     const [isTimeUp, setIsTimeUp] = useState(false);
@@ -44,46 +43,7 @@ const TestPage = () => {
       }
     }, []); // Empty dependency array - runs once on mount
 
-    useEffect(() => {
-      const startNewQuiz = () => {
-        const quizDuration = Number(time) * 60;
-        localStorage.setItem("quizStartTime", Date.now());
-        setTimeLeft(quizDuration);
-      };
 
-      const quizInitTime = localStorage.getItem("quizStartTime");
-
-      if (!quizInitTime) {
-        startNewQuiz();
-      } else {
-        const elapsedTime = Math.floor(
-          (Date.now() - Number(quizInitTime)) / 1000
-        );
-        setTimeLeft(Math.max(Number(time) * 60 - elapsedTime, 0));
-      }
-    }, [time]);
-
-    useEffect(() => {
-      if (timeLeft <= 0) {
-        openTimeupPopup();
-        return;
-      }
-
-      const timer = setInterval(() => {
-        setTimeLeft((prevTime) => {
-          if (prevTime <= 1) {
-            clearInterval(timer);
-            openTimeupPopup();
-            return 0;
-          }
-          return prevTime - 1;
-        });
-      }, 1000);
-
-      return () => {
-        clearInterval(timer);
-      };
-    }, [timeLeft]);
 
     const openTimeupPopup = () => {
       //setIsTimeUp(true);
@@ -101,7 +61,7 @@ const TestPage = () => {
             // Update existing question with answer
             return {
               question_sn: questionSn,
-              optionId,
+              answer:optionId,
               type: type,
             };
           }
@@ -167,12 +127,7 @@ const TestPage = () => {
                   Questions {currentQuestion + 1} of {totalQuestions}
                 </span>
               </div>
-              <div className="flex items-center gap-[5px] bg-[#EEDBFF]/60 py-[5px] px-[7px] rounded-full">
-                <FaRegClock className="text-primary text-[17px]" />
-                <h1 className="font-semibold H-12 text-Used text-primary">
-                  {formatTime(timeLeft)}
-                </h1>
-              </div>
+              <QuizTimer durationInMinutes={time} />
             </div>
 
             {/* Slider for single question */}

@@ -22,6 +22,7 @@ const ProgressPage = () => {
   const [error, setError] = useState("");
   const questions = JSON.parse(sessionStorage.getItem("generatedTest") || "{}");
   const time = (questions?.statistics?.total_questions - 5) * 2;
+  console.log("time",time)
 
   // handleSubmit
   const handleSubmit = async () => {
@@ -45,7 +46,8 @@ const ProgressPage = () => {
       total_possible: mcqPoints.total_possible,
     };
 
-    if (textPayload) {
+  console.log(textPayload);    
+    if (textPayload.text_responses.length > 0) {
       setLoading(true);
       try {
         const response = await evaluateAnswers(textPayload);
@@ -132,7 +134,7 @@ const ProgressPage = () => {
           <div className="smallShadow bg-white rounded-[20px] p-[20px]">
             <h1 className="font-bold H-20 mb-[15px] ">Preview</h1>
 
-            <div className="grid grid-cols-4 sm:grid-cols-4 md:grid-cols-5 gap-[10px] ">
+            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-[15px] ">
               {storedResponses.map((item, index) => (
                 <div
                   key={index}
@@ -140,7 +142,7 @@ const ProgressPage = () => {
                     item.answer
                       ? "bg-secondary/80 text-primary border-primary"
                       : "text-text2/30 border-text2/30"
-                  } rounded-[10px]  w-[85px] h-[28px] H-10 flex items-center justify-center`}
+                  } rounded-[10px]  w-full h-[28px] H-10 flex items-center justify-center`}
                   onClick={() => {
                     sessionStorage.setItem(
                       "currentQuestion",
@@ -174,7 +176,7 @@ const ProgressPage = () => {
         <>
           <div className="w-full flex justify-between items-center">
             <h1 className="font-bold text-primary">All Questions</h1>
-            <QuizTimer durationInMinutes={time} />
+            <QuizTimer durationInMinutes={time} submit={handleSubmit} />
           </div>
 
           {questions.questions.map((q) => (

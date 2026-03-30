@@ -3,47 +3,51 @@ import { IoIosArrowForward } from "react-icons/io";
 import Button from "../../Components/Button";
 import { useNavigate } from "react-router";
 const SelectLevel = () => {
-
-    const levels = [
-      {
-        level: "Beginner",
-        title: "Kickstart Your Journey",
-        description:
-          "Choose your preferred domain or specialization to get started with the right certification track. Start your path to success! Choose a course, take your first lesson, and move closer to earning your professional certificate.",
-      },
-      {
-        level: "Intermediate",
-        title: "Level Up Your Skills",
-        description:
-          "Build on your foundation with advanced concepts and practical applications. Dive deeper into specialized topics and enhance your expertise with hands-on projects and real-world scenarios.",
-      },
-      {
-        level: "Advanced",
-        title: "Master Your Craft",
-        description:
-          "Become an expert in your field with cutting-edge techniques and industry best practices. Take on complex challenges and prepare yourself for leadership roles in your domain.",
-      },
-      {
-        level: "Expert",
-        title: "Specialize and Excel",
-        description:
-          "Focus on niche areas and become a sought-after specialist. Master advanced tools, frameworks, and methodologies that set you apart in the competitive landscape.",
-      },
-    ];
-    const [selectedLevel, setSelectedLevel] = useState(0);
-    const navigate =useNavigate();
-    const handleContinue = useCallback(() => {
-     sessionStorage.setItem("selectedLevel", levels[selectedLevel].level);
-      console.log("Continue clicked");
-      navigate("/skill-test")
-    }, [selectedLevel]);
+  const levels = [
+    {
+      level: "Beginner",
+      title: "Start with the Basics",
+      description:
+        "Test your understanding of fundamental concepts. This level is ideal if you're just getting started or want to assess your basic knowledge in this skill.",
+    },
+    {
+      level: "Intermediate",
+      title: "Challenge Your Knowledge",
+      description:
+        "Evaluate your ability to apply core concepts in practical scenarios. This level is suited for those with some experience looking to test their problem-solving skills.",
+    },
+    {
+      level: "Advanced",
+      title: "Push Your Limits",
+      description:
+        "Assess your expertise with complex problems and in-depth concepts. This level is designed for experienced individuals confident in their understanding of the skill.",
+    },
+    {
+      level: "Expert",
+      title: "Prove Your Mastery",
+      description:
+        "Take on highly challenging questions that test deep knowledge and precision. This level is for professionals aiming to validate their top-tier expertise.",
+    },
+  ];
+  const [selectedLevel, setSelectedLevel] = useState(0);
+  const navigate = useNavigate();
+  const handleContinue = useCallback(() => {
+    sessionStorage.setItem("selectedLevel", levels[selectedLevel].level);
+    console.log("Continue clicked");
+    navigate("/test-instructions");
+  }, [selectedLevel]);
+  const skill = sessionStorage.getItem("selectedSkill");
   return (
     <div className="space-y-[30px]">
-      <h1 className="font-bold H-18 ">
-        Select A Level Of Category For A
-        <br /> Certificate
-      </h1>
+      <div className="w-full">
+        <h1 className="font-bold H-18 ">Select Level for {skill}</h1>
+      </div>
+
       <div className="bg-white rounded-[20px] smallShadow p-[20px] h-fit">
+        <p className="mb-[10px] H-10 opacity-55 text-nowrap">
+          <span> Tip: </span>Choose the level that best matches your current
+          skill
+        </p>
         <div className="grid grid-cols-3 gap-6">
           {/* Left Side - Level Selection */}
           <div className="space-y-3">

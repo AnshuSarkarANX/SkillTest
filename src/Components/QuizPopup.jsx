@@ -39,6 +39,7 @@ const QuizPopup = ({
     console.log("submitted")
   };
 
+
   useEffect(() => {
    
   }, [ navigate, sn, question?.quiz?.sn]);
@@ -54,13 +55,6 @@ const QuizPopup = ({
             <h2 className="H-20 font-manrope font-bold pb-[15px]">{data}</h2>
             <div className="grid">
               <h1 className="font-monorope font-normal H-16">{data2}</h1>
-              <button
-                onClick={handleSubmit}
-                className="w-full bg-CTA text-white rounded-[5px] h-fit font-manrope font-bold py-[10px] text-center mt-[15px]"
-                disabled={loading}
-              >
-                {loading ? "Submitting..." : "Submit"}
-              </button>
             </div>
           </>
         ) : (

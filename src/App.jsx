@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { bottomBar, topBar } from "./state/store";
+import { useEffect, useState } from "react";
+import { bottomBar } from "./state/store";
 import { CiSearch } from "react-icons/ci";
 import Button from "./Components/Button";
 import Specialization from "./Pages/onboarding/Specialization";
@@ -8,12 +8,11 @@ import { useNavigate } from "react-router";
 import { getProfile } from "./apis/userApis";
 import toast from "react-hot-toast";
 function App() {
-
   const useBottomBar = bottomBar((state) => state);
   const navigate = useNavigate();
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
   useEffect(() => {
-    
     useBottomBar.setActive(true);
   }, []);
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
@@ -39,7 +38,7 @@ function App() {
       specialization: "abc",
       likes: 2,
       postTime: "2023-01-01 19:25:03",
-      liked:true
+      liked: true,
     },
     {
       postedby: "name surname",
@@ -50,14 +49,12 @@ function App() {
       link: "https://youtu.be/KBbJy-jhsAA?si=mDyjvGDESNR_ADEc",
       specialization: "",
       likes: 2,
-      liked:false,
+      liked: false,
       postTime: "2023-12-06 19:25:03",
     },
   ];
 
-
   useEffect(() => {
-  
     const fetchProfile = async () => {
       const email = localStorage.getItem("email");
       const storedUserDetails = localStorage.getItem("userDetails");
@@ -80,7 +77,7 @@ function App() {
         console.error(error);
       }
     };
-+    fetchProfile();
+    +fetchProfile();
   }, []);
 
   return (
@@ -104,22 +101,28 @@ function App() {
       </div>
       {/*Skills*/}
       <div className="px-[20px] space-y-[20px]">
-        <div className="H-18 font-bold ">
-          Choose a skill to start the test
-        </div>
+        <div className="H-18 font-bold ">Choose a skill to start the test</div>
 
         <div className="grid grid-cols-3 gap-[10px]  w-full">
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="flex flex-col items-center gap-[5px] px-[10px] py-[15px] rounded-[10px] bg-white border border-white  smallShadow"
+              className={`flex flex-col items-center gap-[5px] px-[10px] py-[15px] rounded-[10px] bg-white border smallShadow ${
+                selectedIndex === index ? "border-primary" : "border-white"
+              }`}
+              onClick={() => {
+                (setSelectedIndex(index),
+                  sessionStorage.setItem("selectedSkill", skill.label));
+                setTimeout(() => navigate(`/skills/${skill.label}`), 200);
+              }}
+              style={{ cursor: "pointer" }}
             >
               <img
                 src={skill.image}
                 alt={skill.label}
                 className="w-[50px] h-[50px]"
               />
-              <p className="H-14 font-bold truncate">{skill.label}</p>
+              <p className="H-14 font-bold">{skill.label}</p>
             </div>
           ))}
         </div>
