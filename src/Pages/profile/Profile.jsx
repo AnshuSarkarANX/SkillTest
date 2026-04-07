@@ -4,6 +4,8 @@ import { CgProfile } from "react-icons/cg";
 import { formatDate } from "../../hooks/SmallHooks";
 import { Link } from "react-router";
 import Button from "../../Components/Button";
+import { RiSpeakAiLine } from "react-icons/ri";
+import { AiOutlineLaptop } from "react-icons/ai";
 
 export const ProfileAvatar = ({ name }) => (
   <Avatar
@@ -96,15 +98,17 @@ const Profile = () => {
           </div>
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
+          {/* Soft Skills - map */}
           {softSkills?.map((skill, index) => (
             <div
-              className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] "
+              className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px]"
               key={index}
             >
-              <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
-                <CgProfile className="text-primary text-[20px]" />
+              <div className="bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
+                <RiSpeakAiLine className="text-primary text-[20px]" />{" "}
+                {/* ← changed */}
               </div>
-              <p className="H-16 font-bold ">{skill}</p>
+              <p className="H-16 font-bold">{skill}</p>
             </div>
           ))}
         </div>
@@ -120,15 +124,17 @@ const Profile = () => {
           </div>
         </div>
         <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
+          {/* Tech Skills - map */}
           {techSkills?.map((skill, index) => (
             <div
-              className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] "
+              className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px]"
               key={index}
             >
-              <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
-                <CgProfile className="text-primary text-[20px]" />
+              <div className="bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
+                <AiOutlineLaptop className="text-primary text-[20px]" />{" "}
+                {/* ← changed */}
               </div>
-              <p className="H-16 font-bold ">{skill}</p>
+              <p className="H-16 font-bold">{skill}</p>
             </div>
           ))}
         </div>
