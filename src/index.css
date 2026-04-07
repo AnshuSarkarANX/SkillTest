@@ -22,18 +22,16 @@
 /* Define actual color values for different themes */
 @layer base {
   :root {
-    /* Light Theme (Default) */
-    --primary: #FF6D1F;
-    --secondary:#F5E7C6;
-    --light-purple: #F5E7C6;
-    --cta: #FF6D1F;
-    --white: rgba(245, 231, 198,1);
-    --background: #FAF3E1;
-    --text: #222222;
-    --text2: #666699;
+    /* Sunset Organic Theme - Mapping to your existing variables */
+    --primary: #FF6D1F;        /* Sunset Orange */
+    --secondary: #E8D5B5;      /* Grounded Cream */
+    --light-purple: #E8D5B5;   /* Mapping secondary to this variable to maintain consistency */
+    --cta: #FF6D1F;            /* Primary CTA */
+    --white: #FFFBF2;          /* Clean off-white */
+    --background: #FFFBF2;     /* Background */
+    --text: #2D241E;           /* Dark brown-black for legibility */
+    --text2: #5E7461;          /* Sage green accent for secondary text/highlights */
   }
-
- 
 
   /* Apply font families */
   h1, h2, h3, h4, h5, h6 {
@@ -45,7 +43,6 @@
     background-color: var(--background);
     color: var(--text);
   }
-
 }
 
 

@@ -115,9 +115,8 @@ const OtpPage = () => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails")) || "";
 
   useEffect(() => {
-    if (!email && !phone) {
+    if (!email) {
       console.log("email",email);
-      console.log("phone",phone);
       // navigate("/login");
     }
       else if (userDetails)  {
@@ -138,11 +137,10 @@ const OtpPage = () => {
 
       try {
         const response = await verifyOTP(
-          email || phone,
+          email,
           otpCode
         );
         if(email){localStorage.setItem("email",email);}
-        else if(phone){localStorage.setItem("phone",phone);}
 
         // Store user data in localStorage or state management
         if(response.user){

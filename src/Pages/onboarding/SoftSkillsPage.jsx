@@ -28,37 +28,38 @@ const SoftSkillsPage = () => {
      </div>
      <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
        <img
-         src="/assets/specializationImage.svg"
+         src="/assets/detailsImage.webp"
          alt="name"
-         className="w-[200px] h-[200px] my-[20px]"
+         className="w-[250px] h-[250px] my-[20px]"
        />
 
        <div className="w-full p-[15px]">
-         
          <SkillsSelector
-         title={"Soft Skills"}
-           items={JSON.parse(localStorage.getItem("generatedSoftSkills")) || [
-             "Communication",
-             "Teamwork and Collaboration",
-             "Adaptability and Flexibility",
-             "Problem-Solving",
-             "Creativity and Innovation",
-             "Time Management",
-             "Leadership",
-             "Emotional Intelligence",
-             "Critical Thinking",
-             "Work Ethic and Professionalism",
-             "Attention to Detail",
-             "Interpersonal Skills",
-             "Decision-Making",
-             "Negotiation",
-             "Conflict Resolution",
-             "Presentation Skills",
-             "Organizational Skills",
-             "Stress Management",
-             "Self-Motivation",
-             "Responsibility and Dependability",
-           ]}
+           title={"Soft Skills"}
+           items={
+             JSON.parse(localStorage.getItem("generatedSoftSkills")) || [
+               "Communication",
+               "Teamwork and Collaboration",
+               "Adaptability and Flexibility",
+               "Problem-Solving",
+               "Creativity and Innovation",
+               "Time Management",
+               "Leadership",
+               "Emotional Intelligence",
+               "Critical Thinking",
+               "Work Ethic and Professionalism",
+               "Attention to Detail",
+               "Interpersonal Skills",
+               "Decision-Making",
+               "Negotiation",
+               "Conflict Resolution",
+               "Presentation Skills",
+               "Organizational Skills",
+               "Stress Management",
+               "Self-Motivation",
+               "Responsibility and Dependability",
+             ]
+           }
            onChange={setSkills}
          />
        </div>

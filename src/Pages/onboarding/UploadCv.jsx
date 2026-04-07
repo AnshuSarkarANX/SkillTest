@@ -91,7 +91,7 @@ const UploadCv = () => {
       </div>
       <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
         <img
-          src="/assets/uploadCvImage.svg"
+          src="/assets/parseImage.webp"
           alt="upload illustration"
           className="w-[200px] h-[200px] mb-[10px]"
         />

@@ -33,11 +33,6 @@ const Profile = () => {
         <p className="font-bold mt-[15px] text-white H-26">{fullName}</p>
         <div className="flex justify-around mt-[20px] gap-[20px] text-white">
           <div className="text-center">
-            <p className="H-20">20</p>
-            <p className="H-14">My Certificates</p>
-          </div>
-          <div className=" w-[2px] bg-gradient-to-b from-white/20 via-white via-50% to-white/20 to-90%"></div>
-          <div className="text-center">
             <p className=" H-20">45.5</p>
             <p className="H-14">Average Score</p>
           </div>

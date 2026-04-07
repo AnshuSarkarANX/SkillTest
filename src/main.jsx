@@ -11,7 +11,6 @@ import { Toaster } from "react-hot-toast";
 import { bottomBar, padding, topBar } from "./state/store.js";
 import LoginPage from "./Pages/login/LoginPage.jsx";
 import OtpPage from "./Pages/login/OtpPage.jsx";
-import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 import OnboardingPage from "./Pages/onboarding/OnboardingPage.jsx";
 import Name from "./Pages/onboarding/Name.jsx";
 import Gender from "./Pages/onboarding/Gender.jsx";
@@ -27,7 +26,6 @@ import Skills from "./Pages/skills/Skills.jsx";
 import { useLocation } from "react-router";
 import UploadCv from "./Pages/onboarding/UploadCv.jsx";
 import Profile from "./Pages/profile/Profile.jsx";
-import Certificates from "./Pages/certificates/Certificates.jsx";
 import MyAccount from "./Pages/myAccount/MyAccount.jsx";
 import EditProfile from "./Pages/profile/EditProfile.jsx";
 import EditSoftSkils from "./Pages/profile/EditSoftSkils.jsx";
@@ -39,8 +37,8 @@ import SkillTest from "./Pages/tests/SkillTest.jsx";
 import TestInstructions from "./Pages/tests/TestInstructions.jsx";
 import TestPage from "./Pages/tests/TestPage.jsx";
 import ProgressPage from "./Pages/tests/ProgressPage.jsx";
-import AllQuestionsPage from "./Pages/tests/AllQuestionsPage.jsx";
 import Result from "./Pages/tests/Result.jsx";
+import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -65,9 +63,14 @@ const ProtectedRoute = ({ children }) => {
       }
     }
   });
+  const location = useLocation()
   const isAuthenticated  = localStorage.getItem("email");
    if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+   }
+   const ftl = JSON.parse(localStorage.getItem("userDetails")).FTL
+   if (ftl && location.pathname == "/"){
+    return <Navigate to="/welcome"/>;
    }
 
   return children;
@@ -96,7 +99,9 @@ const AppLayout = () => {
     else if (routerLocation.pathname === "/welcome") {
       usePadding.setActive(false);
       useTopBar.setHome(false);
-      useTopBar.setHasBackButton(true);}
+      useBottomBar.setActive(false);
+      useTopBar.setHasBackButton(false);}
+
       else if (routerLocation.pathname === "/test") {
         usePadding.setActive(true);
         useTopBar.setHome(false);
@@ -108,7 +113,7 @@ const AppLayout = () => {
       useTopBar.setHome(false);
       useTopBar.setHasBackButton(true);
     }
-    console.log("location", routerLocation.pathname);
+    // console.log("location", routerLocation.pathname);
       window.scrollTo(0, 0);
 
   }, [routerLocation.pathname]);

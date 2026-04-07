@@ -4,9 +4,7 @@ import { Outlet, useLocation } from "react-router";
 
 const steps = [
   { path: "details", label: "Details" },
-  { path: "gender", label: "Gender" },
   { path: "name", label: "Name" },
-  { path: "birthdate", label: "Birthdate" },
   { path: "qualification", label: "Qualification" },
   { path: "specialization", label: "Specialization" },
   { path: "soft-skills", label: "Soft Skills" },
@@ -29,15 +27,14 @@ export const Steps = () => {
       {activeStep === "upload-cv" ? (
         <></>
       ) : (
-        <div className="flex items-center justify-between py-6 select-none">
+        <div className="grid grid-cols-6 gap-1 py-6 select-none">
           {steps.map((step, idx) => (
-            <div key={step.path} className="flex justify-center">
-              <div
-                className={`h-[10px] w-[30px] md:w-[45px] rounded-[6px] mx-[auto] transition-all
-              ${idx <= currentIndex ? "bg-primary" : "bg-gray-200"}
-            `}
-              ></div>
-            </div>
+            <div
+              key={step.path}
+              className={`h-[10px] rounded-[6px] transition-all
+        ${idx <= currentIndex ? "bg-primary" : "bg-gray-200"}
+      `}
+            />
           ))}
         </div>
       )}

@@ -22,7 +22,7 @@ const Details = () => {
              onClick={() => setSelectedOption("manual")}
            >
              <img
-               src="/assets/manualImage.svg"
+               src="/assets/manualImage.webp"
                alt="manual"
                className="w-[100px] h-[100px] rounded-full"
              />
@@ -35,7 +35,7 @@ const Details = () => {
              onClick={() => setSelectedOption("upload")}
            >
              <img
-               src="/assets/uploadCvImage.svg"
+               src="/assets/parseImage.webp"
                alt="technicalSkill"
                className="w-[100px] h-[100px] rounded-full"
              />
@@ -45,7 +45,7 @@ const Details = () => {
          <Button
            disabled={!selectedOption}
            text="Continue"
-           onClick={() => navigate( selectedOption === "manual" ? "/onboarding/gender" : "/onboarding/upload-cv")}
+           onClick={() => navigate( selectedOption === "manual" ? "/onboarding/name" : "/onboarding/upload-cv")}
          />
        </div>
      );

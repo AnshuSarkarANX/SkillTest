@@ -74,53 +74,62 @@ const TechSkillsPage = () => {
       </div>
       <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
         <img
-          src="/assets/specializationImage.svg"
+          src="/assets/detailsImage.webp"
           alt="name"
-          className="w-[200px] h-[200px] my-[20px]"
+          className="w-[250px] h-[250px] my-[20px]"
         />
 
         <div className="w-full p-[15px]">
-          {isLoading ? <p>Loading...</p> :  
-          <SkillsSelector
-          title={"Technical Skills"}
-            items={JSON.parse(localStorage.getItem("generatedTechSkills")) || [
-              "Programming",
-              "Web Development",
-              "Database Management",
-              "Data Analysis",
-              "Cloud Computing",
-              "Cybersecurity",
-              "Network Administration",
-              "Software Testing",
-              "Mobile App Development",
-              "Artificial Intelligence",
-              "Machine Learning",
-              "UI/UX Design",
-              "Version Control (Git)",
-              "API Integration",
-              "DevOps",
-              "Shell Scripting",
-              "Quality Assurance",
-              "Technical Writing",
-              "Spreadsheet Proficiency",
-              "Operating Systems (Linux/Windows)",
-              "Business Intelligence",
-              "CAD (Computer-Aided Design)",
-              "Robotics",
-              "Digital Marketing",
-              "SEO Optimization",
-              "Product Management",
-              "CRM Platforms",
-              "Project Management Tools",
-              "Statistical Analysis",
-              "Embedded Systems",
-              "Blockchain",
-            ]}
-            onChange={setSkills}
-          />}
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : (
+            <SkillsSelector
+              title={"Technical Skills"}
+              items={
+                JSON.parse(localStorage.getItem("generatedTechSkills")) || [
+                  "Programming",
+                  "Web Development",
+                  "Database Management",
+                  "Data Analysis",
+                  "Cloud Computing",
+                  "Cybersecurity",
+                  "Network Administration",
+                  "Software Testing",
+                  "Mobile App Development",
+                  "Artificial Intelligence",
+                  "Machine Learning",
+                  "UI/UX Design",
+                  "Version Control (Git)",
+                  "API Integration",
+                  "DevOps",
+                  "Shell Scripting",
+                  "Quality Assurance",
+                  "Technical Writing",
+                  "Spreadsheet Proficiency",
+                  "Operating Systems (Linux/Windows)",
+                  "Business Intelligence",
+                  "CAD (Computer-Aided Design)",
+                  "Robotics",
+                  "Digital Marketing",
+                  "SEO Optimization",
+                  "Product Management",
+                  "CRM Platforms",
+                  "Project Management Tools",
+                  "Statistical Analysis",
+                  "Embedded Systems",
+                  "Blockchain",
+                ]
+              }
+              onChange={setSkills}
+            />
+          )}
         </div>
       </div>
-      <Button text="Continue" onClick={() => handleContinue()} loading={isLoading} />
+      <Button
+        text="Continue"
+        onClick={() => handleContinue()}
+        loading={isLoading}
+      />
     </div>
   );
 }

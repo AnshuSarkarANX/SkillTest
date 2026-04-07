@@ -2,31 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { bottomBar, topBar } from "../../state/store";
 import { IoIosArrowForward } from "react-icons/io";
-import { motion, AnimatePresence } from "framer-motion";
+import {  AnimatePresence } from "framer-motion";
 
 const steps = [
   {
-    image: "/assets/welcomeImage.svg",
-    heading: "Set Your Learning Goals\nWith Certification",
+    image: "/assets/welcomeImage.webp",
+    heading: "Smart Prep Starts Here",
     description:
-      "Sign in to sync your course history, download certificates, and continue where you left off",
-    buttonText: "Let's Start",
-    isSkip: false,
-  },
-  {
-    image: "/assets/welcomeImage1.svg",
-    heading: "We Can Personalize Your Learning Journey.",
-    description:
-      "Choose what you want to achieve so we can personalize your learning journey.",
-    buttonText: "Skip",
-    isSkip: true,
-  },
-  {
-    image: "/assets/welcomeImage2.svg",
-    heading: "The Topics You’d Like To Focus On",
-    description:
-      "Choose what you want to achieve so we can personalize your learning journey.",
-    buttonText: "Go Home",
+      "Generate personalized tests from your CV and strengthen your skills before the big day",
+    buttonText: "Continue",
     isSkip: true,
   },
 ];
@@ -58,13 +42,7 @@ const onPrevious = () => {
     setDirection(-1);
     setCurrentStep((prev) => prev - 1);
 };
-  useEffect(() => {
-    useBottomBar.setActive(false);
-useTopBar.setOnBack(onPrevious);
-  }, []);
-  useEffect(() => {
-    useTopBar.setHasBackButton(currentStep > 0);
-  }, [currentStep]);
+  
 
   const onNext = () => {
     if (currentStep === steps.length - 1) { 
@@ -87,34 +65,27 @@ useTopBar.setOnBack(onPrevious);
   return (
     <div>
       <div className="mt-[-50px] pt-[80px] pb-[100px] px-[10px] bg-gradient-to-b from-background from-5% via-secondary to-bg to-95% mb-[-100px]">
-        <motion.img
-          key={step.image}
-          src={step.image}
+        <img
+          
+          src={"/assets/welcomeImage.webp"}
           alt="welcome"
           className="w-fit h-[400px] mx-auto z-[20]"
-          custom={direction}
-          variants={slideVariants}
-          initial={currentStep === 0 ? "false" : "initial"}
-          animate="animate"
-          exit="exit"
+         
         />
       </div>
 
       <div className={`w-full p-[20px] mx-auto `}>
-        <motion.div
-          key={currentStep}
-          custom={direction}
-          variants={slideVariants}
-          initial={currentStep === 0 ? "false" : "initial"}
-          animate="animate"
-          exit="exit"
+        <div
           className="bg-primary rounded-[30px] p-[20px] text-center relative"
         >
           <div className="mt-[30px] mb-[60px] whitespace-pre-line">
             <h2 className="text-white text-2xl font-bold mb-2">
-              {step.heading}
+              Smart Prep Starts Here
             </h2>
-            <p className="text-white/80 text-sm">{step.description}</p>
+            <p className="text-white/80 text-sm">
+              Generate personalized tests from your CV and strengthen your
+              skills before the big day
+            </p>
           </div>
 
           {/* Action button with overlap */}
@@ -127,14 +98,14 @@ useTopBar.setOnBack(onPrevious);
               <IoIosArrowForward />
             </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Text or button below the card */}
         <p
           className="mt-14 text-center text-gray-500 font-bold h-16"
-          onClick={step.isSkip && onSkip}
+          onClick={onSkip}
         >
-          {step.buttonText}
+          {"Continue"}
         </p>
       </div>
     </div>

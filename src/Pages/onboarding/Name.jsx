@@ -16,7 +16,7 @@ const Name = () => {
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     userDetails.fullName = name;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
-    navigate("/onboarding/birthdate");
+    navigate("/onboarding/qualification");
   }, [name, navigate]);
   return (
     <div className="space-y-[25px]">
@@ -25,19 +25,11 @@ const Name = () => {
         <p className="text-text2">Please fill in your details to continue.</p>
       </div>
       <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
-        {gender === "male" ? (
-          <img
-            src="/assets/maleImage.svg"
-            alt="name"
-            className="w-[200px] h-[200px] mb-[10px]"
-          />
-        ) : (
-          <img
-            src="/assets/femaleImage.svg"
-            alt="name"
-            className="w-[200px] h-[200px] mb-[10px]"
-          />
-        )}
+        <img
+          src="/assets/detailsImage.webp"
+          alt="name"
+          className="w-[250px] h-[250px] my-[20px]"
+        />
         <div className="w-full p-[15px]">
           <p className="font-semibold ml-[5px] text-text2 mb-[5px]">Name</p>
           <input

@@ -41,7 +41,7 @@ function SkillsSelector({ items = [], title, onChange, selectedItems = [] }) {
 
   console.log("selected skills", selectedItems);
   return (
-    <div className="bg-white rounded-[20px] smallShadow p-4 w-full max-w-md">
+    <div className="bg-white rounded-[20px] smallShadow p-4 w-full ">
       <label className="font-bold mb-3 block H-18">{title}</label>
       <div className="relative mb-4">
         <input

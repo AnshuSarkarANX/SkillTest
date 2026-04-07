@@ -43,9 +43,9 @@ const options = [
      </div>
      <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
        <img
-         src="/assets/qualificationImage.svg"
+         src="/assets/detailsImage.webp"
          alt="name"
-         className="w-[200px] h-[200px] my-[20px]"
+         className="w-[250px] h-[250px] my-[20px]"
        />
 
        <div className="w-full p-[15px]">
