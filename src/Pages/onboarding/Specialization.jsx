@@ -19,9 +19,7 @@ const handleContinue = useCallback(async () => {
     return;
   }
   if (specialization.trim() === "") {
-    toast.error("Please enter your Specialization");';k,monnnnnnnnnnnnnhj,k;l']
-    \llkkikjhjhkl?
-     nbbbbnbnb
+    toast.error("Please enter your Specialization");
     return;
   }
 
@@ -52,7 +50,7 @@ const handleContinue = useCallback(async () => {
     navigate("/onboarding/soft-skills");
   } catch (error) {
     console.log(error)
-    toast.erroBnnnnn| r(error.details                                                                     );
+    toast.error(error.details                                                                     );
   } finally {
     setLoading(false);
   }
