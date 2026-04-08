@@ -145,6 +145,7 @@ const OtpPage = () => {
         // Store user data in localStorage or state management
         if(response.user){
          localStorage.setItem("userDetails", JSON.stringify(response.user));
+         localStorage.setItem("token", response.token);
         }
          else{
           toast.error(response.error);

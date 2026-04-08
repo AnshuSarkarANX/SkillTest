@@ -11,7 +11,6 @@ const UploadCv = () => {
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [cvData, setCvData] = useState(null);
   const API_URL = import.meta.env.VITE_API_BASE_URL;
 
   const handleFileClick = () => {
@@ -36,11 +35,10 @@ const UploadCv = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
           },
-        }
+        },
       );
-
-      setCvData(response.data.data);
       if (
         response.data.data.fullName && response.data.data.qualification &&
         response.data.data.specialization
@@ -75,7 +73,6 @@ const UploadCv = () => {
   };
   const handleRemoveFile = () => {
     setSelectedFile(null);
-    setCvData(null);
     // Reset the file input value
     if (fileInputRef.current) {
       fileInputRef.current.value = "";

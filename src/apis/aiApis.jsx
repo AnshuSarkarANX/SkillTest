@@ -1,4 +1,5 @@
-import axios from "axios";
+import api from "./api";
+
 
 const API_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -9,7 +10,7 @@ export const generateSkills = async () => {
     const  qualification = userDetails.qualification;
 
   try {
-    const response = await axios.post(`${API_URL}/api/ai/generate-skills`, {
+    const response = await api.post(`/api/ai/generate-skills`, {
       specialization,
       qualification,
     });
@@ -23,7 +24,7 @@ export const generateSkills = async () => {
 
 export const evaluateAnswers = async (payload) => {
   try {
-    const response = axios.post(`${API_URL}/api/ai/evaluate-text-answers`, {
+    const response = api.post(`/api/ai/evaluate-text-answers`, {
       ...payload,
     });
     return (await response).data;

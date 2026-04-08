@@ -50,7 +50,7 @@ const handleContinue = useCallback(async () => {
     navigate("/onboarding/soft-skills");
   } catch (error) {
     console.log(error)
-    toast.error(error.details                                                                     );
+    toast.error(error.message);
   } finally {
     setLoading(false);
   }
