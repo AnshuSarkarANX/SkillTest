@@ -3,6 +3,7 @@
 import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, Navigate, Outlet, RouterProvider } from "react-router";
+import { Analytics } from "@vercel/analytics/react";
 import "./index.css";
 import App from "./App.jsx";
 import TopBar from "./Components/TopBar.jsx";
@@ -206,5 +207,8 @@ const appRoute = createBrowserRouter([
   },
 ]);
 createRoot(document.getElementById("root")).render(
-  <RouterProvider router={appRoute} />
+  <>
+    <RouterProvider router={appRoute} />
+    <Analytics />
+  </>
 );

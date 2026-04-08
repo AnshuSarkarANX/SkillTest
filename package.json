@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
+    "@vercel/analytics": "^2.0.1",
     "axios": "^1.12.2",
     "boring-avatars": "^2.0.4",
     "framer-motion": "^12.23.22",
