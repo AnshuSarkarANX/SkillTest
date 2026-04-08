@@ -16,7 +16,7 @@ const Details = () => {
          </div>
          <div className="smallShadow flex items-center rounded-[20px] bg-white p-[30px] gap-[40px] justify-center">
            <div
-             className={`flex flex-col items-center bg-[#F8F1FF80]  border border-[#F8F1FF80] p-[20px] rounded-[20px] transition-colors duration-300 ${
+             className={`flex flex-col items-center bg-secondary  border border-[#F8F1FF80] p-[20px] rounded-[20px] transition-colors duration-300 ${
                selectedOption === "manual" ? " border-primary" : ""
              }`}
              onClick={() => setSelectedOption("manual")}
@@ -29,7 +29,7 @@ const Details = () => {
              <h1 className="font-bold">Fill Manually</h1>
            </div>
            <div
-             className={`flex flex-col items-center border border-[#F8F1FF80] bg-[#F8F1FF80] p-[20px] rounded-[20px] transition-colors duration-300 ${
+             className={`flex flex-col items-center border border-[#F8F1FF80] bg-secondary p-[20px] rounded-[20px] transition-colors duration-300 ${
                selectedOption === "upload" ? " border-primary" : ""
              }`}
              onClick={() => setSelectedOption("upload")}
@@ -45,7 +45,13 @@ const Details = () => {
          <Button
            disabled={!selectedOption}
            text="Continue"
-           onClick={() => navigate( selectedOption === "manual" ? "/onboarding/name" : "/onboarding/upload-cv")}
+           onClick={() =>
+             navigate(
+               selectedOption === "manual"
+                 ? "/onboarding/name"
+                 : "/onboarding/upload-cv",
+             )
+           }
          />
        </div>
      );

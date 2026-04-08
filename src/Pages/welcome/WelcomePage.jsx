@@ -69,7 +69,7 @@ const onPrevious = () => {
           
           src={"/assets/welcomeImage.webp"}
           alt="welcome"
-          className="w-fit h-[400px] mx-auto z-[20]"
+          className="w-fit h-fit scale-150 z-[20] my-[50px]"
          
         />
       </div>

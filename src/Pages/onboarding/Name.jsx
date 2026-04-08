@@ -21,14 +21,14 @@ const Name = () => {
   return (
     <div className="space-y-[25px]">
       <div className="flex flex-col items-center">
-        <h1 className="font-bold H-28 mb-[5px] ">Please Enter Your Name</h1>
-        <p className="text-text2">Please fill in your details to continue.</p>
+        <h1 className="font-bold H-24 mb-[5px] ">Please Enter Your Name</h1>
+        <p className="text-text2 H-14">Please fill in your details to continue.</p>
       </div>
       <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
         <img
           src="/assets/detailsImage.webp"
           alt="name"
-          className="w-[250px] h-[250px] my-[20px]"
+          className="w-[250px] h-[250px] my-[20px] scale-120"
         />
         <div className="w-full p-[15px]">
           <p className="font-semibold ml-[5px] text-text2 mb-[5px]">Name</p>

@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
 
 
@@ -17,6 +19,8 @@
   /* Font families */
   --font-heading: "Quicksand", system-ui, -apple-system, sans-serif;
   --font-body: "Nunito", system-ui, -apple-system, sans-serif;
+  --font-vibe: "Baskervville", system-ui, -apple-system, serif;
+  --font-montserrat: "Montserrat", system-ui, -apple-system, sans-serif;
 }
 
 /* Define actual color values for different themes */

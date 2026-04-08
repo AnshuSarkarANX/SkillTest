@@ -52,11 +52,23 @@ const LoginPage = () => {
 
   return (
     <div className="">
+      <h1 className="mb-[30px] font-medium p-[20px] mt-[20px] text-center font-montserrat">
+        <span className="tracking-[7px]  text-[20px]/[40px]">
+          Validate Your Skills
+        </span>
+        <br />
+        <span className="font-vibe H-40 italic font-black text-text2">
+          In
+          <br />
+          Minutes
+        </span>
+      </h1>
       <img
-        src="/assets/loginImage.svg"
+        src="/assets/loginImage.webp"
         alt="loginImage"
-        className="w-fit h-fit  mx-auto"
+        className="w-fit h-fit  mx-auto scale-120"
       />
+
       <div className=" p-[20px] mt-[20px] rounded-[10px]  ">
         <div className="flex flex-col gap-[20px]">
           {/* Contact Type Toggle 
@@ -89,24 +101,22 @@ const LoginPage = () => {
 
           {/* Input Field */}
           <div className="">
-
+            <div>
               <div>
-                <div>
-                  <h1 className="mb-[8px] text-text2 font-bold ">
-                    Enter your email ID
-                  </h1>
-                </div>
-                <input
-                  type="email"
-                  className="w-full bg-white smallShadow rounded-lg p-[18px] focus:outline-none focus:ring-2 focus:ring-CTA"
-                  value={email}
-                  onChange={handleEmailChange}
-                  placeholder="abc@email.com"
-                />
-
-                {error && <p className="text-red-500 H-14 mt-2">{error}</p>}
+                <h1 className="mb-[8px] text-text2 font-bold ">
+                  Enter your email ID
+                </h1>
               </div>
+              <input
+                type="email"
+                className="w-full bg-white smallShadow rounded-lg p-[18px] focus:outline-none focus:ring-2 focus:ring-CTA"
+                value={email}
+                onChange={handleEmailChange}
+                placeholder="abc@email.com"
+              />
 
+              {error && <p className="text-red-500 H-14 mt-2">{error}</p>}
+            </div>
           </div>
 
           {/* Submit Button */}

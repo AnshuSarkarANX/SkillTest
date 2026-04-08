@@ -15,7 +15,6 @@ import OnboardingPage from "./Pages/onboarding/OnboardingPage.jsx";
 import Name from "./Pages/onboarding/Name.jsx";
 import Gender from "./Pages/onboarding/Gender.jsx";
 import BirthDate from "./Pages/onboarding/BirthDate.jsx";
-import Qualification from "./Pages/onboarding/Qualification.jsx";
 import Specialization from "./Pages/onboarding/Specialization.jsx";
 import Details from "./Pages/onboarding/Details.jsx";
 import SoftSkillsPage from "./Pages/onboarding/SoftSkillsPage.jsx";
@@ -52,7 +51,7 @@ const ProtectedRoute = ({ children }) => {
         e.preventDefault();
       }
     },
-    { passive: false }
+    { passive: false },
   );
 
   document.addEventListener("keydown", function (e) {
@@ -63,15 +62,15 @@ const ProtectedRoute = ({ children }) => {
       }
     }
   });
-  const location = useLocation()
-  const isAuthenticated  = localStorage.getItem("email");
-   if (!isAuthenticated) {
+  const location = useLocation();
+  const isAuthenticated = localStorage.getItem("email");
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
-   }
-   const ftl = JSON.parse(localStorage.getItem("userDetails")).FTL
-   if (ftl && location.pathname == "/"){
-    return <Navigate to="/welcome"/>;
-   }
+  }
+  const ftl = JSON.parse(localStorage.getItem("userDetails")).FTL;
+  if (ftl && location.pathname == "/") {
+    return <Navigate to="/welcome" />;
+  }
 
   return children;
 };
@@ -95,27 +94,23 @@ const AppLayout = () => {
       usePadding.setActive(false);
       useTopBar.setHome(true);
       useTopBar.setHasBackButton(false);
-    } 
-    else if (routerLocation.pathname === "/welcome") {
+    } else if (routerLocation.pathname === "/welcome") {
       usePadding.setActive(false);
       useTopBar.setHome(false);
       useBottomBar.setActive(false);
-      useTopBar.setHasBackButton(false);}
-
-      else if (routerLocation.pathname === "/test") {
-        usePadding.setActive(true);
-        useTopBar.setHome(false);
-        useTopBar.setHasBackButton(false);
-        useBottomBar.setActive(false);
-      
+      useTopBar.setHasBackButton(false);
+    } else if (routerLocation.pathname === "/test") {
+      usePadding.setActive(true);
+      useTopBar.setHome(false);
+      useTopBar.setHasBackButton(false);
+      useBottomBar.setActive(false);
     } else {
       usePadding.setActive(true);
       useTopBar.setHome(false);
       useTopBar.setHasBackButton(true);
     }
     // console.log("location", routerLocation.pathname);
-      window.scrollTo(0, 0);
-
+    window.scrollTo(0, 0);
   }, [routerLocation.pathname]);
   return (
     <div className="max-w-[840px] mx-auto relative">
@@ -180,8 +175,7 @@ const appRoute = createBrowserRouter([
           { path: "name", element: <Name /> },
           { path: "gender", element: <Gender /> },
           { path: "birthdate", element: <BirthDate /> },
-          { path: "qualification", element: <Qualification /> },
-          { path: "specialization", element: <Specialization /> },
+          { path: "qualification", element: <Specialization /> },
           { path: "soft-skills", element: <SoftSkillsPage /> },
           { path: "tech-skills", element: <TechSkillsPage /> },
           { path: "details", element: <Details /> },
@@ -207,7 +201,7 @@ const appRoute = createBrowserRouter([
       { path: "/test", element: <TestPage /> },
       { path: "/view-progress", element: <ProgressPage /> },
       { path: "/all-questions", element: <ProgressPage /> },
-      {path:"/result",element:<Result />}
+      { path: "/result", element: <Result /> },
     ],
   },
 ]);

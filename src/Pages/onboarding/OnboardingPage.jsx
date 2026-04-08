@@ -3,10 +3,8 @@ import { bottomBar, topBar } from "../../state/store";
 import { Outlet, useLocation } from "react-router";
 
 const steps = [
-  { path: "details", label: "Details" },
   { path: "name", label: "Name" },
   { path: "qualification", label: "Qualification" },
-  { path: "specialization", label: "Specialization" },
   { path: "soft-skills", label: "Soft Skills" },
   { path: "tech-skills", label: "Tech Skills" },
 ];
@@ -24,10 +22,10 @@ export const Steps = () => {
 
   return (
     <>
-      {activeStep === "upload-cv" ? (
+      {activeStep === "upload-cv" || activeStep === "details" ? (
         <></>
       ) : (
-        <div className="grid grid-cols-6 gap-1 py-6 select-none">
+        <div className="grid grid-cols-4 gap-1 py-6 select-none">
           {steps.map((step, idx) => (
             <div
               key={step.path}
