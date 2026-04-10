@@ -169,8 +169,8 @@ const OtpPage = () => {
     [otpCode,email,phone]
   );
   return (
-    <div>
-      <h1 className="mb-[30px] font-medium p-[20px] mt-[20px] text-center font-montserrat">
+    <>
+      <h1 className="mb-[30px] font-medium p-[20px]  text-center font-montserrat">
         <span className="tracking-[7px]  text-[20px]/[40px]">
           Validate Your Skills
         </span>
@@ -178,14 +178,10 @@ const OtpPage = () => {
         <span className="font-vibe H-40 italic font-black text-text2">
           In
           <br />
-          Minutes
+          <span className="minutes">Minutes</span>
         </span>
       </h1>
-      <img
-        src="/assets/otpImage.webp"
-        alt="OtpImage"
-        className="w-fit h-fit  mx-auto scale-120"
-      />
+      <img src="/assets/otpImage.webp" alt="OtpImage" className=" scale-120" />
       <div className="flex flex-col  p-[20px] mt-[20px] rounded-[10px]  gap-[10px]">
         <label htmlFor="otp" className="text-text2 H-14 font-bold">
           Enter OTP
@@ -221,7 +217,7 @@ const OtpPage = () => {
         {/* Timer component is isolated - only it re-renders */}
         <TimerComponent onResendOtp={() => {}} isLoading={loading} />
       </div>
-    </div>
+    </>
   );
 };
 

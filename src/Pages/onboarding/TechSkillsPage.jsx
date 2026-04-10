@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import Button from "../../Components/Button";
 import SkillsSelector from "../../Components/SkillSelector";
 import { createProfile } from "../../apis/userApis";
-import { generateSkills } from "../../apis/aiApis";
 
 
 const TechSkillsPage = () => {
@@ -16,55 +15,24 @@ const TechSkillsPage = () => {
       toast.error("Select at least one skill to continue");
       return;
     }
+
     const userDetails = JSON.parse(localStorage.getItem("userDetails"));
     userDetails.techSkills = skills;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
 
     setIsLoading(true);
     createProfile(userDetails)
-      .then(() => {
-        setIsLoading(false);
+      .then((res) => {
+        localStorage.setItem("userDetails", JSON.stringify(res.user)); // ✅ update with server data
         navigate("/");
       })
       .catch((error) => {
-        setIsLoading(false);
         toast.error(error.message);
+      })
+      .finally(() => {
+        setIsLoading(false); // ✅ always runs
       });
   }, [skills, navigate, createProfile]);
-
-  useEffect( () => {
-    const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    async function generate() {
-      setIsLoading(true);
-      const res = await generateSkills();
-      setIsLoading(false);
-      console.log(res);
-
-      if (res.softSkills.length > 0) {
-        userDetails.softSkills = res.softSkills;
-        localStorage.setItem(
-          "generatedSoftSkills",
-          JSON.stringify(res.softSkills)
-        );
-      }
-      if (res.techSkills.length > 0) {
-        userDetails.techSkills = res.techSkills;
-        localStorage.setItem(
-          "generatedTechSkills",
-          JSON.stringify(res.techSkills)
-        );
-      }
-    }
-    if (localStorage.getItem("generatedTechSkills") || localStorage.getItem("generatedSoftSkills")) {
-      toast.error("Select one to continue");
-      return;
-    }
-    else {
-      generate();
-    }
-    
-  }, []);
-
 
   return (
     <div className="space-y-[25px] mb-[20px]">
@@ -85,41 +53,7 @@ const TechSkillsPage = () => {
           ) : (
             <SkillsSelector
               title={"Technical Skills"}
-              items={
-                JSON.parse(localStorage.getItem("generatedTechSkills")) || [
-                  "Programming",
-                  "Web Development",
-                  "Database Management",
-                  "Data Analysis",
-                  "Cloud Computing",
-                  "Cybersecurity",
-                  "Network Administration",
-                  "Software Testing",
-                  "Mobile App Development",
-                  "Artificial Intelligence",
-                  "Machine Learning",
-                  "UI/UX Design",
-                  "Version Control (Git)",
-                  "API Integration",
-                  "DevOps",
-                  "Shell Scripting",
-                  "Quality Assurance",
-                  "Technical Writing",
-                  "Spreadsheet Proficiency",
-                  "Operating Systems (Linux/Windows)",
-                  "Business Intelligence",
-                  "CAD (Computer-Aided Design)",
-                  "Robotics",
-                  "Digital Marketing",
-                  "SEO Optimization",
-                  "Product Management",
-                  "CRM Platforms",
-                  "Project Management Tools",
-                  "Statistical Analysis",
-                  "Embedded Systems",
-                  "Blockchain",
-                ]
-              }
+              items={JSON.parse(localStorage.getItem("generatedTechSkills"))}
               onChange={setSkills}
             />
           )}

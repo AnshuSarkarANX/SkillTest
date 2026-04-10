@@ -64,20 +64,16 @@ const onPrevious = () => {
 
   return (
     <div>
-      <div className="mt-[-50px] pt-[80px] pb-[100px] px-[10px] bg-gradient-to-b from-background from-5% via-secondary to-bg to-95% mb-[-100px]">
+      <div className="pt-[50px] bg-gradient-to-b from-background from-5% via-secondary to-bg  ">
         <img
-          
           src={"/assets/welcomeImage.webp"}
           alt="welcome"
           className="w-fit h-fit scale-150 z-[20] my-[50px]"
-         
         />
       </div>
 
       <div className={`w-full p-[20px] mx-auto `}>
-        <div
-          className="bg-primary rounded-[30px] p-[20px] text-center relative"
-        >
+        <div className="bg-primary rounded-[30px] p-[20px] text-center relative">
           <div className="mt-[30px] mb-[60px] whitespace-pre-line">
             <h2 className="text-white text-2xl font-bold mb-2">
               Smart Prep Starts Here

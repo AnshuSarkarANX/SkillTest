@@ -45,7 +45,8 @@ const UploadCv = () => {
       ) {
         localStorage.setItem("userDetails", JSON.stringify(response.data.data));
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-        createProfile(userDetails).then(() => {
+        createProfile(userDetails).then((res) => {
+          localStorage.setItem("userDetails", JSON.stringify(res.user)); 
           setLoading(false);
           navigate("/");
         }).catch((error) => {

@@ -31,41 +31,13 @@ const EditSoftSkils = () => {
     }, [skills, navigate, createProfile]);
   return (
     <div className="space-y-[25px] mb-[20px]">
-      
       <div className="flex flex-col items-center smallShadow rounded-[20px] bg-white">
-       
-
-        
-          <SkillsSelector
-            title={"Soft Skills"}
-            selectedItems={userDetails?.softSkills || []}
-            items={
-              JSON.parse(localStorage.getItem("generatedSoftSkills")) || [
-                "Communication",
-                "Teamwork and Collaboration",
-                "Adaptability and Flexibility",
-                "Problem-Solving",
-                "Creativity and Innovation",
-                "Time Management",
-                "Leadership",
-                "Emotional Intelligence",
-                "Critical Thinking",
-                "Work Ethic and Professionalism",
-                "Attention to Detail",
-                "Interpersonal Skills",
-                "Decision-Making",
-                "Negotiation",
-                "Conflict Resolution",
-                "Presentation Skills",
-                "Organizational Skills",
-                "Stress Management",
-                "Self-Motivation",
-                "Responsibility and Dependability",
-              ]
-            }
-            onChange={setSkills}
-          />
-     
+        <SkillsSelector
+          title={"Soft Skills"}
+          selectedItems={userDetails?.softSkills || []}
+          items={userDetails?.softSkills || []}
+          onChange={setSkills}
+        />
       </div>
       <Button
         text="Continue"

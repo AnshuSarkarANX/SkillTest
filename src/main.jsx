@@ -114,9 +114,12 @@ const AppLayout = () => {
     window.scrollTo(0, 0);
   }, [routerLocation.pathname]);
   return (
-    <div className="max-w-[840px] mx-auto relative">
+    <div className="max-w-[840px] mx-auto relative ">
       <TopBar />
-      <div className={`min-h-screen ${usePadding.isActive ? "px-[20px]" : ""}`}>
+      <div
+        className={`min-h-screen  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""}`}
+        key={routerLocation.pathname} 
+      >
         <Outlet />
       </div>
       {useBottomBar.isActive && <BottomBar />}
@@ -133,11 +136,11 @@ const appRoute = createBrowserRouter([
     path: "/login",
     element: (
       <AuthRoute>
-        <div className="max-w-[600px] mx-auto">
-          <TopBar />
-          <div className="min-h-screen">
+        <div className="max-w-[600px] mx-auto min-h-screen grid place-items-center overflow-hidden">
+          <div className="page-transition w-full">
             <LoginPage />
           </div>
+
           <Toaster />
         </div>
       </AuthRoute>
@@ -146,9 +149,8 @@ const appRoute = createBrowserRouter([
   {
     path: "/otp",
     element: (
-      <div className="max-w-[600px] mx-auto">
-        <TopBar />
-        <div className="min-h-screen">
+      <div className="max-w-[600px] mx-auto min-h-screen grid place-items-center overflow-hidden">
+        <div className="page-transition w-full">
           <OtpPage />
         </div>
         <Toaster />
@@ -173,14 +175,14 @@ const appRoute = createBrowserRouter([
         path: "/onboarding",
         element: <OnboardingPage />,
         children: [
+          { path: "details", element: <Details /> },
+          { path: "upload-cv", element: <UploadCv /> },
           { path: "name", element: <Name /> },
           { path: "gender", element: <Gender /> },
           { path: "birthdate", element: <BirthDate /> },
           { path: "qualification", element: <Specialization /> },
           { path: "soft-skills", element: <SoftSkillsPage /> },
           { path: "tech-skills", element: <TechSkillsPage /> },
-          { path: "details", element: <Details /> },
-          { path: "upload-cv", element: <UploadCv /> },
         ],
       },
       { path: "/account", element: <MyAccount /> },

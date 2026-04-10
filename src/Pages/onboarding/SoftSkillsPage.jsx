@@ -37,28 +37,7 @@ const SoftSkillsPage = () => {
          <SkillsSelector
            title={"Soft Skills"}
            items={
-             JSON.parse(localStorage.getItem("generatedSoftSkills")) || [
-               "Communication",
-               "Teamwork and Collaboration",
-               "Adaptability and Flexibility",
-               "Problem-Solving",
-               "Creativity and Innovation",
-               "Time Management",
-               "Leadership",
-               "Emotional Intelligence",
-               "Critical Thinking",
-               "Work Ethic and Professionalism",
-               "Attention to Detail",
-               "Interpersonal Skills",
-               "Decision-Making",
-               "Negotiation",
-               "Conflict Resolution",
-               "Presentation Skills",
-               "Organizational Skills",
-               "Stress Management",
-               "Self-Motivation",
-               "Responsibility and Dependability",
-             ]
+             JSON.parse(localStorage.getItem("generatedSoftSkills"))
            }
            onChange={setSkills}
          />

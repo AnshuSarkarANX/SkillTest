@@ -48,7 +48,12 @@ const OnboardingPage = () => {
       }, []);
 
       
-  return <div>  <Steps/> <Outlet/></div>;
+  return (
+    <div>
+      {" "}
+      <Steps /> <Outlet />
+    </div>
+  );
 };
 
 export default OnboardingPage;

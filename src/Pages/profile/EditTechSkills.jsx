@@ -38,41 +38,7 @@ const EditTechSkills = () => {
       <SkillsSelector
         title={"Technical Skills"}
         selectedItems={userDetails?.techSkills || []}
-        items={
-          JSON.parse(localStorage.getItem("generatedTechSkills")) || [
-            "Programming",
-            "Web Development",
-            "Database Management",
-            "Data Analysis",
-            "Cloud Computing",
-            "Cybersecurity",
-            "Network Administration",
-            "Software Testing",
-            "Mobile App Development",
-            "Artificial Intelligence",
-            "Machine Learning",
-            "UI/UX Design",
-            "Version Control (Git)",
-            "API Integration",
-            "DevOps",
-            "Shell Scripting",
-            "Quality Assurance",
-            "Technical Writing",
-            "Spreadsheet Proficiency",
-            "Operating Systems (Linux/Windows)",
-            "Business Intelligence",
-            "CAD (Computer-Aided Design)",
-            "Robotics",
-            "Digital Marketing",
-            "SEO Optimization",
-            "Product Management",
-            "CRM Platforms",
-            "Project Management Tools",
-            "Statistical Analysis",
-            "Embedded Systems",
-            "Blockchain",
-          ]
-        }
+        items={userDetails?.techSkills || []}
         onChange={setSkills}
       />
 

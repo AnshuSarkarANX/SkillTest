@@ -51,8 +51,8 @@ const LoginPage = () => {
   );
 
   return (
-    <div className="">
-      <h1 className="mb-[30px] font-medium p-[20px] mt-[20px] text-center font-montserrat">
+    <>
+      <h1 className=" mb-[30px] font-medium p-[20px] text-center font-montserrat">
         <span className="tracking-[7px]  text-[20px]/[40px]">
           Validate Your Skills
         </span>
@@ -60,13 +60,13 @@ const LoginPage = () => {
         <span className="font-vibe H-40 italic font-black text-text2">
           In
           <br />
-          Minutes
+          <span className="minutes">Minutes</span>
         </span>
       </h1>
       <img
         src="/assets/loginImage.webp"
         alt="loginImage"
-        className="w-fit h-fit  mx-auto scale-120"
+        className="scale-120 "
       />
 
       <div className=" p-[20px] mt-[20px] rounded-[10px]  ">
@@ -129,7 +129,7 @@ const LoginPage = () => {
           />
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

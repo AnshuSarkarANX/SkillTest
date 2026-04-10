@@ -19,8 +19,6 @@ const Profile = () => {
   const {
     fullName,
     email,
-    gender,
-    dob,
     qualification,
     specialization,
     softSkills,
@@ -55,20 +53,8 @@ const Profile = () => {
           </div>
           <p className="H-16 font-bold ">{fullName}</p>
         </div>
-        <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
-          <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
-            <CgProfile className="text-primary text-[20px]" />
-          </div>
-          <p className="H-16 font-bold ">{gender}</p>
-        </div>
-        <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
-          <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
-            <CgProfile className="text-primary text-[20px]" />
-          </div>
-          <p className="H-16 font-bold ">
-            {dob ? formatDate(dob, "d", "/") : "N/A"}
-          </p>
-        </div>
+        
+        
         <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
           <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
             <CgProfile className="text-primary text-[20px]" />

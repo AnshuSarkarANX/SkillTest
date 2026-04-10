@@ -49,6 +49,37 @@
   }
 }
 
+/* for applayout */
+ @keyframes fadeIn2 {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
+
+/* Slide in from right — app-like feel - will test later   */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateX(50%); }
+  to   { opacity: 1; transform: translateX(0); }
+
+  }
+
+
+
+.page-transition {
+  animation: fadeIn 0.5s ease both;
+}
+.page-transition2 {
+  animation: fadeIn2 0.35s ease both;
+}
+.minutes {
+  animation: fadeIn 0.45s ease both;
+  animation-delay: 300ms;
+}
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;
