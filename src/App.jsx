@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { bottomBar } from "./state/store";
+import { bottomBar} from "./state/store";
 import { CiSearch } from "react-icons/ci";
 import Button from "./Components/Button";
 import Specialization from "./Pages/onboarding/Specialization";

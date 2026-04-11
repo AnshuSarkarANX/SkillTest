@@ -84,8 +84,7 @@ const TestPage = () => {
       user_category: 54,
       responses: responses,
     };
-    const userId = 56;
-    const quizSn = 675;
+
 
     
 
@@ -115,7 +114,6 @@ const TestPage = () => {
                   <QuizPopup
                     closePopup={closePopup}
                     data={question?.quiz?.errormessage}
-                    Sn={quizSn}
                     body={finalResponse}
                   />
                 )}
@@ -186,7 +184,7 @@ const TestPage = () => {
               <QuizPopup
                 closePopup={closeSubmitPopup}
                 data={question?.quiz?.submissionmessage}
-                Sn={quizSn}
+              
                 body={finalResponse}
               />
             )}
@@ -195,7 +193,6 @@ const TestPage = () => {
                 closePopup={closeTimeupPopup}
                 data={"Time up!"}
                 data2={question?.quiz?.timeupmessage}
-                Sn={quizSn}
                 body={finalResponse}
                 timeup={"Over"}
               />

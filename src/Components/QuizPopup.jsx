@@ -11,7 +11,7 @@ const QuizPopup = ({
   onConfirm,
   data2,
   body,
-  sn,
+
   timeup,
 }) => {
   const navigate = useNavigate();

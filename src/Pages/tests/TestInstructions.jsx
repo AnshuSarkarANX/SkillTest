@@ -29,8 +29,6 @@ const TestInstructions = () => {
   // Get data from localStorage
   const skill = sessionStorage.getItem("selectedSkill");
   const level = sessionStorage.getItem("selectedLevel");
-  const userDetails = JSON.parse(localStorage.getItem("userDetails"));
-  const qualification = userDetails.qualification || "";
 
   const generateTest = async () => {
     if (!skill || !level) {
@@ -50,13 +48,13 @@ const TestInstructions = () => {
       );
       url.searchParams.append("skill", skill);
       url.searchParams.append("level", level);
-      url.searchParams.append("qualification", qualification);
 
       // Use fetch with GET request for SSE
       const response = await fetch(url.toString(), {
         method: "GET",
         headers: {
           Accept: "text/event-stream",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
