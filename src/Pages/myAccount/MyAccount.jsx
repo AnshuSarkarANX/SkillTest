@@ -37,6 +37,12 @@ const cards = [
   },
 
   {
+    label: "Past Tests",
+    desc: "Test you have attended in past",
+    icon: <FaInfoCircle className="text-primary text-[25px]" />,
+    link: "/past-tests",
+  },
+  {
     label: "About",
     desc: "About your profile",
     icon: <FaInfoCircle className="text-primary text-[25px]" />,

@@ -39,6 +39,7 @@ import TestPage from "./Pages/tests/TestPage.jsx";
 import ProgressPage from "./Pages/tests/ProgressPage.jsx";
 import Result from "./Pages/tests/Result.jsx";
 import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
+import PastTests from "./Pages/tests/PastTests.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -205,6 +206,8 @@ const appRoute = createBrowserRouter([
       { path: "/view-progress", element: <ProgressPage /> },
       { path: "/all-questions", element: <ProgressPage /> },
       { path: "/result", element: <Result /> },
+      { path: "/result/:testId", element: <Result /> },
+      {path:"/past-tests",element:<PastTests/>},
     ],
   },
 ]);
