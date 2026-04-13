@@ -1,7 +1,7 @@
-import { use, useCallback, useEffect, useState } from "react";
+import {useCallback, useState } from "react";
 import { ProfileAvatar } from "./Profile";
 import Button from "../../Components/Button";
-import { formatDate } from "../../hooks/SmallHooks";
+
 import { createProfile } from "../../apis/userApis";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";

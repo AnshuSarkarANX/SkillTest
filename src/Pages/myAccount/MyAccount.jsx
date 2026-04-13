@@ -7,6 +7,7 @@ import {
   FaInfoCircle,
   FaFileAlt,
 } from "react-icons/fa";
+import { GoPasskeyFill } from "react-icons/go";
 import { Link } from "react-router";
 import { IoIosArrowForward } from "react-icons/io";
 import Button from "../../Components/Button";
@@ -41,6 +42,12 @@ const cards = [
     desc: "Test you have attended in past",
     icon: <FaInfoCircle className="text-primary text-[25px]" />,
     link: "/past-tests",
+  },
+  {
+    label: "Your API Key",
+    desc: "Add or edit your api key",
+    icon: <GoPasskeyFill className="text-primary text-[25px]" />,
+    link: "#",
   },
   {
     label: "About",
