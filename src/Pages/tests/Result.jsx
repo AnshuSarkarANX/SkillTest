@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { useParams } from "react-router";
 import api from "../../apis/api";
 import { saveResult } from "../../apis/resultApis";
+import Loading from "../../Components/Loading";
 
 const ScoreRing = ({ earned, total, label, color = "text-primary" }) => {
   const percentage = total > 0 ? Math.round((earned / total) * 100) : 0;
@@ -102,7 +103,7 @@ const Result = () => {
 
   const resultLabel = getResultLabel();
 
-  if (loading) return <div>Loading result...</div>;
+  if (loading) return <Loading />;
   if (expired)
     return (
       <div className="flex flex-col items-center gap-4 py-20">

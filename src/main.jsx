@@ -40,6 +40,7 @@ import ProgressPage from "./Pages/tests/ProgressPage.jsx";
 import Result from "./Pages/tests/Result.jsx";
 import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 import PastTests from "./Pages/tests/PastTests.jsx";
+import ApiKey from "./Pages/myAccount/ApiKey.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -115,7 +116,7 @@ const AppLayout = () => {
     window.scrollTo(0, 0);
   }, [routerLocation.pathname]);
   return (
-    <div className="max-w-[840px] mx-auto relative ">
+    <div className="max-w-[840px] mx-auto relative bg-secondary/10">
       <TopBar />
       <div
         className={`min-h-screen  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""}`}
@@ -208,6 +209,7 @@ const appRoute = createBrowserRouter([
       { path: "/result", element: <Result /> },
       { path: "/result/:testId", element: <Result /> },
       {path:"/past-tests",element:<PastTests/>},
+      {path:"/user-key",element:<ApiKey />}
     ],
   },
 ]);

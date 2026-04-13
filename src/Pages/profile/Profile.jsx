@@ -116,6 +116,7 @@ const Profile = () => {
         text="Log Out"
         onClick={() => {
           localStorage.clear();
+          sessionStorage.clear();
           setTimeout(() => {
             window.location.reload();
           }, 200);

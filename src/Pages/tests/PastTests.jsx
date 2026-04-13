@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getHistory } from "../../apis/resultApis";
+import Loading from "../../Components/Loading";
 
 const getScoreColor = (pct) => {
   if (pct >= 80) return { text: "text-green-500", bg: "bg-green-500/50" };
@@ -29,8 +30,7 @@ const PastTests = () => {
     fetchHistory();
   }, []);
 
-  if (loading)
-    return <p className="H-14 text-text2 text-center py-10">Loading...</p>;
+  if (loading) return <Loading />;
   if (error)
     return <p className="H-14 text-red-400 text-center py-10">{error}</p>;
   if (!pastTests.length)

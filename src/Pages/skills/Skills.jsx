@@ -39,7 +39,7 @@ const Skills = () => {
               onClick={() => {
                 setSelectedIndex(index);
                 sessionStorage.setItem("selectedSkill", skill.label);
-                setTimeout(() => navigate(`/skills/${skill.label}`), 200);
+                setTimeout(() => navigate(`/process`), 200);
               }}
             >
               {skill.type === "soft" ? (

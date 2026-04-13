@@ -153,7 +153,7 @@ const TestInstructions = () => {
   };
   useEffect(() => {
     if (!generatedTest) {
-      generateTest();
+      return;
     } else {
       console.log(generatedTest);
       setTestInfo({
@@ -163,12 +163,11 @@ const TestInstructions = () => {
       });
     }
   }, [generatedTest]);
-  
 
   return (
     <div className="space-y-[20px] w-full">
       <h1 className="font-bold H-18">Rules & Instructions</h1>
-      
+
       <ol className="list-decimal list-inside list">
         {instructions.map((instruction, index) => (
           <li key={index} className="H-16 font-bold text-text2">
@@ -181,24 +180,26 @@ const TestInstructions = () => {
       <div className="flex gap-[20px] w-full justify-around">
         <div className="flex flex-col items-center gap-[10px] bg-white rounded-[10px] p-[20px] smallShadow flex-1 max-w-[250px]">
           <img
-            src="./assets/clockImage.svg"
-            className="p-[10px] px-[20px] object-center bg-no-repeat"
-            style={{ backgroundImage: `url('./assets/vectorImage.svg')` }}
+            src="./assets/clockImage.webp"
+            className="p-[10px] object-center bg-no-repeat h-[90px] "
             alt="Clock"
           />
-          <p className="font-bold H-18 text-primary">{testInfo.timeAlloted > 0 ? `${testInfo.timeAlloted} Minutes` : "Loading..."}</p>
+          <p className="font-bold H-18 text-primary transition-all duration-300">
+            {testInfo.timeAlloted > 0 ? `${testInfo.timeAlloted} Minutes` : ""}
+          </p>
           <p>Time Alloted</p>
         </div>
 
         <div className="flex items-center gap-[10px] flex-col bg-white rounded-[10px] p-[20px] smallShadow flex-1 max-w-[250px]">
           <img
-            src="./assets/bulbImage.svg"
-            className="p-[10px] object-center bg-no-repeat px-[20px]"
-            style={{ backgroundImage: `url('./assets/vectorImage.svg')` }}
+            src="./assets/manualImage.webp"
+            className="p-[10px] object-center bg-no-repeat px-[20px] h-[90px]"
             alt="Questions"
           />
-          <p className="font-bold H-18 text-primary">
-            {testInfo.totalQuestions > 0 ? `${testInfo.totalQuestions} Questions` : "Loading..."}
+          <p className="font-bold H-18 text-primary transition-all duration-300">
+            {testInfo.totalQuestions > 0
+              ? `${testInfo.totalQuestions} Questions`
+              : ""}
           </p>
           <p>Total Questions</p>
         </div>
@@ -206,7 +207,7 @@ const TestInstructions = () => {
         {/*testInfo.totalMarks > 0 && (
           <div className="flex items-center gap-[10px] flex-col bg-white rounded-[10px] p-[20px] smallShadow flex-1 max-w-[250px]">
             <img
-              src="./assets/bulbImage.svg"
+              src="./assets/clockImage.webp"
               className="p-[10px] object-center bg-no-repeat px-[20px]"
               style={{ backgroundImage: `url('./assets/vectorImage.svg')` }}
               alt="Marks"
@@ -229,7 +230,7 @@ const TestInstructions = () => {
                 {progress}%
               </span>
             </div>
-            
+
             {/* Progress Bar */}
             <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
               <div
@@ -238,7 +239,7 @@ const TestInstructions = () => {
               />
             </div>
           </div>
-          
+
           <div className="text-sm text-gray-600 text-center">
             Please wait while we generate your personalized test...
           </div>
@@ -249,8 +250,16 @@ const TestInstructions = () => {
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <div className="flex items-start">
-            <svg className="h-5 w-5 text-red-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            <svg
+              className="h-5 w-5 text-red-400 mr-2"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clipRule="evenodd"
+              />
             </svg>
             <div>
               <h3 className="text-sm font-medium text-red-800">Error</h3>
@@ -264,8 +273,18 @@ const TestInstructions = () => {
       {generatedTest && (
         <div className="bg-green-50 border border-green-200 rounded-lg p-4">
           <div className="flex items-center">
-            <svg className="h-5 w-5 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="h-5 w-5 text-green-400 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
             <p className="text-sm font-medium text-green-800">
               Test generated successfully!
@@ -275,9 +294,15 @@ const TestInstructions = () => {
       )}
 
       {/* Start Test Button */}
-      <Button 
-        text={isGenerating ? "Generating Test..." : "Start Test"} 
-        onClick={() => navigate("/test")}
+      <Button
+        text={
+          isGenerating
+            ? "Generating Test..."
+            : generatedTest
+              ? "Start Test"
+              : "Generate Test"
+        }
+        onClick={generatedTest ? () => navigate("/test") : generateTest}
         disabled={isGenerating}
       />
     </div>

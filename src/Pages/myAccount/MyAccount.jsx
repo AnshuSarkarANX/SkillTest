@@ -47,7 +47,7 @@ const cards = [
     label: "Your API Key",
     desc: "Add or edit your api key",
     icon: <GoPasskeyFill className="text-primary text-[25px]" />,
-    link: "#",
+    link: "/user-key",
   },
   {
     label: "About",
@@ -58,6 +58,7 @@ const cards = [
 ];
 const handleLogout = () => {
   localStorage.clear();
+  sessionStorage.clear();
   window.location.reload();
 };
 

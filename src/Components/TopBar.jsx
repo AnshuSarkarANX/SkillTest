@@ -66,15 +66,27 @@ const TopBar = () => {
                 : "justify-center col-start-2 col-span-3"
             } `}
           >
-            skill.test
+            {["profile", "account", "skills"].includes(
+              location.pathname.slice(1),
+            )
+              ? location.pathname[1].toUpperCase() + location.pathname.slice(2)
+              : "skill.test"}
           </h1>
         )}
         {home ? (
           <div className="col-span-1  flex gap-[10px] items-center justify-end">
-            <Link to="/account" className="bg-white rounded-[8px] p-[10px]">
+            <Link
+              to="/account"
+              className="bg-white rounded-[8px] p-[10px]"
+              title="Account"
+            >
               <FiMenu className="text-[20px] text-primary" />
             </Link>
-            <Link to="/profile" className="bg-white rounded-[8px] p-[10px]">
+            <Link
+              to="/profile"
+              className="bg-white rounded-[8px] p-[10px]"
+              title="Profile"
+            >
               <CgProfile className="text-[20px] text-primary" />
             </Link>
           </div>
