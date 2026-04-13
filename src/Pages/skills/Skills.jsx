@@ -43,15 +43,19 @@ const Skills = () => {
               }}
             >
               {skill.type === "soft" ? (
-                <RiSpeakAiLine style={{ fill: "url(#iconGradient)", fontSize: "28px" }} />
+                <RiSpeakAiLine
+                  style={{ fill: "url(#iconGradient)", fontSize: "28px" }}
+                />
               ) : (
-                <AiOutlineLaptop style={{ fill: "url(#iconGradient)", fontSize: "28px" }} />
+                <AiOutlineLaptop
+                  style={{ fill: "url(#iconGradient)", fontSize: "28px" }}
+                />
               )}
               <p className="H-14 font-bold text-center">{skill.label}</p>
             </div>
           ))}
         </div>
-        <Button text="Add A Skill" />
+        <Button text="Add A Skill" onClick={() => navigate("/profile")} />
       </div>
     </div>
   );

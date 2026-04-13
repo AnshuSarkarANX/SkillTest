@@ -2,20 +2,22 @@ import { useNavigate } from "react-router";
 import Button from "../../Components/Button";
 
 const Process = () => {
-    const process = [
-      {
-        title: "Select years of experience",
-        description: "Choose your experience of a skill to get started.",
-      },
-      {
-        title: "Take Exam",
-        description: "Choose your experience of a skill to get started.",
-      },
-      {
-        title: "Earn Points",
-        description: "Choose your experience of a skill to get started.",
-      },
-    ];
+   const process = [
+     {
+       title: "Choose Your Skill Level",
+       description:
+         "Select your experience level so we can tailor the test to your ability.",
+     },
+     {
+       title: "Take Your Skill Test",
+       description:
+         "Answer a mix of MCQs and practical questions based on your skills.",
+     },
+     {
+       title: "Track Your Performance",
+       description: "Get points, insights, and see where you stand.",
+     },
+   ];
 
     const navigate = useNavigate();
     return (
