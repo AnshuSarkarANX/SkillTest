@@ -62,17 +62,6 @@ export default function Dashboard() {
       <div className="rounded-[20px] bg-[linear-gradient(360deg,_rgba(255,109,31,0.81)_0%,_rgba(255,109,31,0.624046)_17.73%,_rgba(255,109,31,0.479094)_39.49%,_rgba(255,109,31,0.304639)_66.28%,_rgba(255,109,31,0.09)_100%)] p-6 flex flex-col items-center">
         <ProfileAvatar name={fullName} />
         <p className="font-bold mt-[15px] text-white H-26">{fullName}</p>
-        <div className="flex justify-around mt-[20px] gap-[20px] text-white">
-          <div className="text-center">
-            <p className="H-20">20</p>
-            <p className="H-14">My Tests</p>
-          </div>
-          <div className=" w-[2px] bg-gradient-to-b from-white/20 via-white via-50% to-white/20 to-90%"></div>
-          <div className="text-center">
-            <p className=" H-20">45.5</p>
-            <p className="H-14">Average Score</p>
-          </div>
-        </div>
       </div>
       {/* Bottom List */}
       <div className="mt-4">

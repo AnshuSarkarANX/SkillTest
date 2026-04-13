@@ -18,7 +18,6 @@ export const ProfileAvatar = ({ name }) => (
 const Profile = () => {
   const {
     fullName,
-    email,
     qualification,
     specialization,
     softSkills,
@@ -29,12 +28,6 @@ const Profile = () => {
       <div className="rounded-[20px] bg-[linear-gradient(360deg,_rgba(255,109,31,0.81)_0%,_rgba(255,109,31,0.624046)_17.73%,_rgba(255,109,31,0.479094)_39.49%,_rgba(255,109,31,0.304639)_66.28%,_rgba(255,109,31,0.09)_100%)] p-6 flex flex-col items-center">
         <ProfileAvatar name={fullName} />
         <p className="font-bold mt-[15px] text-white H-26">{fullName}</p>
-        <div className="flex justify-around mt-[20px] gap-[20px] text-white">
-          <div className="text-center">
-            <p className=" H-20">45.5</p>
-            <p className="H-14">Average Score</p>
-          </div>
-        </div>
       </div>
       {/*Personal Details*/}
       <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px]">
@@ -53,8 +46,7 @@ const Profile = () => {
           </div>
           <p className="H-16 font-bold ">{fullName}</p>
         </div>
-        
-        
+
         <div className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px] ">
           <div className=" bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
             <CgProfile className="text-primary text-[20px]" />
