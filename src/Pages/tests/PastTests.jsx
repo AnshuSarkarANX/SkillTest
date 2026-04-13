@@ -2,13 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getHistory } from "../../apis/resultApis";
 import Loading from "../../Components/Loading";
+import { getScoreColor } from "../../hooks/SmallHooks";
 
-const getScoreColor = (pct) => {
-  if (pct >= 80) return { text: "text-green-500", bg: "bg-green-500/50" };
-  if (pct >= 60) return { text: "text-primary", bg: "bg-primary/50" };
-  if (pct >= 40) return { text: "text-yellow-500", bg: "bg-yellow-500/50" };
-  return { text: "text-red-400", bg: "bg-red-400/50" };
-};
+
 
 const PastTests = () => {
   const [pastTests, setPastTests] = useState([]);

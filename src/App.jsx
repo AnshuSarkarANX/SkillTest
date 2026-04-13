@@ -9,10 +9,13 @@ import { getProfile } from "./apis/userApis";
 import toast from "react-hot-toast";
 import { AiOutlineLaptop } from "react-icons/ai";
 import { RiSpeakAiLine } from "react-icons/ri";
+import { getHistory } from "./apis/resultApis";
+import { getScoreColor } from "./hooks/SmallHooks";
 function App() {
   const useBottomBar = bottomBar((state) => state);
   const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const [pastTests, setPastTests] = useState([]);
 
   useEffect(() => {
     useBottomBar.setActive(true);
@@ -27,7 +30,7 @@ function App() {
     label: skill,
     type: "soft",
   }));
-  const skills = [...techSkills.slice(0, 4), ...softSkills.slice(0, 2)];
+  const skills = [...techSkills.slice(0, 7), ...softSkills.slice(0, 3)];
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -55,6 +58,15 @@ function App() {
     +fetchProfile();
   }, []);
 
+  useEffect(() => {
+    const fetchHistory = async () => {
+      const data = await getHistory(3);
+      if (data.history.length > 0) {
+        setPastTests(data.history);
+      }
+    };
+    fetchHistory();
+  }, []);
   return (
     <div className="space-y-[40px]">
       <svg width="0" height="0" style={{ position: "absolute" }}>
@@ -70,16 +82,6 @@ function App() {
           Welcome, {userDetails ? userDetails?.fullName : ""}
           <br />
           Get your skills tested by <p className="text-primary">SkillTest</p>
-        </div>
-        <div className="flex items-center gap-[10px] mt-[20px]">
-          <input
-            type="text"
-            placeholder="You can search by skills"
-            className="w-full h-[40px]  px-[25px] rounded-[10px] bg-white py-[25px] focus:outline-none focus:ring-background focus:ring-2 text-text"
-          />
-          <button className="p-[12px] rounded-[10px]  bg-white">
-            <CiSearch className="text-[25px] text-primary font-semibold" />
-          </button>
         </div>
       </div>
       {/*Skills*/}
@@ -115,6 +117,71 @@ function App() {
         <div className="mx-auto w-[130px]">
           <Button text="View More" onClick={() => navigate("/skills")} />
         </div>
+        {pastTests.length > 0 && (
+          <>
+            <div className="H-18 font-bold ">Past Tests</div>
+            <div className="flex flex-col gap-[14px] mb-[30px]">
+              {pastTests.map((test) => {
+                const { text: scoreText, bg: scoreBg } = getScoreColor(
+                  test.overallPercentage,
+                );
+                return (
+                  <div
+                    key={test._id}
+                    onClick={() =>
+                      test.hasDetailedResult &&
+                      navigate(`/result/${test.testResultId}`)
+                    }
+                    className={`bg-white smallShadow rounded-[16px] p-[18px] flex items-center gap-[16px] ${
+                      test.hasDetailedResult
+                        ? "cursor-pointer active:scale-[0.98] transition-transform"
+                        : "opacity-70"
+                    }`}
+                  >
+                    {/* Score Circle */}
+                    <div
+                      className={`w-[40px] h-[40px] rounded-full border-[2px] ${scoreBg}  border-opacity-30 flex items-center justify-center flex-shrink-0`}
+                      style={{ borderColor: "currentColor" }}
+                    >
+                      <span className={`font-bold H-14 text-white`}>
+                        {test.overallPercentage}%
+                      </span>
+                    </div>
+
+                    {/* Info */}
+                    <div className="flex-1 min-w-0">
+                      <p className="H-15 font-semibold text-text truncate">
+                        {test.skill}
+                      </p>
+                      <p className="H-12 text-text2 mt-[2px]">{test.level}</p>
+
+                      {/* Progress Bar */}
+                      <div className="w-full bg-gray-100 rounded-full h-[4px] mt-[8px]">
+                        <div
+                          className={`${scoreBg} h-[4px] rounded-full transition-all duration-700`}
+                          style={{ width: `${test.overallPercentage}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Right badge */}
+                    <div className="flex-shrink-0 text-right">
+                      {test.hasDetailedResult ? (
+                        <span className="H-12 text-primary font-semibold">
+                          View →
+                        </span>
+                      ) : (
+                        <span className="H-11 text-text2 bg-gray-100 rounded-full px-[10px] py-[4px]">
+                          Expired
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

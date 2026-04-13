@@ -18,9 +18,9 @@ export const getResult = async (testResultId) => {
   }
 };
 
-export const getHistory = async () => {
+export const getHistory = async (limit = 10) => {
   try {
-    const response = await api.get("/api/results/history");
+    const response = await api.get(`/api/results/history?limit=${limit}`);
     return response.data;
   } catch (error) {
     throw new Error(error.response?.data?.error || "Failed to fetch history");

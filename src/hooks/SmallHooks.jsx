@@ -49,7 +49,12 @@ export function formatDate(dateStr, format = "y", separator = "-") {
   }
 }
 
-
+export const getScoreColor = (pct) => {
+  if (pct >= 80) return { text: "text-green-500", bg: "bg-green-500/50" };
+  if (pct >= 60) return { text: "text-primary", bg: "bg-primary/50" };
+  if (pct >= 40) return { text: "text-yellow-500", bg: "bg-yellow-500/50" };
+  return { text: "text-red-400", bg: "bg-red-400/50" };
+};
 // for timer
 export const formatTime = (seconds) => {
       const minutes = Math.floor(seconds / 60);
