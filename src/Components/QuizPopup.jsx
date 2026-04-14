@@ -40,12 +40,8 @@ const QuizPopup = ({
   };
 
 
-  useEffect(() => {
-   
-  }, [ navigate, sn, question?.quiz?.sn]);
-
   return (
-    <div className="fixed inset-0 z-10 bg-[rgba(31,31,31,0.7)] flex justify-center items-center animate-fadeIn">
+    <div className="fixed inset-0 z-10 bg-[rgba(31,31,31,0.7)] flex justify-center place-items-center-safe animate-fadeIn h-full">
       <div
         className="w-[330px] min-h-fit bg-white rounded-[10px] cardShadow animate-slideIn p-[20px]"
         onClick={(e) => e.stopPropagation()}
@@ -53,9 +49,7 @@ const QuizPopup = ({
         {data === "Time up!" ? (
           <>
             <h2 className="H-20 font-manrope font-bold pb-[15px]">{data}</h2>
-            <div className="grid">
               <h1 className="font-monorope font-normal H-16">{data2}</h1>
-            </div>
           </>
         ) : (
           <>
