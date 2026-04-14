@@ -80,7 +80,7 @@ const ProgressPage = () => {
     sessionStorage.setItem("testResult", JSON.stringify(testResult));
     console.log("testResult saved:", testResult);
 
-    //navigate("/result");
+    navigate("/result");
   };
 
   // Initialize testResponses with all questions on mount
