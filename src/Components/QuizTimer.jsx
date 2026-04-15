@@ -45,7 +45,7 @@ const QuizTimer = ({ durationInMinutes, submit }) => {
         if (location.pathname.slice(1) == "test") {
           navigate("/all-questions");
         }
-         setOpenTimeupPopup(true);
+         else {setOpenTimeupPopup(true);}
         setTimeout(() => {
           submit?.();
         }, 3000);

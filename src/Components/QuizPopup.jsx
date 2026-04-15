@@ -1,24 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useEffect, useCallback } from "react";
 import { useNavigate } from "react-router";
+import { createPortal } from "react-dom";
 
 import toast from "react-hot-toast";
 
-/* eslint-disable react/prop-types */
-const QuizPopup = ({
-  closePopup,
-  data,
-  onConfirm,
-  data2,
-  body,
-
-  timeup,
-}) => {
+const QuizPopup = ({ closePopup, data, onConfirm, data2, timeup }) => {
   const navigate = useNavigate();
   const question = JSON.parse(localStorage.getItem("quizQuestion"));
   const loading = false;
-  const error = false
-  
+  const error = false;
 
   const handleBackPress = useCallback(() => {
     window.history.pushState(null, null, window.location.href);
@@ -36,11 +27,10 @@ const QuizPopup = ({
   }, [data, handleBackPress, timeup]);
 
   const handleSubmit = async () => {
-    console.log("submitted")
+    console.log("submitted");
   };
 
-
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-10 bg-[rgba(31,31,31,0.7)] flex justify-center place-items-center-safe animate-fadeIn h-full">
       <div
         className="w-[330px] min-h-fit bg-white rounded-[10px] cardShadow animate-slideIn p-[20px]"
@@ -49,7 +39,7 @@ const QuizPopup = ({
         {data === "Time up!" ? (
           <>
             <h2 className="H-20 font-manrope font-bold pb-[15px]">{data}</h2>
-              <h1 className="font-monorope font-normal H-16">{data2}</h1>
+            <h1 className="font-monorope font-normal H-16">{data2}</h1>
           </>
         ) : (
           <>
@@ -73,7 +63,8 @@ const QuizPopup = ({
         )}
         {error && <p className="text-red-500 text-center mt-2">{error}</p>}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

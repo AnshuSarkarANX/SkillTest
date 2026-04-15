@@ -105,9 +105,7 @@ const TestInstructions = () => {
                 case "batch_complete":
                   setStatusMessage(data.message);
                   setProgress(data.progress);
-                  console.log(
-                    `Batch ${data.batch}/${data.totalBatches} complete`,
-                  );
+                  
                   break;
 
                 case "complete":
@@ -126,10 +124,6 @@ const TestInstructions = () => {
                     JSON.stringify(data.data),
                   );
                   sessionStorage.setItem("testId", data.data.test_id);
-
-                  console.log("✅ Test generated successfully:", data.data);
-
-                  // Auto-navigate to test page after 1.5 seconds
 
                   break;
 
@@ -155,7 +149,7 @@ const TestInstructions = () => {
     if (!generatedTest) {
       return;
     } else {
-      console.log(generatedTest);
+    
       setTestInfo({
         timeAlloted: (generatedTest.total_questions - 5) * 2,
         totalQuestions: generatedTest.total_questions,

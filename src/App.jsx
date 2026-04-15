@@ -11,6 +11,7 @@ import { AiOutlineLaptop } from "react-icons/ai";
 import { RiSpeakAiLine } from "react-icons/ri";
 import { getHistory } from "./apis/resultApis";
 import { getScoreColor } from "./hooks/SmallHooks";
+import QuizPopup from "./Components/QuizPopup";
 function App() {
   const useBottomBar = bottomBar((state) => state);
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ function App() {
         console.error(error);
       }
     };
-    +fetchProfile();
+    fetchProfile();
   }, []);
 
   useEffect(() => {

@@ -116,11 +116,11 @@ const AppLayout = () => {
     window.scrollTo(0, 0);
   }, [routerLocation.pathname]);
   return (
-    <div className="max-w-[840px] mx-auto relative bg-secondary/10">
+    <div className="max-w-[840px] min-h-screen mx-auto relative  flex flex-col bg-secondary/10">
       <TopBar />
       <div
-        className={`min-h-screen  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""}`}
-        key={routerLocation.pathname} 
+        className={`flex-1  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""}`}
+        key={routerLocation.pathname}
       >
         <Outlet />
       </div>

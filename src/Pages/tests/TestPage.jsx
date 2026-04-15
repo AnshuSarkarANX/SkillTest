@@ -78,12 +78,6 @@ const TestPage = () => {
       });
     };
 
-    const finalResponse = {
-      quiz_sn: 1,
-      user_id: 1123,
-      user_category: 54,
-      responses: responses,
-    };
 
 
     
@@ -98,13 +92,13 @@ const TestPage = () => {
     }, [currentQuestion]);
 
     return (
-      <div>
+      <>
         {loading ? (
           <p>Loading...</p>
         ) : error ? (
           <div className="text-red-500">{error}</div>
         ) : (
-          <div>
+          <div className="pb-[500px] overflow-y-scroll no-scrollbar h-[calc(100vh-60px)]">
             <div className=" flex flex-row justify-between items-center ">
               <div
                 className="bg-Reddish h-[44px] w-[44px] rounded-[25px] cardShadow flex justify-center items-center cursor-pointer"
@@ -114,7 +108,6 @@ const TestPage = () => {
                   <QuizPopup
                     closePopup={closePopup}
                     data={question?.quiz?.errormessage}
-                    body={finalResponse}
                   />
                 )}
               </div>
@@ -136,11 +129,10 @@ const TestPage = () => {
                 propData={question[currentQuestion]?.question_details}
                 onSelectOption={handleOptionSelect}
               />
-              
             </div>
 
             {/* Navigation Buttons at the bottom */}
-            <div className="w-[calc(100%-40px)] flex flex-row justify-between items-center mt-4 gap-2 fixed bottom-[20px] max-w-[580px]">
+            <div className="fixed bottom-[20px] left-1/2 -translate-x-1/2 flex justify-around items-center gap-2 bg-white rounded-full px-[16px] py-[10px] shadow-lg w-[calc(100%-40px)] max-w-[400px]">
               <button
                 className={`flex items-center justify-center bg-white text-CTA border-CTA border border-solid rounded-full h-12 font-bold p-[15px] transition-colors duration-300 ${
                   currentQuestion === 0
@@ -172,7 +164,7 @@ const TestPage = () => {
                 }`}
                 onClick={() =>
                   setCurrentQuestion((prev) =>
-                    Math.min(prev + 1, totalQuestions - 1)
+                    Math.min(prev + 1, totalQuestions - 1),
                   )
                 }
                 disabled={currentQuestion === totalQuestions - 1}
@@ -184,8 +176,6 @@ const TestPage = () => {
               <QuizPopup
                 closePopup={closeSubmitPopup}
                 data={question?.quiz?.submissionmessage}
-              
-                body={finalResponse}
               />
             )}
             {isTimeUp && (
@@ -193,13 +183,12 @@ const TestPage = () => {
                 closePopup={closeTimeupPopup}
                 data={"Time up!"}
                 data2={question?.quiz?.timeupmessage}
-                body={finalResponse}
                 timeup={"Over"}
               />
             )}
           </div>
         )}
-      </div>
+      </>
     );
 };
 

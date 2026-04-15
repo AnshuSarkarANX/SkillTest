@@ -36,9 +36,7 @@ const TopBar = () => {
     }, [location]);
     return (
       <div
-        className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0  z-[10]  py-[15px] px-[20px] ease-in-out  bg-white  duration-300 ${
-          home ? "transition-none" : "mb-[30px] transition-[margin]"
-        }`}
+        className={`grid grid-cols-5 justify-between items-center H-12 sticky top-0  z-[10]  py-[15px] px-[20px] ease-in-out  bg-white `}
       >
         {hasBackButton && (
           <button
