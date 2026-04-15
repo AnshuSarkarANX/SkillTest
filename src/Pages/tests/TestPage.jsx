@@ -98,7 +98,7 @@ const TestPage = () => {
         ) : error ? (
           <div className="text-red-500">{error}</div>
         ) : (
-          <div className="pb-[500px] overflow-y-scroll no-scrollbar h-[calc(100vh-60px)]">
+          <div className="pb-[100px] overflow-y-scroll no-scrollbar h-[calc(100vh-60px)]">
             <div className=" flex flex-row justify-between items-center ">
               <div
                 className="bg-Reddish h-[44px] w-[44px] rounded-[25px] cardShadow flex justify-center items-center cursor-pointer"
@@ -132,7 +132,7 @@ const TestPage = () => {
             </div>
 
             {/* Navigation Buttons at the bottom */}
-            <div className="fixed bottom-[20px] left-1/2 -translate-x-1/2 flex justify-around items-center gap-2 bg-white rounded-full px-[16px] py-[10px] shadow-lg w-[calc(100%-40px)] max-w-[400px]">
+            <div className="fixed bottom-[20px] left-1/2 -translate-x-1/2 flex justify-around items-center gap-2 bg-white/10 backdrop-blur-[2px] border border-white/40 rounded-full px-[16px] py-[10px] shadow-lg w-[calc(100%-40px)] max-w-[400px]">
               <button
                 className={`flex items-center justify-center bg-white text-CTA border-CTA border border-solid rounded-full h-12 font-bold p-[15px] transition-colors duration-300 ${
                   currentQuestion === 0
