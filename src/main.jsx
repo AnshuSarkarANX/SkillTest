@@ -119,7 +119,7 @@ const AppLayout = () => {
     <div className="max-w-[840px] min-h-screen mx-auto relative  flex flex-col bg-secondary/10">
       <TopBar />
       <div
-        className={`flex-1  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""}`}
+        className={`flex-1  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""} ${["test",""].includes(routerLocation.pathname.slice(1)) ? "" : "py-[20px]"}`}
         key={routerLocation.pathname}
       >
         <Outlet />

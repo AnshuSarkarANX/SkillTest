@@ -34,7 +34,7 @@ const Process = () => {
                   className="absolute left-[30px] top-[60px] w-[2px] h-[120px]"
                   style={{
                     backgroundImage:
-                      "linear-gradient(to bottom,#fafafa, #984AD9, #fafafa)",
+                      "linear-gradient(to bottom,#fafafa, #7E9682, #fafafa)",
                     WebkitMaskImage:
                       "repeating-linear-gradient(0deg, transparent, transparent 4px, black 4px, black 8px)",
                     maskImage:
@@ -45,8 +45,8 @@ const Process = () => {
 
               <div className="flex gap-4 items-center">
                 {/* Number Circle */}
-                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-purple-200 flex items-center justify-center z-[5]">
-                  <span className="text-2xl font-bold text-purple-600">
+                <div className="flex-shrink-0 w-[60px] h-[60px] rounded-full bg-[#ADC4B0]/80 flex items-center justify-center z-[5]">
+                  <span className="text-2xl font-bold text-text2">
                     {index + 1}
                   </span>
                 </div>
@@ -62,10 +62,7 @@ const Process = () => {
             </div>
           ))}
         </div>
-        <Button
-          text="Next step"
-          onClick={() => navigate("/select-level")}
-        />
+        <Button text="Next step" onClick={() => navigate("/select-level")} />
       </div>
     );
 }

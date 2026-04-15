@@ -66,9 +66,11 @@ const TopBar = () => {
           >
             {["profile", "account", "skills"].includes(
               location.pathname.slice(1),
-            )
-              ? location.pathname[1].toUpperCase() + location.pathname.slice(2)
-              : "skill.test"}
+            ) ? (
+              location.pathname[1].toUpperCase() + location.pathname.slice(2)
+            ) : (
+              <p>skill<span className="text-text2">.</span>test</p>
+            )}
           </h1>
         )}
         {home ? (

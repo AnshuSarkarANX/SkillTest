@@ -80,6 +80,16 @@ const ApiKey = () => {
           disabled={isLoading}
         />
       </div>
+      <p className="text-text2 py-[20px] text-center">
+        Do not have get Gemini API key?
+        <br />
+        <a
+          href="https://chatgpt.com/?q=%22how+to+get+gemini+api+key%22"
+          target="_blank"
+        >
+          follow this <span className="underline">guide</span>.
+        </a>
+      </p>
     </div>
   );
 };
