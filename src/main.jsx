@@ -66,7 +66,7 @@ const ProtectedRoute = ({ children }) => {
     }
   });
   const location = useLocation();
-  const isAuthenticated = localStorage.getItem("email");
+  const isAuthenticated = localStorage.getItem("token");
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
