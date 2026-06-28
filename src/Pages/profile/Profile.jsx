@@ -22,6 +22,7 @@ const Profile = () => {
     specialization,
     softSkills,
     techSkills,
+    experiences,
   } = JSON.parse(localStorage.getItem("userDetails")) || {};
   return (
     <>
@@ -87,7 +88,7 @@ const Profile = () => {
         </div>
       </div>
       {/*Tech Skills*/}
-      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px] mb-[30px]">
+      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px]">
         <div className="flex items-center justify-between">
           <p className="H-18 font-bold">Tech Skills</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
@@ -108,6 +109,35 @@ const Profile = () => {
                 {/* ← changed */}
               </div>
               <p className="H-16 font-bold">{skill}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px] mb-[30px]">
+        <div className="flex items-center justify-between">
+          <p className="H-18 font-bold">Experiences</p>
+          <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
+            <Link to="#">
+              <FaEdit className="text-CTA" />
+            </Link>
+          </div>
+        </div>
+        <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
+          {experiences?.map((exp, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-[20px] shadow-md p-[15px]"
+            >
+              <p className="H-16 font-bold">{exp.companyName}</p>
+              <p className="H-14 text-gray-500">{exp.role}</p>
+              <p className="H-12 text-gray-400">{exp.timePeriod}</p>
+              <ul className="list-disc list-inside mt-[10px]">
+                {exp.description?.map((desc, i) => (
+                  <li key={i} className="H-12 truncate">
+                    {desc}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
