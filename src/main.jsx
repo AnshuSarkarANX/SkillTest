@@ -41,7 +41,7 @@ import Result from "./Pages/tests/Result.jsx";
 import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 import PastTests from "./Pages/tests/PastTests.jsx";
 import ApiKey from "./Pages/myAccount/ApiKey.jsx";
-import InterviewPage from "./Pages/interview/INterviewPage.jsx"
+import InterviewPage from "./Pages/interview/InterviewPage.jsx"
 
 const ProtectedRoute = ({ children }) => {
   {
