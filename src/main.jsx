@@ -44,9 +44,7 @@ import ApiKey from "./Pages/myAccount/ApiKey.jsx";
 import InterviewPage from "./Pages/interview/InterviewPage.jsx"
 
 const ProtectedRoute = ({ children }) => {
-  {
-    /*For number inputs only*/
-  }
+  {/*For number inputs only*/}
   document.addEventListener(
     "wheel",
     function (e) {
