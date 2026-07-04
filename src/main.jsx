@@ -218,6 +218,6 @@ const appRoute = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <>
     <RouterProvider router={appRoute} />
-    {/*<Analytics />*/}
+  <Analytics />
   </>
 );
