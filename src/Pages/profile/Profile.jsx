@@ -61,36 +61,11 @@ const Profile = () => {
           <p className="H-16 font-bold ">{specialization}</p>
         </div>
       </div>
-      {/*Soft Skills*/}
-      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px]">
-        <div className="flex items-center justify-between">
-          <p className="H-18 font-bold">Soft Skills</p>
-          <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
-            <Link to="/edit/soft-skills">
-              <FaEdit className="text-CTA" />
-            </Link>
-          </div>
-        </div>
-        <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
-          {/* Soft Skills - map */}
-          {softSkills?.map((skill, index) => (
-            <div
-              className="flex items-center gap-[20px] bg-white rounded-[20px] shadow-md p-[15px]"
-              key={index}
-            >
-              <div className="bg-light-purple shadow-sm rounded-[10px] h-[40px] w-[40px] flex items-center justify-center">
-                <RiSpeakAiLine className="text-primary text-[20px]" />{" "}
-                {/* ← changed */}
-              </div>
-              <p className="H-16 font-bold">{skill}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+
       {/*Tech Skills*/}
-      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px]">
+      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px] mb-[30px]">
         <div className="flex items-center justify-between">
-          <p className="H-18 font-bold">Tech Skills</p>
+          <p className="H-18 font-bold">Skills</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
             <Link to="/edit/tech-skills">
               <FaEdit className="text-CTA" />
@@ -113,16 +88,15 @@ const Profile = () => {
           ))}
         </div>
       </div>
-      <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px] mb-[30px]">
+
+      {/* Experiences 
+          <div className="mt-4 bg-background rounded-[20px] smallShadow p-[20px] space-y-[20px] mb-[30px]">
         <div className="flex items-center justify-between">
           <p className="H-18 font-bold">Experiences</p>
           <div className=" bg-white p-[7px] pr-[5px] shadow-sm rounded-full">
-            <Link to="#">
-              <FaEdit className="text-CTA" />
-            </Link>
           </div>
         </div>
-        <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
+          <div className="max-h-[500px] overflow-y-auto no-scrollbar space-y-[20px]">
           {experiences?.map((exp, index) => (
             <div
               key={index}
@@ -141,7 +115,9 @@ const Profile = () => {
             </div>
           ))}
         </div>
-      </div>
+           </div>
+        */}
+
       <Button
         text="Log Out"
         onClick={() => {

@@ -27,11 +27,8 @@ function App() {
     label: skill,
     type: "tech",
   }));
-  const softSkills = (userDetails?.softSkills || []).map((skill) => ({
-    label: skill,
-    type: "soft",
-  }));
-  const skills = [...techSkills.slice(0, 7), ...softSkills.slice(0, 3)];
+
+  const skills = [...techSkills.slice(0, 9)];
 
   useEffect(() => {
     const fetchProfile = async () => {
