@@ -215,7 +215,7 @@ const appRoute = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")).render(
   <>
-    <RouterProvider router={appRoute} />
+    <RouterProvider router={appRoute}/>
   <Analytics />
   </>
 );
