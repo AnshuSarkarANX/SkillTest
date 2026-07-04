@@ -41,6 +41,7 @@ import Result from "./Pages/tests/Result.jsx";
 import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 import PastTests from "./Pages/tests/PastTests.jsx";
 import ApiKey from "./Pages/myAccount/ApiKey.jsx";
+import InterviewPage from "./Pages/interview/INterviewPage.jsx"
 
 const ProtectedRoute = ({ children }) => {
   {
@@ -209,13 +210,14 @@ const appRoute = createBrowserRouter([
       { path: "/result", element: <Result /> },
       { path: "/result/:testId", element: <Result /> },
       {path:"/past-tests",element:<PastTests/>},
-      {path:"/user-key",element:<ApiKey />}
+      {path:"/user-key",element:<ApiKey />},
+      {path:"/interview", element:<InterviewPage/>}
     ],
   },
 ]);
 createRoot(document.getElementById("root")).render(
   <>
     <RouterProvider router={appRoute} />
-    <Analytics />
+    {/*<Analytics />*/}
   </>
 );
