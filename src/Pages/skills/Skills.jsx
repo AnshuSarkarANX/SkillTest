@@ -9,9 +9,7 @@ const Skills = () => {
   const userDetails = JSON.parse(localStorage.getItem("userDetails"));
 
   // Map strings → objects with label and type
-  const techSkills = (userDetails?.techSkills || []).map((skill) => ({ label: skill, type: "tech" }));
-  const softSkills = (userDetails?.softSkills || []).map((skill) => ({ label: skill, type: "soft" }));
-  const skills = [...techSkills, ...softSkills];
+  const skills = (userDetails?.techSkills || []).map((skill) => ({ label: skill, type: "tech" }));
 
   const navigate = useNavigate();
 
@@ -21,8 +19,8 @@ const Skills = () => {
       <svg width="0" height="0" style={{ position: "absolute" }}>
         <defs>
           <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="var(--primary)" />
-            <stop offset="100%" stopColor="var(--text2)" />
+            <stop offset="0%" stopColor = "var(--primary)" />
+            <stop offset="100%" stopColor = "var(--text2)" />
           </linearGradient>
         </defs>
       </svg>
@@ -34,8 +32,7 @@ const Skills = () => {
             <div
               key={index}
               className={`flex flex-col items-center gap-[5px] px-[10px] py-[15px] rounded-[10px] bg-white border smallShadow cursor-pointer ${
-                selectedIndex === index ? "border-primary" : "border-white"
-              }`}
+                selectedIndex === index ? "border-primary" : "border-white" }`}
               onClick={() => {
                 setSelectedIndex(index);
                 sessionStorage.setItem("selectedSkill", skill.label);
