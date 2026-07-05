@@ -3,10 +3,11 @@ import { GoFileDirectory } from "react-icons/go";
 import { CgProfile } from "react-icons/cg";
 import { NavLink } from "react-router";
 import { PiMedal } from "react-icons/pi";
+import { PiVideoConference } from "react-icons/pi";
 
 const BottomBar = () => {
   return (
-    <div className="bg-white sticky bottom-0 grid grid-cols-2 items-center py-[10px] px-[20px] font-bold H-10 rounded-t-[20px] place-items-center gap-[10px]">
+    <div className="bg-white sticky bottom-0 grid grid-cols-3 items-center py-[10px] px-[20px] font-bold H-10 rounded-t-[20px] place-items-center gap-[10px]">
       <NavLink
         to="/"
         className={({ isActive }) =>
@@ -18,7 +19,7 @@ const BottomBar = () => {
         <RiHome6Line className="text-[20px]" />
         <p className="H-10">Home</p>
       </NavLink>
-    
+
       <NavLink
         to="/profile"
         className={({ isActive }) =>
@@ -31,8 +32,24 @@ const BottomBar = () => {
 
         <p className="H-10">Profile</p>
       </NavLink>
+      <NavLink
+        to="/pre-interview"
+        className={({ isActive }) =>
+          `flex flex-col justify-center items-center rounded-[10px] p-[10px] w-full transition-all duration-300 ${
+            isActive ? "bg-bg text-primary" : ""
+          }`
+        }
+      >
+        <div className="relative ">
+          <div className="absolute bg-text2/80 bottom-2 left-4 text-white rounded-lg px-[3px]">
+            new
+          </div>
+          <PiVideoConference className="text-[20px]" />
+        </div>
+        <p className="H-10">Interview</p>
+      </NavLink>
     </div>
   );
-}
+};
 
 export default BottomBar

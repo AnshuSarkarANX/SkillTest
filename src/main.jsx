@@ -42,6 +42,7 @@ import WelcomePage from "./Pages/welcome/WelcomePage.jsx";
 import PastTests from "./Pages/tests/PastTests.jsx";
 import ApiKey from "./Pages/myAccount/ApiKey.jsx";
 import InterviewPage from "./Pages/interview/InterviewPage.jsx"
+import PreInterViewDetails from "./Pages/interview/PreInterViewDetails.jsx";
 
 const ProtectedRoute = ({ children }) => {
   {/*For number inputs only*/}
@@ -209,7 +210,8 @@ const appRoute = createBrowserRouter([
       { path: "/result/:testId", element: <Result /> },
       {path:"/past-tests",element:<PastTests/>},
       {path:"/user-key",element:<ApiKey />},
-      {path:"/interview", element:<InterviewPage/>}
+      {path:"/interview/:sessionid", element:<InterviewPage/>},
+      {path:"/pre-interview", element:<PreInterViewDetails/>}
     ],
   },
 ]);
