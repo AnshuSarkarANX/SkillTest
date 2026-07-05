@@ -5,11 +5,9 @@ import Button from '../../Components/Button';
 
 const InterviewPage = () => {
   const [message, setMessage] = useState("");
-  
-    const { connect,sendMessage,connected,mediaSource } = useInterviewSocket();
+  const { connect,sendMessage,connected,mediaSource } = useInterviewSocket();
     useEffect(() => {
-      if(connected) toast.success("Connected to interview socket"); 
-      
+      if(connected) toast.success("Connected to interview socket");   
     }, [connected])
 
     const handleSendMessage = () => {

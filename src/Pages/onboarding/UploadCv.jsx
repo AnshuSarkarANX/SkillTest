@@ -39,10 +39,8 @@ const UploadCv = () => {
           },
         },
       );
-      if (
-        response.data.data.fullName && response.data.data.qualification &&
-        response.data.data.specialization
-      ) {
+
+      if (response.data.data.fullName && response.data.data.qualification && response.data.data.specialization) {
         localStorage.setItem("userDetails", JSON.stringify(response.data.data));
         const userDetails = JSON.parse(localStorage.getItem("userDetails"));
         createProfile(userDetails).then((res) => {
@@ -59,11 +57,10 @@ const UploadCv = () => {
 
       // You can now populate your form with this data
     } catch (error) {
-      // console.error("Error:", error.response?.data || error.message);
+       console.error("Error:", error.response?.data || error.message);
       toast.error("Failed to parse CV");
       setLoading(false);
     } 
-
 
   };
 
@@ -98,8 +95,7 @@ const UploadCv = () => {
               <div>{selectedFile.name}</div>
               <div
                 className="text-[14px] text-[#FF4D4F] cursor-pointer"
-                onClick={handleRemoveFile}
-              >
+                onClick={handleRemoveFile}>
                 <RxCross2 />
               </div>
             </div>
