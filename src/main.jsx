@@ -43,9 +43,12 @@ import PastTests from "./Pages/tests/PastTests.jsx";
 import ApiKey from "./Pages/myAccount/ApiKey.jsx";
 import InterviewPage from "./Pages/interview/InterviewPage.jsx"
 import PreInterViewDetails from "./Pages/interview/PreInterViewDetails.jsx";
+import InteviewInstructions from "./Pages/interview/InteviewInstructions.jsx";
 
 const ProtectedRoute = ({ children }) => {
-  {/*For number inputs only*/}
+  {
+    /*For number inputs only*/
+  }
   document.addEventListener(
     "wheel",
     function (e) {
@@ -102,7 +105,10 @@ const AppLayout = () => {
       useTopBar.setHome(false);
       useBottomBar.setActive(false);
       useTopBar.setHasBackButton(false);
-    } else if (routerLocation.pathname === "/test") {
+    } else if (
+      routerLocation.pathname === "/test" ||
+      routerLocation.pathname.split("/")[1] === "interview"
+    ) {
       usePadding.setActive(true);
       useTopBar.setHome(false);
       useTopBar.setHasBackButton(false);
@@ -112,14 +118,14 @@ const AppLayout = () => {
       useTopBar.setHome(false);
       useTopBar.setHasBackButton(true);
     }
-    // console.log("location", routerLocation.pathname);
+    console.log("location", routerLocation.pathname.split("/"));
     window.scrollTo(0, 0);
   }, [routerLocation.pathname]);
   return (
     <div className="max-w-[840px] min-h-screen mx-auto relative  flex flex-col bg-secondary/10">
       <TopBar />
       <div
-        className={`flex-1  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""} ${["test",""].includes(routerLocation.pathname.slice(1)) ? "" : "py-[20px]"}`}
+        className={`flex-1  page-transition2 overflow-x-hidden ${usePadding.isActive ? "px-[20px]" : ""} ${["test", ""].includes(routerLocation.pathname.slice(1)) ? "" : "py-[20px]"}`}
         key={routerLocation.pathname}
       >
         <Outlet />
@@ -208,10 +214,11 @@ const appRoute = createBrowserRouter([
       { path: "/all-questions", element: <ProgressPage /> },
       { path: "/result", element: <Result /> },
       { path: "/result/:testId", element: <Result /> },
-      {path:"/past-tests",element:<PastTests/>},
-      {path:"/user-key",element:<ApiKey />},
-      {path:"/interview/:sessionid", element:<InterviewPage/>},
-      {path:"/pre-interview", element:<PreInterViewDetails/>}
+      { path: "/past-tests", element: <PastTests /> },
+      { path: "/user-key", element: <ApiKey /> },
+      { path: "/interview-instructions", element: <InteviewInstructions /> },
+      { path: "/interview/:sessionId", element: <InterviewPage /> },
+      { path: "/pre-interview", element: <PreInterViewDetails /> },
     ],
   },
 ]);
