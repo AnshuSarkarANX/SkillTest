@@ -1,5 +1,5 @@
 import { useCallback, useEffect,useRef,useState } from "react";
-import { replace, useNavigate } from "react-router";
+import {  useNavigate } from "react-router";
 
 function useInterviewSocket(sessionId = null) {
   const socketRef = useRef(null);
