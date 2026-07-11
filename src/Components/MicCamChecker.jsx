@@ -53,7 +53,13 @@ export default function MicCameraChecker({ onReady = () => {} }) {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({
           video: nextCamId ? { deviceId: { exact: nextCamId } } : true,
-          audio: nextMicId ? { deviceId: { exact: nextMicId } } : true,
+          audio: {
+            ...(nextMicId ? { deviceId: { exact: nextMicId } } : {}),
+            sampleRate: 16000,
+            channelCount: 1,
+            echoCancellation: true, // Suppresses the agent's voice being re-captured
+            noiseSuppression: false,
+          },
         });
         streamRef.current = stream;
         if (videoRef.current) videoRef.current.srcObject = stream;
