@@ -50,6 +50,7 @@ const InterviewPage = () => {
       </main>
 
       <footer className="p-4 border-t flex flex-col gap-2">
+       {/*
         <div className="border border-gray-300 rounded flex items-center gap-2 p-2">
           <input
             type="text"
@@ -60,7 +61,8 @@ const InterviewPage = () => {
           />
           <Button text="Send" onClick={handleSendMessage} />
         </div>
-        <Button text="End Interview" onClick={endInterview} />
+        */}
+        <Button text="End Interview" onClick={()=> endInterview()} />
       </footer>
     </div>
   );

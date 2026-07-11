@@ -1,16 +1,18 @@
 import { useCallback, useEffect,useRef,useState } from "react";
+import { replace, useNavigate } from "react-router";
 
 function useInterviewSocket(sessionId = null) {
-const socketRef = useRef(null);
-const audioContextRef = useRef(null);
-const workletNodeRef = useRef(null);
-const mediaSourceRef = useRef(null);
- const queueTimeRef = useRef(0);
-const micStreamRef = useRef(null);
-const SOCKET_URL = import.meta.env.VITE_API_BASE_URL;
-const [connected,setConnected] = useState(false);
-const [mediaSource,setMediaSource] = useState(null);
- const [transcript, setTranscript] = useState([]);
+  const socketRef = useRef(null);
+  const audioContextRef = useRef(null);
+  const workletNodeRef = useRef(null);
+  const mediaSourceRef = useRef(null);
+  const queueTimeRef = useRef(0);
+  const micStreamRef = useRef(null);
+  const SOCKET_URL = import.meta.env.VITE_API_BASE_URL;
+  const [connected, setConnected] = useState(false);
+  const [mediaSource, setMediaSource] = useState(null);
+  const [transcript, setTranscript] = useState([]);
+  const navigate = useNavigate();
 
   const startMic = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -35,87 +37,95 @@ const [mediaSource,setMediaSource] = useState(null);
     audioContextRef.current = ctx;
   }, []);
 
+  const playChunk = useCallback((arrayBuffer) => {
+    const ctx = audioContextRef.current || new AudioContext();
+    audioContextRef.current = ctx;
 
-   const playChunk = useCallback((arrayBuffer) => {
-     const ctx = audioContextRef.current || new AudioContext();
-     audioContextRef.current = ctx;
+    ctx.decodeAudioData(
+      arrayBuffer.slice(0),
+      (audioBuffer) => {
+        const src = ctx.createBufferSource();
+        src.buffer = audioBuffer;
+        src.connect(ctx.destination);
 
-     ctx.decodeAudioData(
-       arrayBuffer.slice(0),
-       (audioBuffer) => {
-         const src = ctx.createBufferSource();
-         src.buffer = audioBuffer;
-         src.connect(ctx.destination);
+        const startAt = Math.max(queueTimeRef.current, ctx.currentTime);
+        src.start(startAt);
+        queueTimeRef.current = startAt + audioBuffer.duration;
+      },
+      (err) => console.error("Decode error:", err),
+    );
+  }, []);
 
-         const startAt = Math.max(queueTimeRef.current, ctx.currentTime);
-         src.start(startAt);
-         queueTimeRef.current = startAt + audioBuffer.duration;
-       },
-       (err) => console.error("Decode error:", err),
-     );
-   }, []);
+  const connect = useCallback(
+    (sessionId) => {
+      if (socketRef.current?.readyState === WebSocket.OPEN) return;
+      const ws = new WebSocket(`${SOCKET_URL}/interview`);
+      ws.binaryType = "arraybuffer";
+      socketRef.current = ws;
+      // Connection opened
+      ws.onopen = async () => {
+        setConnected(true);
+        if (sessionId) {
+          ws.send(JSON.stringify({ type: "sessionId", sessionId }));
+          await startMic();
+        }
+      };
 
+      ws.onmessage = (event) => {
+        if (typeof event.data === "string") {
+          const msg = JSON.parse(event.data);
+          if (msg.type === "transcript") {
+            setTranscript((prev) => [...prev, msg.data]);
+          }
+          if (msg.type === "closeSocket") {
+            setTimeout(
+              () => navigate("/pre-interview", { replace: true }),
+              1500,
+            );
+          }
+          setMediaSource(msg);
+        } else {
+          playChunk(event.data);
+        }
+      };
 
- 
-const connect = useCallback((sessionId) => {
-  if(socketRef.current?.readyState === WebSocket.OPEN) return;
- const ws = new WebSocket(`${SOCKET_URL}/interview`);
- ws.binaryType = "arraybuffer";
- socketRef.current = ws;
-  // Connection opened
-  ws.onopen = async () => {
-    setConnected(true);
-    if (sessionId) {
-      ws.send(JSON.stringify({ type: "sessionId", sessionId }));
-      await startMic();
-    }
-  };
-  
-  ws.onmessage = (event) => {
-   if (typeof event.data === "string") {
-    const msg = JSON.parse(event.data);
-    if(msg.type === "transcript") {
-      setTranscript((prev) => [...prev, msg.data]);
-    }
-    setMediaSource(msg);
-  }
-  else{
-    playChunk(event.data);
-  }
-};
+      ws.onclose = () => {
+        setConnected(false);
+      };
 
-    ws.onclose = () => {
-      setConnected(false);
-    };
+      ws.onerror = () => {
+        setConnected(false);
+      };
+    },
+    [startMic, playChunk],
+  );
 
-    ws.onerror = () => {
-      setConnected(false);
-    };
-},[startMic,playChunk]);
-
-  const sendMessage = useCallback ((message) => {
+  const sendMessage = useCallback((message) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
       socketRef.current.send(message);
     }
-  },[]);
+  }, []);
 
   const endInterview = useCallback(() => {
     socketRef.current?.send(JSON.stringify({ type: "END_INTERVIEW" }));
-    socketRef.current?.close(5000, "User ended interview");
-    workletNodeRef.current?.disconnect();
-    micStreamRef.current?.getTracks().forEach((t) => t.stop());
-    audioContextRef.current?.close();
-  }, []);
+  }, [socketRef.current]);
   useEffect(() => {
     return () => {
       socketRef.current?.close();
+      workletNodeRef.current?.disconnect();
+      micStreamRef.current?.getTracks().forEach((t) => t.stop());
+      audioContextRef.current?.close();
     };
   }, []);
 
-  return { connect, sendMessage, connected, mediaSource,transcript, endInterview };
-
-
-
+  return {
+    connect,
+    sendMessage,
+    connected,
+    mediaSource,
+    transcript,
+    endInterview,
+  };
 }
 
 export default useInterviewSocket;

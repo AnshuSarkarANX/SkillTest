@@ -57,20 +57,27 @@ const PreInterViewDetails = () => {
             },
           },
         );
-        if (response.data.data.sessionID) {
-          sessionStorage.setItem(
-            "interviewId",
-            JSON.stringify(response.data.data.sessionID),
-          );
-          navigate(`/interview-instructions`, { state: { sessionId: response.data.data.sessionID } });
+
+        let res = response?.data;
+        console.log("response 1", response);
+        console.log("response updated", res);
+        if (res.success && res.sessionID) {
+          sessionStorage.setItem("interviewId", JSON.stringify(res.sessionID));
+          navigate(`/interview-instructions`, {
+            state: { sessionId: res.sessionID },
+          });
         } else {
-          toastId = toast.error("Error while parsing CV");
+          if (res.message) {
+            toastId = toast.error(res.message);
+          } else {
+            toastId = toast.error("Error occurred while parsing Resume");
+          }
           setLoading(false);
         }
         // You can now populate your form with this data
       } catch (error) {
-        console.error("Error:", error.response?.data || error.message);
-        toastId = toast.error("Failed to parse CV");
+        console.error("Error:", error.message);
+        toastId = toast.error("Error while parsing CV");
         setLoading(false);
       }
     };
