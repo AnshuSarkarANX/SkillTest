@@ -12,7 +12,17 @@ function useInterviewSocket(sessionId = null) {
   const [connected, setConnected] = useState(false);
   const [mediaSource, setMediaSource] = useState(null);
   const [transcript, setTranscript] = useState([]);
+  const reconnectAttemptRef = useRef(0);
+  const reconnectTimeoutRef = useRef(null);
+  const sessionIdRef = useRef(null);
+  const manualCloseRef = useRef(false);
   const navigate = useNavigate();
+  function getBackoffDelay(attempt) {
+  const base = 1000;
+  const max = 15000;
+  const exp = Math.min(max, base * 2 ** attempt);
+  return exp * (0.5 + Math.random() * 0.5); // jitter
+}
 
   const startMic = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -57,7 +67,10 @@ function useInterviewSocket(sessionId = null) {
   }, []);
 
   const connect = useCallback(
+    
     (sessionId) => {
+       sessionIdRef.current = sessionId;
+       manualCloseRef.current = false;
       if (socketRef.current?.readyState === WebSocket.OPEN) return;
       const ws = new WebSocket(`${SOCKET_URL}/interview`);
       ws.binaryType = "arraybuffer";
@@ -65,9 +78,11 @@ function useInterviewSocket(sessionId = null) {
       // Connection opened
       ws.onopen = async () => {
         setConnected(true);
+        reconnectAttemptRef.current = 0;
         if (sessionId) {
-          ws.send(JSON.stringify({ type: "sessionId", sessionId }));
-          await startMic();
+          let conversations = JSON.parse(sessionStorage.getItem("agentConversations")) || []
+          ws.send(JSON.stringify({ type: "sessionId", sessionId, conversations }));
+          if (!micStreamRef.current) await startMic();
         }
       };
 
@@ -76,12 +91,22 @@ function useInterviewSocket(sessionId = null) {
           const msg = JSON.parse(event.data);
           if (msg.type === "transcript") {
             setTranscript((prev) => [...prev, msg.data]);
+       if (msg.data?.role === "assistant" && msg.data?.content.split(" ").length > 9) {
+         const agentConvo =
+           JSON.parse(sessionStorage.getItem("agentConversations")) || [];
+         let convoArray = [...agentConvo, msg.data.content];
+         sessionStorage.setItem(
+           "agentConversations",
+           JSON.stringify(convoArray),
+         );
+       }
           }
           if (msg.type === "closeSocket") {
             setTimeout(
               () => navigate("/pre-interview", { replace: true }),
               1500,
             );
+
           }
           setMediaSource(msg);
         } else {
@@ -91,6 +116,9 @@ function useInterviewSocket(sessionId = null) {
 
       ws.onclose = () => {
         setConnected(false);
+         if (!manualCloseRef.current) {
+           scheduleReconnect();
+         }
       };
 
       ws.onerror = () => {
@@ -105,12 +133,28 @@ function useInterviewSocket(sessionId = null) {
       socketRef.current.send(message);
     }
   }, []);
+const scheduleReconnect = () => {
+  const delay = getBackoffDelay(reconnectAttemptRef.current);
+  reconnectAttemptRef.current += 1;
 
+  if (reconnectAttemptRef.current > 8) {
+    console.error("Max reconnect attempts reached, giving up");
+    return;
+  }
+
+  reconnectTimeoutRef.current = setTimeout(() => {
+    console.log(`Reconnect attempt ${reconnectAttemptRef.current}`);
+    connect(sessionIdRef.current);
+  }, delay);
+}
   const endInterview = useCallback(() => {
+    manualCloseRef.current = true; 
+    clearTimeout(reconnectTimeoutRef.current);
     socketRef.current?.send(JSON.stringify({ type: "END_INTERVIEW" }));
   }, [socketRef.current]);
   useEffect(() => {
     return () => {
+      sessionStorage.clear();
       socketRef.current?.close();
       workletNodeRef.current?.disconnect();
       micStreamRef.current?.getTracks().forEach((t) => t.stop());

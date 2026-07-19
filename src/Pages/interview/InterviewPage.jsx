@@ -30,7 +30,6 @@ const InterviewPage = () => {
     sendMessage(message);
     setMessage("");
   };
-  console.log(transcript)
 
   return (
     <div className="flex flex-col h-screen">
